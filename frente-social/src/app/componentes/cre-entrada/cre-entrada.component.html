@@ -1,0 +1,5 @@
+<mat-form-field appearance="fill" class="full-width">
+  <mat-label>{{ rEntrada }}</mat-label>
+  <input matInput type="{{ TipoEntrada }}" placeholder="{{ strDescricao }}" name="{{ strNome }}" required
+    [ngModel]="iEntrada" (ngModelChange)="atualizaInput($event)">
+</mat-form-field>

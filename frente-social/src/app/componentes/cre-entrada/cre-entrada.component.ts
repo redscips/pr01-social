@@ -1,8 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 //importacoes: componentes angular
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule  } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 //tipos
 import { tTipoEntrada } from '../../tipos/comuns';
 
@@ -10,27 +11,55 @@ import { tTipoEntrada } from '../../tipos/comuns';
   selector: 'app-cre-entrada',
   imports: [MatFormFieldModule, MatInputModule, FormsModule],
   templateUrl: './cre-entrada.component.html',
-  styleUrl: './cre-entrada.component.scss'
+  styleUrl: './cre-entrada.component.scss',
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => CreEntradaComponent),
+    multi: true,
+  }]
 })
-export class CreEntradaComponent {
-  //props: podem serem passados na sua referencia
-  //entradas: inputs
+export class CreEntradaComponent implements ControlValueAccessor {
+  //#region propriedades
+  //inputs
   @Input() rEntrada: string = '';
   @Input() TipoEntrada: tTipoEntrada = 'text';
   @Input() strDescricao: string = '';
   @Input() strNome: string = '';
-  //retornam valores p/ seus pais
-  //saidas: outputs
+  //outputs: retornam valores p/ seus pais
   @Output() siEntrada = new EventEmitter<string>();
-  //comuns do template
+  //#endregion
+
   iEntrada: string = '';
 
-  //funcoes
+  //#region eventos
+  //objetos
+  onChangeInput(str: string): void { this.atualizaInput(str) }
+  //callbacks usadas pelo ControlValueAccessor
+  private _onChangeInput: (value: any) => void = (_: any) => {};
+  //#endregion
+
+  //#region metodos
   atualizaInput(str: string): void {
     //atualiza o campo localmente
     this.iEntrada = str;
     //retorna o valor p/ componente pai
     this.siEntrada.emit(str);
+    //propaga a mudanca p/ o angular
+    this._onChangeInput(str);
   }
+
+  //interaface
+  writeValue(obj: any): void {
+    this.iEntrada = obj;
+  }
+
+  registerOnChange(fn: any): void {
+    this._onChangeInput = fn;
+  }
+
+  registerOnTouched(fn: any): void {}
+
+  setDisabledState?(isDisabled: boolean): void {}
+  //#endregion
 }
 

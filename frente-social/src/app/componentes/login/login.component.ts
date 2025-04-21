@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+//importacoes: componentes
 import { CreEntradaComponent } from '../cre-entrada/cre-entrada.component';
+//tipos
+import { tUsuario } from '../../tipos/comuns';
+import { assert } from 'console';
 
 
 @Component({
@@ -11,22 +15,59 @@ import { CreEntradaComponent } from '../cre-entrada/cre-entrada.component';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  user = {
+  //#region propriedades
+  usuario: tUsuario = {
+    nome: '',
     email: '',
-    password: ''
+    senha: ''
   };
+  //#endregion
 
-  //funcoes
-  atualizaEmail(strEmail: string) {
-    this.user.email = strEmail;
+  //#region eventos
+  //classe
+  ngOnInit(): void { this.preparaForm() }
+  //objetos
+  onSubmitForm(form: NgForm): void { this.enviaLogin(form) }
+  onChangeEmail(strEmail: string): void { this.atualizaEmail(strEmail) }
+  onChangeSenha(strSenha: string): void { this.atualizaSenha(strSenha) }
+  //#endregion
+
+  //#region metodos
+  preparaForm(): void {}
+
+  validaDados(): boolean {
+    //var pendencia
+    let strPendencia: string = '';
+    //validacoes
+    if (!this.usuario.email || this.usuario.email.length == 0) {
+      strPendencia = 'Aviso: Campo email esta vazio!';
+    } else if (!this.usuario.senha || this.usuario.senha.length == 0) {
+      strPendencia = 'Aviso: Campo senha esta vazio!';
+    }
+    //validacao retorno
+    if (strPendencia.length == 0) {
+      return true;
+    } else {
+      alert(strPendencia)
+      return false;
+    }
   }
 
-  atualizaSenha(strSenha: string) {
-    this.user.password = strSenha;
+  atualizaEmail(strEmail: string): void {
+      this.usuario.email = strEmail;
   }
 
-  onLogin() :void {
-    // Aqui você pode implementar a lógica de autenticação.
-    console.log('Usuário tentando logar com:', this.user);
+  atualizaSenha(strSenha: string): void {
+      this.usuario.senha = strSenha;
   }
+
+  enviaLogin(form: NgForm): void {
+    //---------
+    if (this.validaDados()) {
+      console.log('usuario: ' + this.usuario)
+      this.usuario = {email: '', nome: '', senha: ''}
+      form.reset()
+    }
+  }
+  //#endregion
 }

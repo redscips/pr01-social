@@ -3,6 +3,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule  } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+//tipos
+import { tTipoEntrada } from '../../tipos/comuns';
 
 @Component({
   selector: 'app-cre-entrada',
@@ -14,7 +16,7 @@ export class CreEntradaComponent {
   //props: podem serem passados na sua referencia
   //entradas: inputs
   @Input() rEntrada: string = '';
-  @Input() TipoEntrada: string = 'text';
+  @Input() TipoEntrada: tTipoEntrada = 'text';
   @Input() strDescricao: string = '';
   @Input() strNome: string = '';
   //retornam valores p/ seus pais

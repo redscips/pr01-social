@@ -5,7 +5,6 @@ import { CreEntradaComponent } from '../cre-entrada/cre-entrada.component';
 //tipos
 import { tUsuario } from '../../tipos/comuns';
 
-
 @Component({
   selector: 'app-login',
   imports: [FormsModule, CreEntradaComponent],
@@ -28,6 +27,7 @@ export class LoginComponent {
   onSubmitForm(form: NgForm): void { this.enviaLogin(form) }
   onChangeEmail(strEmail: string): void { this.atualizaEmail(strEmail) }
   onChangeSenha(strSenha: string): void { this.atualizaSenha(strSenha) }
+  onClickBotao(): void { alert('voce clicou em um componente react dentro do angular') }
   //#endregion
 
   //#region metodos

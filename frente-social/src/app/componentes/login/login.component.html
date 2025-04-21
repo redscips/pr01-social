@@ -1,0 +1,13 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <h2>Bem-vindo de volta!</h2>
+    <form (ngSubmit)="onLogin()">
+      <!-- campos entrada -->
+      <app-cre-entrada rEntrada="Email" TipoEntrada="email" strDescricao="Digite seu email" strNome="email" (siEntrada)="atualizaEmail($event)"></app-cre-entrada>
+      <app-cre-entrada rEntrada="Senha" TipoEntrada="password" strDescricao="Digite seu senha" strNome="senha" (siEntrada)="atualizaSenha($event)"></app-cre-entrada>
+      <button mat-raised-button color="primary" type="submit" class="full-width">
+        Entrar
+      </button>
+    </form>
+  </mat-card>
+</div>

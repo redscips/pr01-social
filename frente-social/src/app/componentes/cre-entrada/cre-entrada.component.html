@@ -1,5 +1,9 @@
-<mat-form-field appearance="fill" class="full-width">
-  <mat-label>{{ rEntrada }}</mat-label>
-  <input matInput type="{{ TipoEntrada }}" placeholder="{{ strDescricao }}" name="{{ strNome }}" required
+<!-- campo: rotulo + input -->
+<div class="entrada form-floating mb-3">
+   <!-- entrada -->
+  <input type="{{ TipoEntrada }}" class="form-control" id="{{ strID }}" placeholder="{{ strDescricao }}" name="{{ strNome }}"
     [ngModel]="iEntrada" (ngModelChange)="onChangeInput($event)">
-</mat-form-field>
+  <!-- rotulo -->
+  <label for="floatingInput">{{ rEntrada }}</label>
+</div>
+

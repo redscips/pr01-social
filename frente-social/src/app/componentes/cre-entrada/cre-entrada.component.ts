@@ -1,7 +1,5 @@
 import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 //importacoes: componentes angular
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule  } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 //tipos
@@ -9,7 +7,7 @@ import { tTipoEntrada } from '../../tipos/comuns';
 
 @Component({
   selector: 'app-cre-entrada',
-  imports: [MatFormFieldModule, MatInputModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './cre-entrada.component.html',
   styleUrl: './cre-entrada.component.scss',
   providers: [{
@@ -25,6 +23,7 @@ export class CreEntradaComponent implements ControlValueAccessor {
   @Input() TipoEntrada: tTipoEntrada = 'text';
   @Input() strDescricao: string = '';
   @Input() strNome: string = '';
+  @Input() strID: string = '';
   //outputs: retornam valores p/ seus pais
   @Output() siEntrada = new EventEmitter<string>();
   //#endregion

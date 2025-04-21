@@ -1,13 +1,18 @@
-<div class="login-container">
-  <mat-card class="login-card">
-    <h2>Bem-vindo de volta!</h2>
-    <form #form="ngForm" (ngSubmit)="onSubmitForm(form)">
+<!-- tela de login: tamanho total, tudo centralizado -->
+<div class="login">
+  <h2>Login</h2>
+  <form #form="ngForm" (ngSubmit)="onSubmitForm(form)">
+    <div>
       <!-- campos entrada -->
-      <app-cre-entrada rEntrada="Email" TipoEntrada="email" strDescricao="Digite seu email" strNome="email" (siEntrada)="onChangeEmail($event)" [(ngModel)]="usuario.email" name="email"></app-cre-entrada>
-      <app-cre-entrada rEntrada="Senha" TipoEntrada="password" strDescricao="Digite seu senha" strNome="senha" (siEntrada)="onChangeSenha($event)" [(ngModel)]="usuario.senha" name="senha"></app-cre-entrada>
-      <button mat-raised-button color="primary" type="submit" class="full-width">
-        Entrar
-      </button>
-    </form>
-  </mat-card>
+      <app-cre-entrada rEntrada="Email" TipoEntrada="email" strDescricao="Digite seu email" strID="id-email" name="n-email"
+        (siEntrada)="onChangeEmail($event)" [(ngModel)]="usuario.email" />
+      <app-cre-entrada rEntrada="Senha" TipoEntrada="password" strDescricao="Digite seu senha" strID="id-senha" name="n-senha"
+        (siEntrada)="onChangeSenha($event)" [(ngModel)]="usuario.senha" />
+    </div>
+    <div>
+      <!-- botoes -->
+      <button type="submit" class="btn btn-primary">Entrar</button>
+      <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </div>
+  </form>
 </div>

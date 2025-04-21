@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, NgForm } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
+import { FormsModule, NgForm } from '@angular/forms';
 //importacoes: componentes
 import { CreEntradaComponent } from '../cre-entrada/cre-entrada.component';
 //tipos
 import { tUsuario } from '../../tipos/comuns';
-import { assert } from 'console';
 
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, MatCardModule, CreEntradaComponent],
+  imports: [FormsModule, CreEntradaComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

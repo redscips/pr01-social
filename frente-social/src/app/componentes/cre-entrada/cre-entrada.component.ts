@@ -3,11 +3,11 @@ import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/cor
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 //tipos
 import { tTipoEntrada } from '../../tipos/comuns';
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-cre-entrada',
-  imports: [FormsModule, NgClass],
+  imports: [FormsModule, NgClass, NgIf],
   templateUrl: './cre-entrada.component.html',
   styleUrl: './cre-entrada.component.scss',
   providers: [{
@@ -24,25 +24,26 @@ export class CreEntradaComponent implements ControlValueAccessor {
   @Input() strDescricao: string = '';
   @Input() strID: string = '';
   @Input() strClasse: string = '';
-  //outputs: retornam valores p/ seus pais
-  @Output() siEntrada = new EventEmitter<string>();
+  @Input() flgSubmit: boolean = false;
+  @Input() erros: Array<string>[] = []
   //#endregion
 
   iEntrada: string = '';
 
   //#region eventos
   //objetos
-  onChangeInput(str: string): void { this.atualizaInput(str) }
+  onInput(evento: Event): void { this.atualizaInput(evento) }
   //callbacks
   _onChange: (value: any) => void = (_: any) => {};
   //#endregion
 
   //#region metodos
-  atualizaInput(str: string): void {
+  atualizaInput(evento: Event): void {
+    const entrada = (evento.target as HTMLInputElement).value;
     //atualiza o campo localmente
-    this.iEntrada = str;
+    this.iEntrada = entrada;
     //retorna o valor p/ componente pai
-    this.siEntrada.emit(str);
+    this._onChange(entrada);
   }
 
   //interface

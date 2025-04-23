@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
-//importacoes: componentes
-import { CreEntradaComponent } from '../cre-entrada/cre-entrada.component';
-//tipos
+import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+//importacoes: tipos
 import { tUsuario } from '../../tipos/comuns';
 import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, CreEntradaComponent, ReactiveFormsModule, NgClass, NgIf],
+  imports: [FormsModule, ReactiveFormsModule, NgClass, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -27,8 +25,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void { this.preparaForm() }
   //objetos
   onSubmitForm(): void { this.enviaLogin() }
-  onChangeEmail(evento: Event): void { this.atualizaEmail(evento) }
-  onChangeSenha(evento: Event): void { this.atualizaSenha(evento) }
   //#endregion
 
   //#region metodos
@@ -37,16 +33,30 @@ export class LoginComponent implements OnInit {
     this.usuario = {email: '', nome: '', senha: ''}
     //configura formulario
     this.fgLoginForm = this.fbLoginForm.group({
-      email: ['', [
+      email: new FormControl (this.usuario.email, [
         Validators.required,    //obrigatorio
         Validators.email,   //validacoes de email
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')   //formato obrigatorio do dado: ____@____.____
-      ]],
-      senha: ['', [
+      ]),
+      senha: new FormControl (this.usuario.senha, [
         Validators.required,
         Validators.minLength(8)   //tamanho minimo da senha
-      ]]
+      ]),
+      nome: new FormControl (this.usuario.nome, [
+        Validators.required
+      ])
     });
+  }
+
+  get getEmail() {
+    return this.fgLoginForm.get('email');
+  }
+  get getSenha() {
+    return this.fgLoginForm.get('senha');
+  }
+
+  get getNome() {
+    return this.fgLoginForm.get('nome');
   }
 
   get getForm() {
@@ -60,19 +70,14 @@ export class LoginComponent implements OnInit {
     return this.fgLoginForm.valid
   }
 
-  atualizaEmail(evento: Event): void {
-    const entrada = (evento.target as HTMLInputElement).value;
-    this.usuario.email = entrada;
-  }
-
-  atualizaSenha(evento: Event): void {
-    const entrada = (evento.target as HTMLInputElement).value;
-    this.usuario.senha = entrada;
-  }
-
   enviaLogin(): void {
     //---------
     if (this.validaDados()) {
+      //atualiza objeto
+      this.usuario.email = this.getForm['email'].value
+      this.usuario.senha = this.getForm['senha'].value
+      this.usuario.nome = this.getNome?.value
+      //--------------------------------------
       console.log('usuario: ' + this.usuario)
       //reseta variaveis controle
       this.usuario = {email: '', nome: '', senha: ''}

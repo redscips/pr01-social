@@ -2,7 +2,26 @@
 <div class="form-floating mb-3">
   <!-- entrada -->
   <input class="form-control" type="{{ TipoEntrada }}" placeholder="{{ strDescricao }}" id="{{ strID }}"
-    [ngModel]="iEntrada" (ngModelChange)="onChangeInput($event)" [ngClass]="strClasse">
+    [value]="iEntrada" (input)="onInput($event)">
   <!-- rotulo -->
   <label for="{{ strID }}">{{ rEntrada }}</label>
+</div>
+
+<!-- campo: rotulo + input -->
+<div class="form-floating mb-3">
+  <!-- entrada -->
+  <input class="form-control" type="{{ TipoEntrada }}" placeholder="{{ strDescricao }}" id="{{ strID }}"
+    [value]="iEntrada" (input)="onInput($event)" [ngClass]="strClasse" formControlName="senha">
+  <!-- rotulo -->
+  <label for="{{ strID }}">{{ rEntrada }}</label>
+  <!-- erros -->
+  <div *ngIf="flgSubmit && erros" class="invalid-feedback">
+    @for (erro of erros; track $index) {
+      <p>{{ erro }}</p>
+    }
+  </div>
+  <!-- sucesso -->
+  <div *ngIf="flgSubmit && !erros" class="valid-feedback">
+    <p>Sucesso</p>
+  </div>
 </div>

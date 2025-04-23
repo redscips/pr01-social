@@ -6,10 +6,8 @@
       <!-- campos entrada: email -->
       <div class="form-floating mb-3">
         <input class="form-control" type="email" placeholder="Digite seu email" id="id-email" formControlName="email"
-          (change)="onChangeEmail($event)"
           [ngClass]="flgSubmit ? (getForm['email'].errors ? 'is-invalid' : 'is-valid') : ''">
         <label for="id-email">Email</label>
-        <!-- <app-cre-entrada TipoEntrada="email" strDescricao="Digite seu email" strID="id-email" /> -->
         <!-- erros -->
         <div *ngIf="flgSubmit && getForm['email'].errors" class="invalid-feedback">
           <p *ngIf="getForm['email'].errors['required']">Email é obrigatório</p>
@@ -23,7 +21,6 @@
       <!-- senha -->
       <div class="form-floating mb-3">
         <input class="form-control" type="password" placeholder="Digite sua senha" id="id-senha" formControlName="senha"
-          (change)="onChangeSenha($event)"
           [ngClass]="flgSubmit ? (getForm['senha'].errors ? 'is-invalid' : 'is-valid') : ''">
         <label for="id-senha">Senha</label>
         <!-- erros -->
@@ -36,6 +33,22 @@
           <p>Sucesso</p>
         </div>
       </div>
+
+      <!-- campos entrada: nome -->
+      <div class="form-floating mb-3">
+        <input class="form-control" type="text" placeholder="Digite seu nome" id="id-nome" formControlName="nome"
+          [ngClass]="flgSubmit ? (getForm['nome'].errors ? 'is-invalid' : 'is-valid') : ''">
+        <label for="id-nome">Nome</label>
+        <!-- erros -->
+        <div *ngIf="flgSubmit && getForm['nome'].errors" class="invalid-feedback">
+          <p *ngIf="getForm['nome'].errors['required']">Nome é obrigatório</p>
+        </div>
+        <!-- sucesso -->
+        <div *ngIf="flgSubmit && !getForm['nome'].errors" class="valid-feedback">
+          <p>Sucesso</p>
+        </div>
+      </div>
+
     </div>
     <div>
       <!-- botoes -->

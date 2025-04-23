@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 //importacoes: componentes angular
-import { FormsModule } from '@angular/forms';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 //tipos
 import { tTipoEntrada } from '../../tipos/comuns';
 
@@ -22,7 +21,6 @@ export class CreEntradaComponent implements ControlValueAccessor {
   @Input() rEntrada: string = '';
   @Input() TipoEntrada: tTipoEntrada = 'text';
   @Input() strDescricao: string = '';
-  @Input() strNome: string = '';
   @Input() strID: string = '';
   //outputs: retornam valores p/ seus pais
   @Output() siEntrada = new EventEmitter<string>();
@@ -33,8 +31,8 @@ export class CreEntradaComponent implements ControlValueAccessor {
   //#region eventos
   //objetos
   onChangeInput(str: string): void { this.atualizaInput(str) }
-  //callbacks usadas pelo ControlValueAccessor
-  private _onChangeInput: (value: any) => void = (_: any) => {};
+  //callbacks
+  _onChange: (value: any) => void = (_: any) => {};
   //#endregion
 
   //#region metodos
@@ -43,17 +41,15 @@ export class CreEntradaComponent implements ControlValueAccessor {
     this.iEntrada = str;
     //retorna o valor p/ componente pai
     this.siEntrada.emit(str);
-    //propaga a mudanca p/ o angular
-    this._onChangeInput(str);
   }
 
-  //interaface
+  //interface
   writeValue(obj: any): void {
     this.iEntrada = obj;
   }
 
   registerOnChange(fn: any): void {
-    this._onChangeInput = fn;
+    this._onChange = fn;
   }
 
   registerOnTouched(fn: any): void {}

@@ -1,9 +1,9 @@
 <!-- campo: rotulo + input -->
-<div class="entrada form-floating mb-3">
-   <!-- entrada -->
-  <input type="{{ TipoEntrada }}" class="form-control" id="{{ strID }}" placeholder="{{ strDescricao }}" name="{{ strNome }}"
+<div class="form-floating mb-3">
+  <!-- entrada -->
+  <input class="form-control" type="{{ TipoEntrada }}" placeholder="{{ strDescricao }}" id="{{ strID }}"
     [ngModel]="iEntrada" (ngModelChange)="onChangeInput($event)">
   <!-- rotulo -->
-  <label for="floatingInput">{{ rEntrada }}</label>
+  <label for="{{ strID }}">{{ rEntrada }}</label>
 </div>
 

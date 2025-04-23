@@ -1,13 +1,40 @@
 <!-- tela de login: tamanho total, tudo centralizado -->
 <div class="login">
   <h2>Login</h2>
-  <form #form="ngForm" (ngSubmit)="onSubmitForm(form)">
-    <div>
-      <!-- campos entrada -->
-      <app-cre-entrada rEntrada="Email" TipoEntrada="email" strDescricao="Digite seu email" strID="id-email" name="n-email"
-        (siEntrada)="onChangeEmail($event)" [(ngModel)]="usuario.email" />
-      <app-cre-entrada rEntrada="Senha" TipoEntrada="password" strDescricao="Digite seu senha" strID="id-senha" name="n-senha"
-        (siEntrada)="onChangeSenha($event)" [(ngModel)]="usuario.senha" />
+  <form (ngSubmit)="onSubmitForm()" [formGroup]="fgLoginForm" class="">
+    <div >
+      <!-- campos entrada: email -->
+      <div>
+        <app-cre-entrada rEntrada="Email" TipoEntrada="email" strDescricao="Digite seu email"
+          strID="id-email" formControlName="email" class="form-control"
+          [ngClass]="flgSubmit ? (getForm['email'].errors ? 'is-invalid' : 'is-valid') : ''"
+          (siEntrada)="onChangeEmail($event)" [(ngModel)]="usuario.email" />
+        <!-- erros -->
+        <div *ngIf="flgSubmit && getForm['email'].errors" class="invalid-feedback">
+          <p *ngIf="getForm['email'].errors['required']">Email é obrigatório</p>
+          <p *ngIf="getForm['email'].errors['email']">Insira um email válido</p>
+        </div>
+        <!-- sucesso -->
+        <div *ngIf="flgSubmit && !getForm['email'].errors" class="valid-feedback">
+          <p>Sucesso</p>
+        </div>
+      </div>
+      <!-- senha -->
+      <div>
+        <app-cre-entrada rEntrada="Senha" TipoEntrada="password" strDescricao="Digite sua senha"
+          strID="id-senha" formControlName="senha" class="form-control"
+          [ngClass]="flgSubmit ? (getForm['senha'].errors ? 'is-invalid' : 'is-valid') : ''"
+          (siEntrada)="onChangeSenha($event)" [(ngModel)]="usuario.senha" />
+        <!-- erros -->
+        <div *ngIf="flgSubmit && getForm['senha'].errors" class="invalid-feedback">
+          <p *ngIf="getForm['senha'].errors['required']">Senha é obrigatório</p>
+          <p *ngIf="getForm['senha'].errors['minlength']">A senha deve ter pelo menos 8 caracteres</p>
+        </div>
+        <!-- sucesso -->
+        <div *ngIf="flgSubmit && !getForm['senha'].errors" class="valid-feedback">
+          <p>Sucesso</p>
+        </div>
+      </div>
     </div>
     <div>
       <!-- botoes -->
@@ -15,4 +42,12 @@
       <button type="submit" class="btn btn-primary">Cadastrar</button>
     </div>
   </form>
+  <div class="social-login">
+    <p>ou continue com</p>
+    <div class="social-icons">
+      <button type="button" class="social-icon">G</button>
+      <button type="button" class="social-icon">f</button>
+      <button type="button" class="social-icon">in</button>
+    </div>
+  </div>
 </div>

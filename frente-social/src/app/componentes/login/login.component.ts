@@ -1,54 +1,64 @@
-import { Component } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 //importacoes: componentes
 import { CreEntradaComponent } from '../cre-entrada/cre-entrada.component';
 //tipos
 import { tUsuario } from '../../tipos/comuns';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, CreEntradaComponent],
+  imports: [FormsModule, CreEntradaComponent, ReactiveFormsModule, NgClass, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   //#region propriedades
-  usuario: tUsuario = {
-    nome: '',
-    email: '',
-    senha: ''
-  };
+  fgLoginForm!: FormGroup;
+  usuario!: tUsuario ;
   //#endregion
+
+  flgSubmit: boolean = false;
+
+  constructor(private fbLoginForm: FormBuilder) {}
 
   //#region eventos
   //classe
   ngOnInit(): void { this.preparaForm() }
   //objetos
-  onSubmitForm(form: NgForm): void { this.enviaLogin(form) }
+  onSubmitForm(): void { this.enviaLogin() }
   onChangeEmail(strEmail: string): void { this.atualizaEmail(strEmail) }
   onChangeSenha(strSenha: string): void { this.atualizaSenha(strSenha) }
   onClickBotao(): void { alert('voce clicou em um componente react dentro do angular') }
   //#endregion
 
   //#region metodos
-  preparaForm(): void {}
+  preparaForm(): void {
+    //iniciando
+    this.usuario = {email: '', nome: '', senha: ''}
+    //configura formulario
+    this.fgLoginForm = this.fbLoginForm.group({
+      email: ['', [
+        Validators.required,    //obrigatorio
+        Validators.email,   //validacoes de email
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')   //formato obrigatorio do dado: ____@____.____
+      ]],
+      senha: ['', [
+        Validators.required,
+        Validators.minLength(8)   //tamanho minimo da senha
+      ]]
+    });
+  }
+
+  get getForm() {
+    return this.fgLoginForm.controls;
+  }
 
   validaDados(): boolean {
-    //var pendencia
-    let strPendencia: string = '';
-    //validacoes
-    if (!this.usuario.email || this.usuario.email.length == 0) {
-      strPendencia = 'Aviso: Campo email esta vazio!';
-    } else if (!this.usuario.senha || this.usuario.senha.length == 0) {
-      strPendencia = 'Aviso: Campo senha esta vazio!';
-    }
-    //validacao retorno
-    if (strPendencia.length == 0) {
-      return true;
-    } else {
-      alert(strPendencia)
-      return false;
-    }
+    //controle submit
+    this.flgSubmit = true;
+    //retorna verdadeiro caso formulario esteja valido
+    return this.fgLoginForm.valid
   }
 
   atualizaEmail(strEmail: string): void {
@@ -59,12 +69,11 @@ export class LoginComponent {
       this.usuario.senha = strSenha;
   }
 
-  enviaLogin(form: NgForm): void {
+  enviaLogin(): void {
     //---------
     if (this.validaDados()) {
       console.log('usuario: ' + this.usuario)
       this.usuario = {email: '', nome: '', senha: ''}
-      form.reset()
     }
   }
   //#endregion

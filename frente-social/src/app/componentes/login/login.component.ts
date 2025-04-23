@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+//importacoes: componentes
+import { CreEntradaComponent } from '../cre-entrada/cre-entrada.component';
 //tipos
 import { tUsuario } from '../../tipos/comuns';
 import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, ReactiveFormsModule, NgClass, NgIf],
+  imports: [FormsModule, CreEntradaComponent, ReactiveFormsModule, NgClass, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -72,7 +74,10 @@ export class LoginComponent implements OnInit {
     //---------
     if (this.validaDados()) {
       console.log('usuario: ' + this.usuario)
+      //reseta variaveis controle
       this.usuario = {email: '', nome: '', senha: ''}
+      this.flgSubmit = false
+      this.fgLoginForm.reset()    //reseta formulario
     }
   }
   //#endregion

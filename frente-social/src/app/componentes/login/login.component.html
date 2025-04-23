@@ -9,6 +9,7 @@
           (change)="onChangeEmail($event)"
           [ngClass]="flgSubmit ? (getForm['email'].errors ? 'is-invalid' : 'is-valid') : ''">
         <label for="id-email">Email</label>
+        <!-- <app-cre-entrada TipoEntrada="email" strDescricao="Digite seu email" strID="id-email" /> -->
         <!-- erros -->
         <div *ngIf="flgSubmit && getForm['email'].errors" class="invalid-feedback">
           <p *ngIf="getForm['email'].errors['required']">Email é obrigatório</p>

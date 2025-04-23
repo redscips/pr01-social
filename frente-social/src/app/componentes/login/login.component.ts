@@ -1,72 +1,90 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, NgForm } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-//importacoes: componentes
-import { CreEntradaComponent } from '../cre-entrada/cre-entrada.component';
-//tipos
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgClass, NgIf } from '@angular/common';
+//importacoes: tipos
 import { tUsuario } from '../../tipos/comuns';
-import { assert } from 'console';
-
+//componentes
+import { CreEntradaComponent } from '../cre-entrada/cre-entrada.component';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, MatCardModule, CreEntradaComponent],
+  imports: [FormsModule, ReactiveFormsModule, NgClass, NgIf, CreEntradaComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   //#region propriedades
-  usuario: tUsuario = {
-    nome: '',
-    email: '',
-    senha: ''
-  };
+  fgLoginForm!: FormGroup;
+  usuario!: tUsuario ;
   //#endregion
+
+  flgSubmit: boolean = false;
+
+  constructor(private fbLoginForm: FormBuilder) {}
 
   //#region eventos
   //classe
   ngOnInit(): void { this.preparaForm() }
   //objetos
-  onSubmitForm(form: NgForm): void { this.enviaLogin(form) }
-  onChangeEmail(strEmail: string): void { this.atualizaEmail(strEmail) }
-  onChangeSenha(strSenha: string): void { this.atualizaSenha(strSenha) }
+  onSubmitForm(): void { this.enviaLogin() }
   //#endregion
 
   //#region metodos
-  preparaForm(): void {}
+  preparaForm(): void {
+    //iniciando
+    this.usuario = {email: '', nome: '', senha: ''}
+    //configura formulario
+    this.fgLoginForm = this.fbLoginForm.group({
+      email: new FormControl (this.usuario.email, [
+        Validators.required,    //obrigatorio
+        Validators.email,   //validacoes de email
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')   //formato obrigatorio do dado: ____@____.____
+      ]),
+      senha: new FormControl (this.usuario.senha, [
+        Validators.required,
+        Validators.minLength(8)   //tamanho minimo da senha
+      ]),
+      nome: new FormControl (this.usuario.nome, [
+        Validators.required
+      ])
+    });
+  }
+
+  get getEmail() {
+    return this.fgLoginForm.get('email');
+  }
+  get getSenha() {
+    return this.fgLoginForm.get('senha');
+  }
+
+  get getNome() {
+    return this.fgLoginForm.get('nome');
+  }
+
+  get getForm() {
+    return this.fgLoginForm.controls;
+  }
 
   validaDados(): boolean {
-    //var pendencia
-    let strPendencia: string = '';
-    //validacoes
-    if (!this.usuario.email || this.usuario.email.length == 0) {
-      strPendencia = 'Aviso: Campo email esta vazio!';
-    } else if (!this.usuario.senha || this.usuario.senha.length == 0) {
-      strPendencia = 'Aviso: Campo senha esta vazio!';
-    }
-    //validacao retorno
-    if (strPendencia.length == 0) {
-      return true;
-    } else {
-      alert(strPendencia)
-      return false;
-    }
+    //controle submit
+    this.flgSubmit = true;
+    //retorna verdadeiro caso formulario esteja valido
+    return this.fgLoginForm.valid
   }
 
-  atualizaEmail(strEmail: string): void {
-      this.usuario.email = strEmail;
-  }
-
-  atualizaSenha(strSenha: string): void {
-      this.usuario.senha = strSenha;
-  }
-
-  enviaLogin(form: NgForm): void {
+  enviaLogin(): void {
     //---------
     if (this.validaDados()) {
+      //atualiza objeto
+      this.usuario.email = this.getForm['email'].value
+      this.usuario.senha = this.getForm['senha'].value
+      this.usuario.nome = this.getNome?.value
+      //--------------------------------------
       console.log('usuario: ' + this.usuario)
+      //reseta variaveis controle
       this.usuario = {email: '', nome: '', senha: ''}
-      form.reset()
+      this.flgSubmit = false
+      this.fgLoginForm.reset()    //reseta formulario
     }
   }
   //#endregion

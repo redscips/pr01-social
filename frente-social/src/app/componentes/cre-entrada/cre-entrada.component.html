@@ -1,5 +1,18 @@
-<mat-form-field appearance="fill" class="full-width">
-  <mat-label>{{ rEntrada }}</mat-label>
-  <input matInput type="{{ TipoEntrada }}" placeholder="{{ strDescricao }}" name="{{ strNome }}" required
-    [ngModel]="iEntrada" (ngModelChange)="onChangeInput($event)">
-</mat-form-field>
+<!-- campo: rotulo + input -->
+<div class="form-floating mb-3">
+  <!-- entrada -->
+  <input class="form-control" type="{{ TipoEntrada }}" placeholder="{{ strDescricao }}" id="{{ strID }}"
+    [value]="iEntrada" (input)="onInput($event)" [ngClass]="strClasse">
+  <!-- rotulo -->
+  <label for="{{ strID }}">{{ rEntrada }}</label>
+  <!-- erros -->
+  <div *ngIf="flgSubmit && erros" class="invalid-feedback">
+    @for (erro of erros; track $index) {
+      <p>{{ erro }}</p>
+    }
+  </div>
+  <!-- sucesso -->
+  <div *ngIf="flgSubmit && !erros" class="valid-feedback">
+    <p>Sucesso</p>
+  </div>
+</div>

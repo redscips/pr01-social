@@ -1,15 +1,13 @@
 import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 //importacoes: componentes angular
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule  } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 //tipos
 import { tTipoEntrada } from '../../tipos/comuns';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-cre-entrada',
-  imports: [MatFormFieldModule, MatInputModule, FormsModule],
+  imports: [FormsModule, NgClass, NgIf],
   templateUrl: './cre-entrada.component.html',
   styleUrl: './cre-entrada.component.scss',
   providers: [{
@@ -24,7 +22,10 @@ export class CreEntradaComponent implements ControlValueAccessor {
   @Input() rEntrada: string = '';
   @Input() TipoEntrada: tTipoEntrada = 'text';
   @Input() strDescricao: string = '';
-  @Input() strNome: string = '';
+  @Input() strID: string = '';
+  @Input() strClasse: string = '';
+  @Input() flgSubmit: boolean = false;
+  @Input() erros: Array<string>[] = []
   //outputs: retornam valores p/ seus pais
   @Output() siEntrada = new EventEmitter<string>();
   //#endregion
@@ -33,28 +34,29 @@ export class CreEntradaComponent implements ControlValueAccessor {
 
   //#region eventos
   //objetos
-  onChangeInput(str: string): void { this.atualizaInput(str) }
-  //callbacks usadas pelo ControlValueAccessor
-  private _onChangeInput: (value: any) => void = (_: any) => {};
+  onInput(evento: Event): void { this.atualizaInput(evento) }
+  //callbacks
+  _onChange: (value: any) => void = (_: any) => {};
   //#endregion
 
   //#region metodos
-  atualizaInput(str: string): void {
+  atualizaInput(evento: Event): void {
+    const entrada = (evento.target as HTMLInputElement).value;
     //atualiza o campo localmente
-    this.iEntrada = str;
+    this.iEntrada = entrada;
     //retorna o valor p/ componente pai
-    this.siEntrada.emit(str);
-    //propaga a mudanca p/ o angular
-    this._onChangeInput(str);
+    this.siEntrada.emit(entrada);
+    //retorna o valor p/ componente pai
+    this._onChange(entrada);
   }
 
-  //interaface
+  //interface
   writeValue(obj: any): void {
     this.iEntrada = obj;
   }
 
   registerOnChange(fn: any): void {
-    this._onChangeInput = fn;
+    this._onChange = fn;
   }
 
   registerOnTouched(fn: any): void {}

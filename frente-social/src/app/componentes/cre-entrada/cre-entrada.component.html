@@ -2,16 +2,7 @@
 <div class="form-floating mb-3">
   <!-- entrada -->
   <input class="form-control" type="{{ TipoEntrada }}" placeholder="{{ strDescricao }}" id="{{ strID }}"
-    [value]="iEntrada" (input)="onInput($event)">
-  <!-- rotulo -->
-  <label for="{{ strID }}">{{ rEntrada }}</label>
-</div>
-
-<!-- campo: rotulo + input -->
-<div class="form-floating mb-3">
-  <!-- entrada -->
-  <input class="form-control" type="{{ TipoEntrada }}" placeholder="{{ strDescricao }}" id="{{ strID }}"
-    [value]="iEntrada" (input)="onInput($event)" [ngClass]="strClasse" formControlName="senha">
+    [value]="iEntrada" (input)="onInput($event)" [ngClass]="strClasse">
   <!-- rotulo -->
   <label for="{{ strID }}">{{ rEntrada }}</label>
   <!-- erros -->

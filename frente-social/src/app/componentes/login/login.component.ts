@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgClass, NgIf } from '@angular/common';
 //importacoes: tipos
 import { tUsuario } from '../../tipos/comuns';
-import { NgClass, NgIf } from '@angular/common';
+//componentes
+import { CreEntradaComponent } from '../cre-entrada/cre-entrada.component';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, ReactiveFormsModule, NgClass, NgIf],
+  imports: [FormsModule, ReactiveFormsModule, NgClass, NgIf, CreEntradaComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

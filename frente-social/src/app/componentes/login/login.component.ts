@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
-//importacoes: componentes
-import { CreEntradaComponent } from '../cre-entrada/cre-entrada.component';
 //tipos
 import { tUsuario } from '../../tipos/comuns';
 import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, CreEntradaComponent, ReactiveFormsModule, NgClass, NgIf],
+  imports: [FormsModule, ReactiveFormsModule, NgClass, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -27,9 +25,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void { this.preparaForm() }
   //objetos
   onSubmitForm(): void { this.enviaLogin() }
-  onChangeEmail(strEmail: string): void { this.atualizaEmail(strEmail) }
-  onChangeSenha(strSenha: string): void { this.atualizaSenha(strSenha) }
-  onClickBotao(): void { alert('voce clicou em um componente react dentro do angular') }
+  onChangeEmail(evento: Event): void { this.atualizaEmail(evento) }
+  onChangeSenha(evento: Event): void { this.atualizaSenha(evento) }
   //#endregion
 
   //#region metodos
@@ -61,12 +58,14 @@ export class LoginComponent implements OnInit {
     return this.fgLoginForm.valid
   }
 
-  atualizaEmail(strEmail: string): void {
-      this.usuario.email = strEmail;
+  atualizaEmail(evento: Event): void {
+    const entrada = (evento.target as HTMLInputElement).value;
+    this.usuario.email = entrada;
   }
 
-  atualizaSenha(strSenha: string): void {
-      this.usuario.senha = strSenha;
+  atualizaSenha(evento: Event): void {
+    const entrada = (evento.target as HTMLInputElement).value;
+    this.usuario.senha = entrada;
   }
 
   enviaLogin(): void {

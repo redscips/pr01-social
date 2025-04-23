@@ -3,10 +3,11 @@ import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/cor
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 //tipos
 import { tTipoEntrada } from '../../tipos/comuns';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-cre-entrada',
-  imports: [FormsModule],
+  imports: [FormsModule, NgClass],
   templateUrl: './cre-entrada.component.html',
   styleUrl: './cre-entrada.component.scss',
   providers: [{
@@ -22,6 +23,7 @@ export class CreEntradaComponent implements ControlValueAccessor {
   @Input() TipoEntrada: tTipoEntrada = 'text';
   @Input() strDescricao: string = '';
   @Input() strID: string = '';
+  @Input() strClasse: string = '';
   //outputs: retornam valores p/ seus pais
   @Output() siEntrada = new EventEmitter<string>();
   //#endregion

@@ -2,8 +2,7 @@
 <div class="form-floating mb-3">
   <!-- entrada -->
   <input class="form-control" type="{{ TipoEntrada }}" placeholder="{{ strDescricao }}" id="{{ strID }}"
-    [ngModel]="iEntrada" (ngModelChange)="onChangeInput($event)">
+    [ngModel]="iEntrada" (ngModelChange)="onChangeInput($event)" [ngClass]="strClasse">
   <!-- rotulo -->
   <label for="{{ strID }}">{{ rEntrada }}</label>
 </div>
-

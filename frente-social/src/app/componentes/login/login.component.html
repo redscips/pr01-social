@@ -1,14 +1,14 @@
 <!-- tela de login: tamanho total, tudo centralizado -->
 <div class="login">
   <h2>Login</h2>
-  <form (ngSubmit)="onSubmitForm()" [formGroup]="fgLoginForm" class="">
+  <form (ngSubmit)="onSubmitForm()" [formGroup]="fgLoginForm">
     <div >
       <!-- campos entrada: email -->
-      <div>
-        <app-cre-entrada rEntrada="Email" TipoEntrada="email" strDescricao="Digite seu email"
-          strID="id-email" formControlName="email" class="form-control"
-          [ngClass]="flgSubmit ? (getForm['email'].errors ? 'is-invalid' : 'is-valid') : ''"
-          (siEntrada)="onChangeEmail($event)" [(ngModel)]="usuario.email" />
+      <div class="form-floating mb-3">
+        <input class="form-control" type="email" placeholder="Digite seu email" id="id-email" formControlName="email"
+          (change)="onChangeEmail($event)"
+          [ngClass]="flgSubmit ? (getForm['email'].errors ? 'is-invalid' : 'is-valid') : ''">
+        <label for="id-email">Email</label>
         <!-- erros -->
         <div *ngIf="flgSubmit && getForm['email'].errors" class="invalid-feedback">
           <p *ngIf="getForm['email'].errors['required']">Email é obrigatório</p>
@@ -20,11 +20,11 @@
         </div>
       </div>
       <!-- senha -->
-      <div>
-        <app-cre-entrada rEntrada="Senha" TipoEntrada="password" strDescricao="Digite sua senha"
-          strID="id-senha" formControlName="senha" class="form-control"
-          [ngClass]="flgSubmit ? (getForm['senha'].errors ? 'is-invalid' : 'is-valid') : ''"
-          (siEntrada)="onChangeSenha($event)" [(ngModel)]="usuario.senha" />
+      <div class="form-floating mb-3">
+        <input class="form-control" type="password" placeholder="Digite sua senha" id="id-senha" formControlName="senha"
+          (change)="onChangeSenha($event)"
+          [ngClass]="flgSubmit ? (getForm['senha'].errors ? 'is-invalid' : 'is-valid') : ''">
+        <label for="id-senha">Senha</label>
         <!-- erros -->
         <div *ngIf="flgSubmit && getForm['senha'].errors" class="invalid-feedback">
           <p *ngIf="getForm['senha'].errors['required']">Senha é obrigatório</p>

@@ -1,3 +1,8 @@
 input {
   border-radius: 32px;
+  background-color: transparent;
+
+  &:focus {
+    background-color: transparent;
+  }
 }

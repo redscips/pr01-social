@@ -6,29 +6,50 @@
   //
   height: 100vh;
   //
-  background: linear-gradient(135deg, #9ca0a3ba, #8d94ca);
+  background-image: url('/assets/imagens/smartphone.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  //posicao p/ aplicar fundo escurecido
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;   //posicao p/ ficar no local correto dentro do pai que eh relativo
+    top: 0;
+    left: 0;
+    //tamanho
+    width: 100%;
+    height: 100%;
+    //fundo
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+  }
 }
 
-.login {
-  display: flex;
+.cls-login {
+  //eleva container p/ ficar acima do fundo escurecido
+  position: relative;
+  z-index: 2;
+  //
   flex-direction: column;
   text-align: center;
   justify-content: space-between;
   //tamanho
   height: 70vh;
-  width: 30vw;
+  width: 360px;
   padding: 16px;
   //
-  background: #ccc;
-  border: solid 8px rgba(108, 115, 124, 0.827);
+  background-image: linear-gradient(to top right, #c5bbd7 16%, #8988c5 49%, #8083c7 73%, #5b5eb6 100%);
+  box-shadow: 24px 24px 16px;
   //bordas arredondadas
   border-radius: 50px;
 
   h2 {
     margin-bottom: 16px;
-    color: #676767;
+    color: #fff;
   }
 }
+
 
 form {
   display: flex;

@@ -1,13 +1,13 @@
 import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 //importacoes: componentes angular
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms';
 //tipos
 import { tTipoEntrada } from '../../tipos/comuns';
-import { NgClass, NgIf } from '@angular/common';
+import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-cre-entrada',
-  imports: [FormsModule, NgClass, NgIf],
+  imports: [FormsModule, NgClass, NgIf, NgFor, CommonModule],
   templateUrl: './cre-entrada.component.html',
   styleUrl: './cre-entrada.component.scss',
   providers: [{
@@ -25,7 +25,7 @@ export class CreEntradaComponent implements ControlValueAccessor {
   @Input() strID: string = '';
   @Input() strClasse: string = '';
   @Input() flgSubmit: boolean = false;
-  @Input() erros: Array<string>[] = []
+  @Input() erros: ValidationErrors | undefined | null = null;
   //outputs: retornam valores p/ seus pais
   @Output() siEntrada = new EventEmitter<string>();
   //#endregion
@@ -48,6 +48,10 @@ export class CreEntradaComponent implements ControlValueAccessor {
     this.siEntrada.emit(entrada);
     //retorna o valor p/ componente pai
     this._onChange(entrada);
+  }
+
+  get errosArray(): string[] {
+    return this.erros ? Array.from(new Set(Object.values(this.erros))) : [];
   }
 
   //interface

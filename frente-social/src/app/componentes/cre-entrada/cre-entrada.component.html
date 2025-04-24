@@ -7,9 +7,12 @@
   <label for="{{ strID }}">{{ rEntrada }}</label>
   <!-- erros -->
   <div *ngIf="flgSubmit && erros" class="invalid-feedback">
-    @for (erro of erros; track $index) {
-      <p>{{ erro }}</p>
-    }
+    <ul>
+      <li *ngFor="let erro of errosArray | keyvalue">
+        <p *ngIf="'required' in erro.key">Campo é obrigatório.</p>
+        <p *ngIf="'minlength' in erro.key">Tamanho mínimo não alcançado.</p>
+      </li>
+    </ul>
   </div>
   <!-- sucesso -->
   <div *ngIf="flgSubmit && !erros" class="valid-feedback">

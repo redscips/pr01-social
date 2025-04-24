@@ -42,9 +42,6 @@ export class LoginComponent implements OnInit {
       senha: new FormControl (this.usuario.senha, [
         Validators.required,
         Validators.minLength(8)   //tamanho minimo da senha
-      ]),
-      nome: new FormControl (this.usuario.nome, [
-        Validators.required
       ])
     });
   }
@@ -54,10 +51,6 @@ export class LoginComponent implements OnInit {
   }
   get getSenha() {
     return this.fgLoginForm.get('senha');
-  }
-
-  get getNome() {
-    return this.fgLoginForm.get('nome');
   }
 
   get getForm() {
@@ -75,9 +68,8 @@ export class LoginComponent implements OnInit {
     //---------
     if (this.validaDados()) {
       //atualiza objeto
-      this.usuario.email = this.getForm['email'].value
-      this.usuario.senha = this.getForm['senha'].value
-      this.usuario.nome = this.getNome?.value
+      this.usuario.email = this.getEmail?.value
+      this.usuario.senha = this.getSenha?.value
       //--------------------------------------
       console.log('usuario: ' + this.usuario)
       //reseta variaveis controle

@@ -1,8 +1,22 @@
-input {
-  border-radius: 32px;
-  background-color: transparent;
+// importacoes
+@use '../../../estilos/mapas.scss' as mapas;
 
-  &:focus {
-    background-color: transparent;
+:host {
+  --tamanho: #{map-get(mapas.$tam-fontes, padrao)};
+}
+
+input {
+  //bordas arredondadas
+  border-radius: 32px;
+  background-color: map-get(mapas.$cores, branco);
+
+  &:hover
+  ,&:focus {
+    background-color: map-get(mapas.$cores, cinza);
   }
+}
+
+//classes: bootstrap
+.form-floating {
+  font-size: var(--tamanho);
 }

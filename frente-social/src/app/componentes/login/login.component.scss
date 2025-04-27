@@ -1,3 +1,6 @@
+//importacoes
+@use '../../../estilos/mapas.scss' as mapas;
+
 :host {
   // centraliza todos objetos
   display: flex;
@@ -21,11 +24,42 @@
     width: 100%;
     height: 100%;
     //fundo
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
+  }
+
+  //quebra o encapsulamento do componente pai p/ permitir aplicar regas css aos componentes filhos
+  // ::ng-deep { }
+}
+
+//elementos
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  height: 70%;
+
+  button {
+    cursor: pointer;
+    // animacao
+    transition: background 0.3s;
+    //tamanho
+    width: 100%;
+    font-size: 18px;
+    margin-bottom: 8px;
+    //
+    border-radius: 24px;
+    //
+    color: map-get(mapas.$cores, branco);
+
+    &:hover {
+      background: map-get(mapas.$cores, cinza);
+    }
   }
 }
 
+//classes
 .cls-login {
   //eleva container p/ ficar acima do fundo escurecido
   position: relative;
@@ -39,37 +73,14 @@
   width: 360px;
   padding: 16px;
   //
-  background-image: linear-gradient(to top right, #c5bbd7 16%, #8988c5 49%, #8083c7 73%, #5b5eb6 100%);
+  background-image: linear-gradient(to top right, #898197 16%, #616173 49%, #656889 73%, #4a4c70 100%);
   box-shadow: 24px 24px 16px;
+  border: solid 4px #808080;
   //bordas arredondadas
   border-radius: 50px;
 
-  h2 {
-    margin-bottom: 16px;
-    color: #fff;
-  }
-}
-
-
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 70%;
-
-  button {
-    cursor: pointer;
-    // animacao
-    transition: background 0.3s;
-    //tamanho
-    width: 100%;
-    font-size: 18px;
-    margin-bottom: 8px;
-    //
-    border-radius: 24px;
-
-    &:hover {
-      background: #556cd6;
-    }
+  h1 {
+    margin-bottom: 5rem;
+    color: map-get(mapas.$cores, branco);
   }
 }

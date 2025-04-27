@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, HostBinding } from '@angular/core';
 //importacoes: componentes angular
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms';
 //tipos
@@ -31,6 +31,7 @@ export class CreEntradaComponent implements ControlValueAccessor {
   //#endregion
 
   iEntrada: string = '';
+  corInput: string = '#ccc'
 
   //#region eventos
   //objetos

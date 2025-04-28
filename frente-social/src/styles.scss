@@ -3,9 +3,18 @@
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/*resete*/
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+html, body { height: 100%; }
+body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+//classes: bootstrap
+.container { margin: 0 auto; }
 
 // fontes
 .bebas-neue-regular {

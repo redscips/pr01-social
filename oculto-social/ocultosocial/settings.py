@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-a*(4-kxf27g3#(t*m4lei7p77ebn$2x@s=eid-x%k@whvmp153
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'redesocial.com', 'www.redesocial.com', '[::1]']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "applogin",
 ]
 
 MIDDLEWARE = [
@@ -74,6 +75,14 @@ WSGI_APPLICATION = 'ocultosocial.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pgdb',
+        'USER': 'postgres',
+        'PASSWORD': 'asd77',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    },
+    'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }

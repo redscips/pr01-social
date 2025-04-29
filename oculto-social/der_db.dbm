@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="1.1.6" use-changelog="false" max-obj-count="4"
+	 last-position="0,0" last-zoom="1"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="pgdb" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
+</schema>
+
+<table name="tbl_usuarios" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="340" y="200"/>
+	<column name="cod_tab" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="des_nome">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="des_login">
+		<type name="character varying" length="200"/>
+	</column>
+	<column name="des_senha">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="dta_criacao">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="dta_atualizacao">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="tbl_usuarios_pk" type="pk-constr" table="public.tbl_usuarios">
+		<columns names="cod_tab" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+</dbmodel>

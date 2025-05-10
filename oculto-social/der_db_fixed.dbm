@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.1" last-position="0,0" last-zoom="1"
+	 default-owner="postgres">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="tbl_usuarios">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="340" y="200"/>
+	<column name="cod_tab" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="des_nome">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="des_login">
+		<type name="character varying" length="200"/>
+	</column>
+	<column name="des_senha">
+		<type name="character varying" length="100"/>
+	</column>
+	<column name="dta_criacao">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="dta_atualizacao">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="tbl_usuarios_pk" type="pk-constr" table="public.tbl_usuarios">
+		<columns names="cod_tab" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+</dbmodel>

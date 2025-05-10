@@ -73,6 +73,8 @@ WSGI_APPLICATION = 'ocultosocial.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+#portas: linux - 5432
+#windows: 5433
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -80,7 +82,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'asd77',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5433',
     },
     'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',

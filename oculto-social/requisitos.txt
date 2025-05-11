@@ -1,12 +1,7 @@
 asgiref==3.8.1
 Django==5.2
-django-debug-toolbar==5.2.0
 django-filter==25.1
 djangorestframework==3.16.0
-gunicorn==23.0.0
 Markdown==3.8
-packaging==25.0
-psycopg==3.2.6
-psycopg2-binary==2.9.10
 sqlparse==0.5.3
-typing_extensions==4.13.2
+tzdata==2025.2

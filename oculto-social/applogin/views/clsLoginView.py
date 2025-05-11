@@ -31,8 +31,8 @@ class ClsLoginViewSet(viewsets.ViewSet):
             #insere novo registro
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO tbl_usuarios (des_login, des_senha, dta_criacao, dta_atualizacao) VALUES (%s, %s, %s, %s, now(), now())",
-                    [id, None, email, hashed_senha]
+                    "INSERT INTO tbl_usuarios (cod_tab, des_nome, des_login, des_senha, dta_criacao, dta_atualizacao) VALUES (%s, %s, %s, %s, now(), now())",
+                    [id, "teste", email, hashed_senha]
                 )
             #incrementa o id
             self.id += 1

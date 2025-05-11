@@ -1,4 +1,5 @@
 #importacoes: django
+import json
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 #serializador
@@ -16,6 +17,8 @@ class ClsLoginViewSet(viewsets.ViewSet):
         if serial.is_valid():
             #salvar os dados inputados na instancia
             serial.save()
+            #dados inputados
+            login = serial.desserializa(json.dumps(serial.data))
             #sucesso
             resposta = Response(serial.data, status=status.HTTP_201_CREATED)
         else:

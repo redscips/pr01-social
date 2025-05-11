@@ -1,6 +1,6 @@
 class clsLogin():
     
     #campos
-    def __init__(self, email: str = '', senha: str = ''):
-        self.strEmail = email
-        self.strSenha = senha
+    def __init__(self, strEmail: str = '', strSenha: str = ''):
+        self.strEmail = strEmail
+        self.strSenha = strSenha

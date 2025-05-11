@@ -10,7 +10,7 @@ class clsLoginSerial(serializers.Serializer):
     #
     #region atributos
     strEmail = serializers.CharField(max_length=150)
-    strSenha = serializers.CharField(max_length=300, write_only=True)
+    strSenha = serializers.CharField(max_length=300)
     #endregion
     #
     #region metodos

@@ -8,7 +8,7 @@ from rest_framework.response import Response
 import json
 #serializador
 from applogin.serializador import clsLoginSerial
-from ocultosocial.serializador.clsSerial import ClsSerial
+from ocultosocial.serializador import ClsSerial
 
 class ClsLoginViewSet(viewsets.ViewSet):
     #

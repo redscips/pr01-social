@@ -1,1 +1,1 @@
-from .clsSerial import ClsSerial
+from .clsSerial import *

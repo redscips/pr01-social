@@ -15,11 +15,9 @@ class ClsSerial:
     ) -> str:
         """
         Serializa um objeto ou uma lista de objetos utilizando o serializer informado.
-        
         Args:
             data (Union[List[T], T]): Objeto singular ou lista de objetos a serem serializados.
             serializer_class (Type): Classe do serializer a ser usada (por exemplo, uma subclasse de serializers.Serializer).
-            
         Returns:
             str: Dados serializados no formato JSON.
         """
@@ -40,13 +38,11 @@ class ClsSerial:
     ) -> List[T]:
         """
         Desserializa uma string JSON p/ uma lista de objetos utilizando o serializer informado.
-        
         Args:
             dados (str): String JSON a ser desserializada.
             serializer_class (Type): Classe do serializer a ser usada p/ validar e salvar os dados.
-        
         Returns:
-            List[T]: Lista de objetos resultantes da desserializacao e validacai dos dados.
+            List[T]: Lista de objetos resultantes da desserializacao e validacao dos dados.
         """
         #converte a string p/ uma estrutura JSON (lista ou dict)
         data_json = json.loads(dados)

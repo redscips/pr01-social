@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { tUsuario } from '../../tipos/comuns';
 //componentes
 import { CreEntradaComponent } from '../cre-entrada/cre-entrada.component';
+import { AutenticacaoAPIService } from '../../servicos/autenticacao-api.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   flgSubmit: boolean = false;
 
-  constructor(private fbLoginForm: FormBuilder) {}
+  constructor(private fbLoginForm: FormBuilder, private autentica: AutenticacaoAPIService) {}
 
   //#region eventos
   //classe
@@ -70,8 +71,15 @@ export class LoginComponent implements OnInit {
       //atualiza objeto
       this.usuario.email = this.getEmail?.value
       this.usuario.senha = this.getSenha?.value
-      //--------------------------------------
-      console.log('usuario: ' + this.usuario)
+      //efetua requisicao rest
+      this.autentica.executaLogin(this.usuario.email, this.usuario.senha).subscribe({
+        next: (resposta) => {
+          alert('login bem sucedido' + resposta)
+        },
+        error: (erros) => {
+          alert('erros: ' + erros.message)
+        }
+      })
       //reseta variaveis controle
       this.usuario = {email: '', nome: '', senha: ''}
       this.flgSubmit = false

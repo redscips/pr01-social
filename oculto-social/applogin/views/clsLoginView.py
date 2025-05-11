@@ -1,5 +1,5 @@
 #importacoes: django
-from django.db import connection
+from django.db import DatabaseError, connection
 from django.contrib.auth.hashers import make_password
 #rest framework
 from rest_framework import viewsets, status
@@ -30,17 +30,21 @@ class ClsLoginViewSet(viewsets.ViewSet):
             senha = login[0].strSenha
             hashed_senha = make_password(senha)
            
-            #insere novo registro
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "INSERT INTO tbl_usuarios (cod_tab, des_nome, des_login, des_senha, dta_criacao, dta_atualizacao) VALUES (%s, %s, %s, %s, now(), now())",
-                    [self.id, None, email, hashed_senha]
-                )
-            #incrementa o id
-            self.id += 1
+            try:
+                #insere novo registro
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "INSERT INTO tbl_usuarios (cod_tab, des_nome, des_login, des_senha, dta_criacao, dta_atualizacao) VALUES (%s, %s, %s, %s, now(), now())",
+                        [self.id, None, email, hashed_senha]
+                    )
+                #incrementa o id
+                self.id += 1
+                
+                #sucesso
+                resposta = Response(json_data, status=status.HTTP_201_CREATED)
+            except DatabaseError as e:
+                resposta = Response({"erro": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
-            #sucesso
-            resposta = Response(json_data, status=status.HTTP_201_CREATED)
         else:
             #erro
             resposta = Response(json_data, status=status.HTTP_400_BAD_REQUEST)

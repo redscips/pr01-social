@@ -23,7 +23,7 @@ export class AutenticacaoAPIService {
 
   // Tratamento básico de erro
   private trataExcecao(error: HttpErrorResponse) {
-    return throwError(() => new Error('Ocorreu um erro no login. Tente novamente.' + error.message));
+    return throwError(() => new Error('Ocorreu um erro no login. Tente novamente.' + error.error.erro));
   }
   //#endregion
 }

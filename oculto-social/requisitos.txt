@@ -5,7 +5,7 @@ django-extensions==4.1
 django-filter==25.1
 djangorestframework==3.16.0
 Markdown==3.8
--e git+https://github.com/redscips/pr01-social.git@9f869169c8fa5f9264559ebecc5d351d4a4b27da#egg=oculto_social&subdirectory=oculto-social
+-e git+https://github.com/redscips/pr01-social.git@ecb1db04bbc77f19ce1a8c6caed8350371b90670#egg=oculto_social&subdirectory=oculto-social
 psycopg==3.2.6
 psycopg2-binary==2.9.10
 sqlparse==0.5.3

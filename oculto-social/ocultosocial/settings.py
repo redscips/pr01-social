@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-a*(4-kxf27g3#(t*m4lei7p77ebn$2x@s=eid-x%k@whvmp153
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'redesocial.com', 'www.redesocial.com', '[::1]']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'redesocial.com', 'www.redesocial.com', '[::1]']
 
 
 # Application definition
@@ -85,7 +85,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'asd77',
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '5432',
     },
     'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',

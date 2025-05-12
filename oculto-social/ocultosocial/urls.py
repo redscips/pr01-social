@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path, re_path
+from rest_framework.authtoken.views import obtain_auth_token
 # debug
 from debug_toolbar.toolbar import debug_toolbar_urls
 #paginas
@@ -26,4 +27,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #urls
     re_path("ocultosocial/", include("applogin.urls")),
+    #token
+    path('api/token/', obtain_auth_token, name='api_token_auth'),
 ]

@@ -7,3 +7,7 @@ export type tUsuario = {
   email: string,
   senha: string
 }
+
+export type TokenResposta = {
+  token: string
+}

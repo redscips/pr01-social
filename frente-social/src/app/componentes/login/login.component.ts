@@ -68,22 +68,32 @@ export class LoginComponent implements OnInit {
   enviaLogin(): void {
     //---------
     if (this.validaDados()) {
-      //atualiza objeto
-      this.usuario.email = this.getEmail?.value
-      this.usuario.senha = this.getSenha?.value
-      //efetua requisicao rest
-      this.autentica.executaLogin(this.usuario.email, this.usuario.senha).subscribe({
-        next: (resposta) => {
-          alert('login bem sucedido' + resposta)
-        },
-        error: (erros) => {
-          alert('erros: ' + erros.message)
-        }
-      })
-      //reseta variaveis controle
-      this.usuario = {email: '', nome: '', senha: ''}
-      this.flgSubmit = false
-      this.fgLoginForm.reset()    //reseta formulario
+      //executa rquisicoes
+      this.autentica.executaLoginToken()
+        .subscribe({
+          next: (tokenValido) => {
+            if (tokenValido) {
+              // Atualiza os dados do formulário
+              this.usuario.email = this.getEmail?.value;
+              this.usuario.senha = this.getSenha?.value;
+              // Efetua a requisição de login
+              this.autentica.executaLogin(this.usuario.email, this.usuario.senha)
+                .subscribe({
+                  next: (resposta) => {},
+                  error: (erros) => {
+                    alert('Login - Erro(s): ' + erros.message);
+                  }
+                });
+              // Reseta os dados e o formulário
+              this.usuario = { email: '', nome: '', senha: '' };
+              this.flgSubmit = false;
+              this.fgLoginForm.reset();
+            }
+          },
+          error: (erros) => {
+            alert('Token - Erro(s): ' + erros.message);
+          }
+      });
     }
   }
   //#endregion

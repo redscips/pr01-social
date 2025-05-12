@@ -1,9 +1,10 @@
-#importacoes: django
-from django.db import DatabaseError, connection
-from django.contrib.auth.hashers import make_password
-#rest framework
+#importacoes: rest framework
 from rest_framework import viewsets, status
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.renderers import JSONRenderer
+#django
+from django.db import DatabaseError
 #serializador
 from applogin.serializador import clsLoginSerial
 from ocultosocial.serializador import ClsSerial
@@ -12,6 +13,7 @@ from applogin.atributos import clsLogin
 class ClsLoginViewSet(viewsets.ViewSet):
     #
     serializer_class = clsLoginSerial
+    permission_classes = [IsAuthenticated]
 
     #region viewsets.ViewSet
     def create(self, request):
@@ -27,7 +29,11 @@ class ClsLoginViewSet(viewsets.ViewSet):
                 #sucesso
                 resposta = Response(json_data, status=status.HTTP_201_CREATED)
             except DatabaseError as e:
-                resposta = Response({"erro": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                erro = {"erro": str(e)}
+                resposta = Response(erro, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                resposta.accepted_renderer = JSONRenderer()
+                resposta.accepted_media_type = 'application/json'
+                resposta.renderer_context = {} 
             
         else:
             #erro

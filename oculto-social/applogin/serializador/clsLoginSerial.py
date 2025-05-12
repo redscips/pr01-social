@@ -1,8 +1,5 @@
 #importacoes: django
 from rest_framework import serializers
-from rest_framework.renderers import JSONRenderer
-#------------
-import json
 # classe
 from applogin.atributos import clsLogin
 

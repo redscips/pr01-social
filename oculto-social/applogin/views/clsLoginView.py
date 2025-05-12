@@ -21,12 +21,9 @@ class ClsLoginViewSet(viewsets.ViewSet):
         if json_data:
             #desserializa os dados
             login = ClsSerial.desserializa(json_data, self.serializer_class)
-            #objeto desserializado
-            email = login[0].strEmail
-            senha = login[0].strSenha
             try:
                 #insere novo registro
-                clsLogin.inserir(email, senha)             
+                clsLogin.inserir(login[0].strEmail, login[0].strSenha)             
                 #sucesso
                 resposta = Response(json_data, status=status.HTTP_201_CREATED)
             except DatabaseError as e:

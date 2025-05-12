@@ -79,20 +79,22 @@ export class AutenticacaoAPIService {
     }).pipe(catchError(this.trataExcecao));
   }
 
-  executaLoginToken(): Observable<boolean> {
+  executaLoginToken() {
     //retorna validacao do token
-    return this.validaToken(this.usuario, this.senha)
-      .pipe(tap((resposta: TokenResposta) => {
+    this.validaToken(this.usuario, this.senha)
+      .subscribe({
+        next: (resposta: TokenResposta) => {
           //verifica se o token foi retornado
           if (resposta && resposta.token) {
             localStorage.setItem(this.token, resposta.token);
           } else {
             throw new Error('Token não encontrado na resposta: ' +  resposta);
           }
-        }),
-        map(() => true),    //caso token retorna, retorna verdadeiro
-        catchError(this.trataExcecao)
-      );
+        },
+        error: (erros) => {
+          alert('Login - Erro(s): ' + erros.message);
+        }
+      })
   }
 
   deslogar(): void {

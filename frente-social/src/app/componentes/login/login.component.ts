@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { tUsuario } from '../../tipos/comuns';
 //componentes
 import { CreEntradaComponent } from '../cre-entrada/cre-entrada.component';
-import { AutenticacaoAPIService } from '../../servicos/autenticacao-api.service';
+import { AutenticacaoAPIService } from '../../servicos/autenticacao/autenticacao-api.service';
 
 @Component({
   selector: 'app-login',

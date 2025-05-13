@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { catchError, defer, map, Observable, tap, throwError } from 'rxjs';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { catchError, defer, map, Observable, throwError } from 'rxjs';
 //tipos
-import { TokenResposta } from '../tipos/comuns'
+import { TokenResposta } from '../../tipos/comuns'
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,7 @@ export class AutenticacaoAPIService {
   private usuario = 'reds'
   private senha = 'ujm%¨&90'
 
-  //cliente http
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) private platformaId: Object) { }
 
   //#region metodos
   //
@@ -28,23 +28,32 @@ export class AutenticacaoAPIService {
     params.append('password', senha);
     //retorna uma promessa convertida em observavel
     return defer(async () => {
-      //espera pela resposta da api: configura o corpo da requisicao
-      const resposta = await fetch(this.tokenURL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: params.toString()
-      });
-      // Mesmo que a resposta não seja ok, extrai o JSON
-      const respostaJSON = await resposta.json()
-      //validaco o retorno
-      if (!resposta.ok) {
-        throw new Error('Erro na requisição: ' + respostaJSON + ' | ' + resposta.statusText);
+      //var retorno
+      let data = {}
+      try {
+        //espera pela resposta da api: configura o corpo da requisicao
+        const resposta = await fetch(this.tokenURL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: params.toString()
+        })
+        //converte respota p/ json
+        data = await resposta.json()
+        //validaco o retorno
+        if (!resposta.ok) {
+          throw new Error('Erro na requisição: ' + data + ' | ' + resposta.statusText);
+        }
+      } catch (erros) {
+        this.trataExcecao(erros)
+      } finally {
+        //def retorno
+        return data
       }
-      //def retorno: resposta no formato json
-      return respostaJSON;
-    }).pipe(catchError(this.trataExcecao))
+    })
+    .pipe(map(data => data as TokenResposta))
+    .pipe(catchError(this.trataExcecao));
   }
 
   executaLogin(strEmail: string, strSenha: string): Observable<any> {
@@ -86,7 +95,9 @@ export class AutenticacaoAPIService {
         next: (resposta: TokenResposta) => {
           //verifica se o token foi retornado
           if (resposta && resposta.token) {
-            localStorage.setItem(this.token, resposta.token);
+            if (isPlatformBrowser(this.platformaId)) {
+              localStorage.setItem(this.token, resposta.token);
+            }
           } else {
             throw new Error('Token não encontrado na resposta: ' +  resposta);
           }
@@ -98,11 +109,20 @@ export class AutenticacaoAPIService {
   }
 
   deslogar(): void {
-    localStorage.removeItem(this.token);
+    if (isPlatformBrowser(this.platformaId)) {
+      localStorage.removeItem(this.token);
+    }
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.token);
+    //var retorno
+    let token: string | null = ''
+    //validacao
+    if (isPlatformBrowser(this.platformaId)) {
+      token = localStorage.getItem(this.token);
+    }
+    //def retorno
+    return token
   }
 
   //retorna se usuario esta logado

@@ -33,12 +33,12 @@ class ClsDAL():
     
     @staticmethod
     def consultaScript(vSQL: str, valores: list = []) -> pd.DataFrame:
-        """Retorna uma lista contendo os dados da consulta SQL
+        """Retorna um DataFrame contendo os dados da consulta SQL
         Args:
             vSQL (str): Script.
             valores (list, optional): Campos de valores
         Returns:
-            list: Uma lista com informacoes do banco.
+            pd.DataFrame: Um DataFrame com informacoes do banco.
         """
         try:
             with connection.cursor() as cursor:

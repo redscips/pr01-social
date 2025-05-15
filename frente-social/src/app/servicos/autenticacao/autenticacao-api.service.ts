@@ -1,8 +1,9 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { catchError, defer, map, Observable, throwError } from 'rxjs';
+import { catchError, defer, map, Observable, of, throwError } from 'rxjs';
 //tipos
 import { TokenResposta } from '../../tipos/comuns'
 import { isPlatformBrowser } from '@angular/common';
+import { RequisicaoService } from '../http/requisicao.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AutenticacaoAPIService {
   private usuario = 'reds'
   private senha = 'ujm%¨&90'
 
-  constructor(@Inject(PLATFORM_ID) private platformaId: Object) { }
+  constructor(@Inject(PLATFORM_ID) private platformaId: Object, private req: RequisicaoService) { }
 
   //#region metodos
   //
@@ -57,35 +58,46 @@ export class AutenticacaoAPIService {
   }
 
   executaLogin(strEmail: string, strSenha: string): Observable<any> {
-    //dados que serao enviados no post
-    const payload = { strEmail, strSenha }
-    //retorna token
+    //--------------------------
     const token = this.getToken();
-    //define os cabecalhos p/ a requisicao
-    const headers: HeadersInit = {
-      'Content-Type': 'application/json'
-    };
-    //se o token existir, adiciona o cabecalho de autorizacao
+    //token obrigatorio
     if (token) {
-      headers['Authorization'] = `Token ${token}`;
+      //dados que serao enviados no post: corpo
+      const payload = { strEmail, strSenha }
+      //cabecalho
+      const cabecalhos = {'Authorization': `Token ${token}`}
+      //executa requisicao
+      return this.req.execRequisicao(this.loginURL, 'POST', cabecalhos, payload)
+    } else {
+      return of({})
     }
-    //retorna a promessa convertida p/ obersavel
-    return defer(async () => {
-      //espera pela resposta da api: configura o corpo da requisicao
-      const resposta = await fetch(this.loginURL, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(payload)
-      });
-      // Mesmo que a resposta não seja ok, extrai o JSON
-      const respostaJSON = await resposta.json()
-      //validaco o retorno
-      if (!resposta.ok) {
-        throw new Error('Erro na requisição: ' + respostaJSON.erro + ' | ' + resposta.statusText);
-      }
-      //def retorno: resposta no formato json
-      return respostaJSON;
-    }).pipe(catchError(this.trataExcecao));
+
+    // //define os cabecalhos p/ a requisicao
+    // const headers: HeadersInit = {
+    //   'Content-Type': 'application/json'
+    // };
+    // //se o token existir, adiciona o cabecalho de autorizacao
+    // if (token) {
+    //   headers['Authorization'] = `Token ${token}`;
+    // }
+    // //retorna a promessa convertida p/ obersavel
+    // return defer(async () => {
+    //   //espera pela resposta da api: configura o corpo da requisicao
+    //   const resposta = await fetch(this.loginURL, {
+    //     method: 'POST',
+    //     headers,
+    //     body: JSON.stringify(payload)
+    //   });
+    //   // Mesmo que a resposta não seja ok, extrai o JSON
+    //   const respostaJSON = await resposta.json()
+    //   //validaco o retorno
+    //   if (!resposta.ok) {
+    //     throw new Error('Erro na requisição: ' + respostaJSON.erro + ' | ' + resposta.statusText);
+    //   }
+    //   //def retorno: resposta no formato json
+    //   return respostaJSON;
+    // }).pipe(catchError(this.trataExcecao));
+
   }
 
   executaLoginToken() {

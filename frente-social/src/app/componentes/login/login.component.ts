@@ -73,14 +73,6 @@ export class LoginComponent implements OnInit {
       this.usuario.senha = this.getSenha?.value;
       // Efetua a requisição de login
       this.autentica.executaLogin(this.usuario.email, this.usuario.senha)
-        .subscribe({
-          next: (resposta) => {
-            alert('Login - Sucesso: ' + JSON.stringify(resposta));
-          },
-          error: (erros) => {
-            alert('Login - Erro(s): ' + erros.message);
-          }
-        });
       // Reseta os dados e o formulário
       this.usuario = { email: '', nome: '', senha: '' };
       this.flgSubmit = false;

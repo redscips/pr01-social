@@ -21,7 +21,7 @@ export class AppComponent {
   //#region metodos
   preparaForm(): void {
     //configura o token p/ acessar
-    this.autentica.executaLoginToken()
+    this.autentica.validaToken()
   }
   //#endregion
 }

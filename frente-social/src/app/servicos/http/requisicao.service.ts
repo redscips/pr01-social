@@ -17,29 +17,33 @@ export class RequisicaoService {
    * @param requisicao Configuracoes: metodo, cabecalhos e corpo
    * @returns Um observavel do tipo <T>
    */
-  execRequisicao<T>(strURL: string, metodo: 'GET' | 'POST', parametrosCab: Dict<any> = {}, parametrosCorpo: Dict<any> = {}): Observable<T> {
+  execRequisicao<T>(strURL: string, metodo: 'GET' | 'POST', parametrosCab: Dict<any> = {}, strTipoConteudo: string = 'application/json', parametrosCorpo: Dict<any> = {}, flgCorpoURL: boolean = false): Observable<T> {
     //adiciona tipo de conteudo no cabecalho
-    parametrosCab['Content-Type'] = 'application/json'
+    parametrosCab['Content-Type'] = strTipoConteudo
     //configura requisicao
     const requisicao: RequestInit = {
       method: metodo,
       headers: parametrosCab
     }
-    //--------------
-    switch (metodo) {
-      case 'POST':
-        requisicao.body = JSON.stringify(parametrosCorpo)    //converte dicionario em json
-        break;
-      default:    //GET
-        //cria objeto que usa parametros na URL
-        const queryParams = new URLSearchParams();
-        //-------------------------
-        Object.entries(parametrosCorpo).forEach(([chave, valor]) => {
-          queryParams.append(chave, String(valor));
-        })
-        //adiciona na URL
-        strURL += `?${queryParams.toString()}`;
-        break;
+    //validacao
+    if (parametrosCorpo) {
+      //cria objeto que usa parametros na URL
+      const parametros = metodo === 'GET' || flgCorpoURL? this.converteParametrosURL(parametrosCorpo) : ''
+      //--------------
+      switch (metodo) {
+        case 'POST':
+          //verificacao
+          if (flgCorpoURL) {
+            requisicao.body = parametros.toString()
+          } else {
+            requisicao.body = JSON.stringify(parametrosCorpo)    //converte dicionario em json
+          }
+          break;
+        default:    //GET
+          //adiciona na URL
+          strURL += `?${parametros.toString()}`;
+          break;
+      }
     }
     //retorna uma promessa convertida p/ observavel
     return defer(async (): Promise<any> => {
@@ -63,11 +67,22 @@ export class RequisicaoService {
       if (resposta.ok) {
         return data   //retorna resultado da requisicao
       } else {
-        throw new Error(`"Funcao=executaRequisicao<T>_RequisicaoService" => Erro(s) | Data: ${data.erro ? data.erro : data} | Resposta: ${resposta.status} - ${resposta.statusText} - ${resposta.text()}`)
+        throw new Error(`"Funcao=executaRequisicao<T>_RequisicaoService" => Erro(s) | Data: ${data.erro ? data.erro : data} | Resposta: ${resposta.status} - ${resposta.statusText}}`)
       }
     })
     .pipe(map<any, T>((data: any) => data as T),   //mapeia o resultado retornado p/ tipo 'T'
       catchError(erros => this.trataExcecao(erros)));
+  }
+
+  private converteParametrosURL(parametrosCorpo: Dict<any>): URLSearchParams {
+    //cria objeto que usa parametros na URL
+    const parametros = new URLSearchParams();
+    //-------------------------
+    Object.entries(parametrosCorpo).forEach(([chave, valor]) => {
+      parametros.append(chave, String(valor));
+    })
+    //def retorno
+    return parametros
   }
 
   //tratamento de erros

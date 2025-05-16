@@ -17,9 +17,17 @@ class ClsLoginViewSet(viewsets.ModelViewSet):
     serializer_class = clsLoginSerial
     permission_classes = [IsAuthenticated]
     
-    #region metodos    
+    #region metodos
+    #GET (varios registros): nome fixo do framework => list
+    def list(self, request, *args, **kwargs):
+        #retorna os dados serializados
+        serialUsuarios = ClsSerial.serializa(self.get_queryset(), self.serializer_class, true)
+        #retorna resposta
+        return Response(serialUsuarios, status=status.HTTP_200_OK)
+
+    
     #POSTAR/POST: nome fixo do framework => create
-    def create(self, request):
+    def create(self, request, *args, **kwargs):
         #desserializa os dados
         login = ClsSerial.desserializa(request.data, self.serializer_class)
         try:

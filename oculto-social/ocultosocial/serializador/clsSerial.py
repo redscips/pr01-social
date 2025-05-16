@@ -9,7 +9,7 @@ class ClsSerial:
     #region metodos
     #
     @staticmethod
-    def serializa(data: Union[List[T], T], serializer_class: Type) -> str:
+    def serializa(data: Union[List[T], T], serializer_class: Type, flgSerialDados: bool = False) -> str:
         """Serializa um objeto ou uma lista de objetos utilizando o serializer informado.
         Args:
             data (Union[List[T], T]): Objeto singular ou lista de objetos a serem serializados.
@@ -17,15 +17,12 @@ class ClsSerial:
         Returns:
             str: Dados serializados no formato JSON.
         """
-        #se foi passado um objeto unico, encapsula em uma lista.
-        if not isinstance(data, list):
-            data = [data]
         #cria uma instancia do serializer passando a lista de objetos p/ serem serializados
         serial = serializer_class(data, many=True)
         #converte p/ bytes utilizando o JSONRenderer
         json_bytes = JSONRenderer().render(serial.data)
         #retorna a string decodificada em UTF-8
-        return json_bytes.decode("utf-8")
+        return serial.data if flgSerialDados else json_bytes.decode("utf-8")
 
     @staticmethod
     def desserializa(dados: str, serializer_class: Type, flgRetornaDados: bool = False) -> List[T]:

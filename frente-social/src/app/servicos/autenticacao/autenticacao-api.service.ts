@@ -52,7 +52,7 @@ export class AutenticacaoAPIService {
     //token obrigatorio
     if (token) {
       //dados que serao enviados no post: corpo
-      const payload = { strEmail, strSenha }
+      const payload = {'des_login': strEmail, 'des_senha': strSenha }
       //cabecalho
       const cabecalhos = {'Authorization': `Token ${token}`}
       //executa requisicao

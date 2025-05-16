@@ -7,7 +7,7 @@ django-filter==25.1
 djangorestframework==3.16.0
 Markdown==3.8
 numpy==2.2.5
--e git+https://github.com/redscips/pr01-social.git@a1b187e71410b72537cec4ada106b4a452ad404a#egg=oculto_social&subdirectory=oculto-social
+-e git+https://github.com/redscips/pr01-social.git@3fbe597b028af41a4ea78f449801365f6cea7ae4#egg=oculto_social&subdirectory=oculto-social
 pandas==2.2.3
 psycopg==3.2.6
 psycopg2-binary==2.9.10

@@ -28,7 +28,7 @@ class ClsSerial:
         return json_bytes.decode("utf-8")
 
     @staticmethod
-    def desserializa(dados: str, serializer_class: Type) -> List[T]:
+    def desserializa(dados: str, serializer_class: Type, flgRetornaDados: bool = False) -> List[T]:
         """Desserializa uma string JSON p/ uma lista de objetos utilizando o serializer informado.
         Args:
             dados (str): String JSON a ser desserializada.
@@ -44,9 +44,7 @@ class ClsSerial:
             data_json = [data_json]
         #instancia o serializer p/ desserializar os dados; many=True porque esperamos uma lista.
         serial = serializer_class(data=data_json, many=True)
-        #valida os dados: se houver erro, uma excecao sera lancada.
-        serial.is_valid(raise_exception=True)
-        #retorna os objetos salvos
-        return serial.save()
+        #def retorno
+        return serial.initial_data if flgRetornaDados else serial
     #
     #endregion

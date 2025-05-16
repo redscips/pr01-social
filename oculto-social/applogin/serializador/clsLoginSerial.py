@@ -1,28 +1,61 @@
 #importacoes: django
-from rest_framework import serializers
+from django.db import DatabaseError
+#rest_framework
+from rest_framework import serializers, status
+from rest_framework.response import Response
+#classes
+from ocultosocial.comuns.clsComuns import ClsComuns
 # classe
-from applogin.atributos import clsLogin
+from ocultosocial.modelo_der import TblUsuarios
 
-class clsLoginSerial(serializers.Serializer):
+class clsLoginSerial(serializers.ModelSerializer):
     #
-    #region atributos
-    strEmail = serializers.CharField(max_length=150)
-    strSenha = serializers.CharField(max_length=300)
-    #endregion
+    class Meta:
+        model = TblUsuarios
+        fields = TblUsuarios.campos
+        extra_kwargs = TblUsuarios.extra_kwargs
     #
     #region metodos
-    #
-    #region serializers.Serializer
-    def create(self, validated_data):
-        #cria um objeto login
-        return clsLogin(**validated_data)
-
-    def update(self, instance, validated_data):
-        #atualizacao
-        instance.strEmail = validated_data.get('strEmail', instance.strEmail)
-        instance.strSenha = validated_data.get('strSenha', instance.strSenha)
+    #GET (varios registros): nome fixo do framework => list
+    def list(self, request, *args, **kwargs):
         #def retorno
-        return instance
-    #endregion
+        return Response({"detalhes": "Endpoint GET implementado"}, status=status.HTTP_200_OK)
+
+    #GET (unico registro): nome fixo do framework => retrieve
+    def retrieve(self, request, pk=None, *args, **kwargs):
+        #def retorno
+        return Response({"detalhes_ID": "Endpoint GET ID implementado"}, status=status.HTTP_200_OK)
+    
+    #POSTAR/POST: nome fixo do framework => create
+    def create(self, validated_data, *args, **kwargs):
+        try:
+            #cria uma instancia de um usuario
+            usuario = TblUsuarios(**validated_data)
+            #criptografa a senha
+            if 'des_senha' in validated_data:
+                validated_data['des_senha'] = usuario.set_password(validated_data['des_senha'])
+            #efetiva no banco
+            usuario.save()
+            #sucesso
+            resposta = Response("Usuario cadastrado", status=status.HTTP_201_CREATED)
+        except DatabaseError as e:
+            resposta = ClsComuns.trataExcecoesReq(str(e))
+        #def retorno
+        return resposta
+    
+    #ATUALIZAR/PUT: nome fixo do framework => update
+    def update(self, request, pk=None, *args, **kwargs):
+        #def retorno
+        return Response({"detalhes_ID": "Endpoint PUT ID implementado"}, status=status.HTTP_200_OK)
+
+    #ATUALIZAR/PATCH: nome fixo do framework => partial_update
+    def partial_update(self, request, pk=None, *args, **kwargs):
+       #def retorno
+        return Response({"detalhes_ID": "Endpoint PATCH ID implementado"}, status=status.HTTP_200_OK)
+
+    #DELETAR/DELETE: nome fixo do framework => destroy
+    def destroy(self, request, pk=None, *args, **kwargs):
+        #def retorno
+        return Response({"detalhes_ID": "Endpoint DELETE ID implementado"}, status=status.HTTP_200_OK)
     #
     #endregion

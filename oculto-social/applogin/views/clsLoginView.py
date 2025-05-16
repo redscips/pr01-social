@@ -21,7 +21,7 @@ class ClsLoginViewSet(viewsets.ModelViewSet):
     #GET (varios registros): nome fixo do framework => list
     def list(self, request, *args, **kwargs):
         #retorna os dados serializados
-        serialUsuarios = ClsSerial.serializa(self.get_queryset(), self.serializer_class, true)
+        serialUsuarios = ClsSerial.serializa(self.get_queryset(), self.serializer_class, True)
         #retorna resposta
         return Response(serialUsuarios, status=status.HTTP_200_OK)
 

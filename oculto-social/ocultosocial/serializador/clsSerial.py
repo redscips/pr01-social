@@ -19,10 +19,8 @@ class ClsSerial:
         """
         #cria uma instancia do serializer passando a lista de objetos p/ serem serializados
         serial = serializer_class(data, many=True)
-        #converte p/ bytes utilizando o JSONRenderer
-        json_bytes = JSONRenderer().render(serial.data)
-        #retorna a string decodificada em UTF-8
-        return serial.data if flgSerialDados else json_bytes.decode("utf-8")
+        #retorna a serializacao                     / converte p/ bytes utilizando o JSONRenderer e decodificada em UTF-8
+        return serial.data if flgSerialDados else JSONRenderer().render(serial.data).decode("utf-8")
 
     @staticmethod
     def desserializa(dados: str, serializer_class: Type, flgRetornaDados: bool = False) -> List[T]:

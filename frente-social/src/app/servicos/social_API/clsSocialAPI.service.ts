@@ -1,6 +1,6 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 //tipos
-import { TokenResposta } from '../../tipos/comuns'
+import { TokenResposta, tUsuario } from '../../tipos/comuns'
 import { isPlatformBrowser } from '@angular/common';
 import { RequisicaoService } from '../http/requisicao.service';
 import { catchError, finalize, map, Observable, of, tap } from 'rxjs';
@@ -47,17 +47,15 @@ export class ClsSocialAPIService {
       })
   }
 
-  executaLogin(strEmail: string, strSenha: string, strNome: string = ''): Observable<boolean> {
+  executaLogin(usuario: tUsuario): Observable<boolean> {
     //--------------------------
     const token = this.getToken();
     //token obrigatorio
     if (token) {
-      //dados que serao enviados no post: corpo
-      const payload = {'des_login': strEmail, 'des_senha': strSenha }
       //cabecalho
       const cabecalhos = {'Authorization': `Token ${token}`}
       //executa requisicao
-      return this.req.execRequisicao(this.loginURL, 'POST', cabecalhos, undefined, payload)
+      return this.req.execRequisicao(this.loginURL, 'POST', cabecalhos, undefined, usuario)
         .pipe(tap((resposta) => {
             alert('Login - Sucesso: ' + JSON.stringify(resposta));
           }),

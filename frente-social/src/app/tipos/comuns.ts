@@ -3,9 +3,9 @@ export type tTipoEntrada = 'text' | 'tel' | 'email' | 'password'
 
 //login
 export type tUsuario = {
-  nome: string,
-  email: string,
-  senha: string
+  des_nome?: string,
+  des_login?: string,
+  des_senha?: string
 }
 
 export type TokenResposta = {

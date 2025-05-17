@@ -5,7 +5,6 @@ import { tUsuario } from '../../../tipos/comuns';
 //componentes
 import { CreEntradaComponent } from '../../cre-entrada/cre-entrada.component';
 import { ClsSocialAPIService } from '../../../servicos/social_API/clsSocialAPI.service';
-import { Router } from '@angular/router';
 import { ClsComumService } from '../../../servicos/cls-comum.service';
 
 @Component({
@@ -17,12 +16,12 @@ import { ClsComumService } from '../../../servicos/cls-comum.service';
 export class CadastrarComponent implements OnInit {
 //#region propriedades
   fgLoginForm!: FormGroup;
-  usuario!: tUsuario ;
+  usuario: tUsuario = {} ;
   //#endregion
 
   flgSubmit: boolean = false;
 
-  constructor(private fbLoginForm: FormBuilder, private socialAPI: ClsSocialAPIService, private roteador: Router) { }
+  constructor(private fbLoginForm: FormBuilder, private socialAPI: ClsSocialAPIService) { }
 
   //#region eventos
   //classe
@@ -34,19 +33,17 @@ export class CadastrarComponent implements OnInit {
 
   //#region metodos
   preparaForm(): void {
-    //iniciando
-    this.usuario = {email: '', nome: '', senha: ''}
     //configura formulario
     this.fgLoginForm = this.fbLoginForm.group({
-      nome: new FormControl (this.usuario.nome, [
+      nome: new FormControl (this.usuario.des_nome, [
         Validators.required
       ]),
-      email: new FormControl (this.usuario.email, [
+      email: new FormControl (this.usuario.des_login, [
         Validators.required,    //obrigatorio
         Validators.email,   //validacoes de email
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')   //formato obrigatorio do dado: ____@____.____
       ]),
-      senha: new FormControl (this.usuario.senha, [
+      senha: new FormControl (this.usuario.des_senha, [
         Validators.required,
         Validators.minLength(8)   //tamanho minimo da senha
       ])
@@ -79,16 +76,16 @@ export class CadastrarComponent implements OnInit {
   enviaLogin(): void {
     //---------
     if (this.validaDados()) {
-      // Atualiza os dados do formulário
-      this.usuario.nome = this.getNome?.value
-      this.usuario.email = this.getEmail?.value;
-      this.usuario.senha = this.getSenha?.value;
+      //pega os valores
+      this.usuario.des_nome = this.getNome?.value
+      this.usuario.des_login = this.getEmail?.value
+      this.usuario.des_senha = this.getSenha?.value
       // Efetua a requisição de login
-      this.socialAPI.executaLogin(this.usuario.email, this.usuario.senha)
+      this.socialAPI.executaLogin(this.usuario)
         .subscribe({
           next: () => {
             // Reseta os dados e o formulário
-            this.usuario = { email: '', nome: '', senha: '' };
+            this.usuario = {};
             this.flgSubmit = false;
             this.fgLoginForm.reset();
           },

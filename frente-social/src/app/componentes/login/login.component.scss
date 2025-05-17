@@ -28,36 +28,6 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
   }
-
-  //quebra o encapsulamento do componente pai p/ permitir aplicar regas css aos componentes filhos
-  // ::ng-deep { }
-}
-
-//elementos
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
-  height: 70%;
-
-  button {
-    cursor: pointer;
-    // animacao
-    transition: background 0.3s;
-    //tamanho
-    width: 100%;
-    font-size: 18px;
-    margin-bottom: 8px;
-    //
-    border-radius: 24px;
-    //
-    color: map-get(mapas.$cores, branco);
-
-    &:hover {
-      background: map-get(mapas.$cores, cinza);
-    }
-  }
 }
 
 //classes
@@ -84,11 +54,6 @@ form {
   //adicina barra de rolagem
   overflow: auto;
 
-  h1 {
-    margin-bottom: 5rem;
-    color: map-get(mapas.$cores, branco);
-  }
-
   //Webkit (Chrome, Safari, Edge Chromium)
   &::-webkit-scrollbar {
     width: 5px;   //largura da barra de rolagem vertical
@@ -97,5 +62,40 @@ form {
   &::-webkit-scrollbar-thumb,
   &::-webkit-scrollbar-track {
     background: transparent; //"polegar" e barra transparente
+  }
+
+  //quebra o encapsulamento do componente pai p/ permitir aplicar regas css aos componentes filhos
+  &::ng-deep {
+    //elementos
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      height: 70%;
+
+      button {
+        cursor: pointer;
+        // animacao
+        transition: background 0.3s;
+        //tamanho
+        width: 100%;
+        font-size: 18px;
+        margin-bottom: 8px;
+        //
+        border-radius: 24px;
+        //
+        color: map-get(mapas.$cores, branco);
+
+        &:hover {
+          background: map-get(mapas.$cores, cinza);
+        }
+      }
+    }
+
+    h1 {
+      margin-bottom: 5rem;
+      color: map-get(mapas.$cores, branco);
+    }
   }
 }

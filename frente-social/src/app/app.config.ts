@@ -1,14 +1,17 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withRouterConfig } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideHttpClient, withFetch, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+
+//configura o roteador p/ recarregar a rota mesmo que a URL seja a mesma
+const roteadorConfig = withRouterConfig({ onSameUrlNavigation: 'reload' });
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(routes, roteadorConfig),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch())
   ]

@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
-import { EntrarComponent } from './entrar/entrar.component';
-//import { CadastrarComponent } from './cadastrar/cadastrar.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [EntrarComponent],
+  imports: [RouterOutlet],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
-
-}
+export class LoginComponent { }

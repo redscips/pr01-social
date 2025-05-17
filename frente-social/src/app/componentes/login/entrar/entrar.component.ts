@@ -5,6 +5,7 @@ import { tUsuario } from '../../../tipos/comuns';
 //componentes
 import { CreEntradaComponent } from '../../cre-entrada/cre-entrada.component';
 import { ClsSocialAPIService } from '../../../servicos/social_API/clsSocialAPI.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-entrar',
@@ -20,14 +21,14 @@ export class EntrarComponent implements OnInit {
 
   flgSubmit: boolean = false;
 
-  constructor(private fbLoginForm: FormBuilder, private socialAPI: ClsSocialAPIService) {}
+  constructor(private fbLoginForm: FormBuilder, private socialAPI: ClsSocialAPIService, private roteador: Router) {}
 
   //#region eventos
   //classe
   ngOnInit(): void { this.preparaForm() }
   //objetos
   onSubmitForm(): void { this.enviaLogin() }
-  onClick(): void { this.enviaLogin() }
+  onClick(): void { this.navegar() }
   //#endregion
 
   //#region metodos
@@ -90,6 +91,10 @@ export class EntrarComponent implements OnInit {
           }
         })
     }
+  }
+
+  navegar() {
+    this.roteador.navigate(['/login', 'cadastrar'])
   }
   //#endregion
 }

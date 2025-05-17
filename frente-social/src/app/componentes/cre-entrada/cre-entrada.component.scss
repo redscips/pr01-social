@@ -5,6 +5,10 @@
   --tamanho: #{map-get(mapas.$tam-fontes, padrao)};
 }
 
+ul {
+  list-style: none;
+}
+
 input {
   //bordas arredondadas
   border-radius: 32px;

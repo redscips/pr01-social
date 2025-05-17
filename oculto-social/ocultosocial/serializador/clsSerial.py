@@ -1,6 +1,6 @@
 from rest_framework.renderers import JSONRenderer
 import json
-from typing import Type, List, TypeVar, Union
+from typing import Any, Type, List, TypeVar, Union
 
 #variavel generica que pode representar qualquer tipo
 T = TypeVar('T')
@@ -23,7 +23,7 @@ class ClsSerial:
         return serial.data if flgSerialDados else JSONRenderer().render(serial.data).decode("utf-8")
 
     @staticmethod
-    def desserializa(dados: str, serializer_class: Type, flgRetornaDados: bool = False) -> List[T]:
+    def desserializa(dados: str, serializer_class: Type, flgRetornaDados: bool = False) -> List[T] | Any:
         """Desserializa uma string JSON p/ uma lista de objetos utilizando o serializer informado.
         Args:
             dados (str): String JSON a ser desserializada.

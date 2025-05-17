@@ -8,9 +8,12 @@
   <!-- erros -->
   <div *ngIf="flgSubmit && erros" class="invalid-feedback">
     <ul>
-      <li *ngFor="let erro of errosArray | keyvalue">
-        <p *ngIf="'required' in erro.key">Campo é obrigatório.</p>
-        <p *ngIf="'minlength' in erro.key">Tamanho mínimo não alcançado.</p>
+      <li *ngFor="let erro of errosArray">
+        <p *ngIf="erro === 'required'">Campo é obrigatório.</p>
+        <p *ngIf="erro === 'minlength'">Tamanho mínimo não alcançado.</p>
+        <p *ngIf="erro === 'email'">Email inválido.</p>
+        <p *ngIf="erro === 'pattern'">Formato da informação inválido.</p>
+        <p *ngIf="erro === 'emailDuplicado'">Este email ja existe no banco.</p>
       </li>
     </ul>
   </div>

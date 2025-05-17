@@ -16,14 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path, re_path
+from django.views.generic.base import RedirectView
 from rest_framework.authtoken.views import obtain_auth_token
 # debug
 from debug_toolbar.toolbar import debug_toolbar_urls
 #paginas
-from ocultosocial import views
+#from ocultosocial import views
 
 urlpatterns = [
-    path("", views.ola_mundo, name="ola_mundo"),      #pagina inicial
+    #path("", views.ola_mundo, name="ola_mundo"),      #pagina inicial
+    path("", RedirectView.as_view(url="/ocultosocial/", permanent=False), name="inicial"),
     path('admin/', admin.site.urls),
     #urls
     re_path("ocultosocial/", include("applogin.urls")),

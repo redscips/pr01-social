@@ -9,7 +9,7 @@ import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
   selector: 'app-cre-entrada',
   imports: [FormsModule, NgClass, NgIf, NgFor, CommonModule],
   templateUrl: './cre-entrada.component.html',
-  styleUrl: './cre-entrada.component.scss',
+  styleUrls: ['./cre-entrada.component.scss'],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => CreEntradaComponent),
@@ -52,7 +52,11 @@ export class CreEntradaComponent implements ControlValueAccessor {
   }
 
   get errosArray(): string[] {
-    return this.erros ? Array.from(new Set(Object.values(this.erros))) : [];
+    //retora o primeiro erro
+    return this.erros
+      ? Array.from(new Set(Object.keys(this.erros)))
+        .filter((_, indice)=>indice === 0)
+      : [];
   }
 
   //interface

@@ -73,15 +73,29 @@ form {
   height: 70vh;
   width: 360px;
   padding: 16px;
-  //
-  background-image: linear-gradient(to top right, #898197 16%, #616173 49%, #656889 73%, #4a4c70 100%);
-  box-shadow: 24px 24px 16px;
-  border: solid 4px #808080;
+  //argumetos: 1 - aplica borda direita (-); esquerda (+)
+  //2 - aplica borda cima (-); baixo (+)
+  //3 - efeito dispersao em todas as bordas
+  //4 - aplica todas as bordas
+  box-shadow: 4px 4px 16px 8px rgba(92, 92, 92, 0.5);
+  // border: solid 4px #808080;
   //bordas arredondadas
   border-radius: 50px;
+  //adicina barra de rolagem
+  overflow: auto;
 
   h1 {
     margin-bottom: 5rem;
     color: map-get(mapas.$cores, branco);
+  }
+
+  //Webkit (Chrome, Safari, Edge Chromium)
+  &::-webkit-scrollbar {
+    width: 5px;   //largura da barra de rolagem vertical
+  }
+
+  &::-webkit-scrollbar-thumb,
+  &::-webkit-scrollbar-track {
+    background: transparent; //"polegar" e barra transparente
   }
 }

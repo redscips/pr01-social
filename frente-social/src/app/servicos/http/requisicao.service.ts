@@ -67,7 +67,8 @@ export class RequisicaoService {
       if (resposta.ok) {
         return data   //retorna resultado da requisicao
       } else {
-        throw new Error(`"Funcao=executaRequisicao<T>_RequisicaoService" => Erro(s) | Data: ${data.erro ? data.erro : data} | Resposta: ${resposta.status} - ${resposta.statusText}}`)
+        data = JSON.stringify(data)
+        throw new Error(`"Funcao=executaRequisicao<T>_RequisicaoService" => Erro(s) | Data: ${data} | Resposta: ${resposta.status} - ${resposta.statusText}}`)
       }
     })
     .pipe(map<any, T>((data: any) => data as T),   //mapeia o resultado retornado p/ tipo 'T'
@@ -86,7 +87,7 @@ export class RequisicaoService {
   }
 
   //tratamento de erros
-  private trataExcecao<T>(erro: T): Observable<T> {
+  trataExcecao<T>(erro: T): Observable<T> {
     return throwError(() => erro);
   }
   //

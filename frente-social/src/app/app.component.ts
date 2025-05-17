@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AutenticacaoAPIService } from './servicos/autenticacao/autenticacao-api.service';
+import { ClsSocialAPIService } from './servicos/social_API/clsSocialAPI.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import { AutenticacaoAPIService } from './servicos/autenticacao/autenticacao-api
 export class AppComponent {
   title = 'Rede Social';
 
-  constructor (private autentica: AutenticacaoAPIService) {}
+  constructor (private socialAPI: ClsSocialAPIService) {}
 
   //#region eventos
   //classe
@@ -21,7 +21,7 @@ export class AppComponent {
   //#region metodos
   preparaForm(): void {
     //configura o token p/ acessar
-    this.autentica.validaToken()
+    this.socialAPI.validaToken()
   }
   //#endregion
 }

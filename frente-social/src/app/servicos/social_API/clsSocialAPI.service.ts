@@ -3,11 +3,12 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { TokenResposta } from '../../tipos/comuns'
 import { isPlatformBrowser } from '@angular/common';
 import { RequisicaoService } from '../http/requisicao.service';
+import { catchError, finalize, map, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AutenticacaoAPIService {
+export class ClsSocialAPIService {
   //endpoint requisicao
   private tokenURL = 'http://localhost:8000/api/token/'
   private loginURL = 'http://www.redesocial.com/ocultosocial/login/'
@@ -46,7 +47,7 @@ export class AutenticacaoAPIService {
       })
   }
 
-  executaLogin(strEmail: string, strSenha: string): void {
+  executaLogin(strEmail: string, strSenha: string): Observable<boolean> {
     //--------------------------
     const token = this.getToken();
     //token obrigatorio
@@ -56,16 +57,18 @@ export class AutenticacaoAPIService {
       //cabecalho
       const cabecalhos = {'Authorization': `Token ${token}`}
       //executa requisicao
-      this.req.execRequisicao(this.loginURL, 'POST', cabecalhos, undefined, payload)
-        .subscribe({
-          next: (resposta) => {
+      return this.req.execRequisicao(this.loginURL, 'POST', cabecalhos, undefined, payload)
+        .pipe(tap((resposta) => {
             alert('Login - Sucesso: ' + JSON.stringify(resposta));
-          },
-          error: (erros) => {
-            alert('Login - Erro(s): ' + erros.message);
-          }
-        });
+          }),
+          map(() => true),   //mapeia o resultado e retorna 'verdadeiro' caso nao de erros
+          catchError((erros) => {
+            console.log('Login - Erro(s): ' + erros.message)
+            return this.req.trataExcecao(erros)
+          }))
     }
+    //def retorno
+    return of(false)
   }
 
   getToken(): string | null {

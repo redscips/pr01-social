@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { tUsuario } from '../../../tipos/comuns';
 //componentes
 import { CreEntradaComponent } from '../../cre-entrada/cre-entrada.component';
-import { ClsSocialAPIService } from '../../../servicos/social_API/clsSocialAPI.service';;
+import { ClsSocialAPIService } from '../../../servicos/social_API/clsSocialAPI.service';
 
 @Component({
   selector: 'app-entrar',

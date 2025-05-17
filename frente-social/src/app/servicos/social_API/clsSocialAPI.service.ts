@@ -47,7 +47,7 @@ export class ClsSocialAPIService {
       })
   }
 
-  executaLogin(strEmail: string, strSenha: string): Observable<boolean> {
+  executaLogin(strEmail: string, strSenha: string, strNome: string = ''): Observable<boolean> {
     //--------------------------
     const token = this.getToken();
     //token obrigatorio

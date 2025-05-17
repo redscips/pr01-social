@@ -1,8 +1,9 @@
 // importacoes
+@use 'sass:map';    //mapas do sass
 @use '../../../estilos/mapas.scss' as mapas;
 
 :host {
-  --tamanho: #{map-get(mapas.$tam-fontes, padrao)};
+  --tamanho: #{map.get(mapas.$tam-fontes, padrao)};
 }
 
 ul {
@@ -12,11 +13,11 @@ ul {
 input {
   //bordas arredondadas
   border-radius: 32px;
-  background-color: map-get(mapas.$cores, branco);
+  background-color: map.get(mapas.$cores, branco);
 
   &:hover
   ,&:focus {
-    background-color: map-get(mapas.$cores, cinza);
+    background-color: map.get(mapas.$cores, cinza);
   }
 }
 

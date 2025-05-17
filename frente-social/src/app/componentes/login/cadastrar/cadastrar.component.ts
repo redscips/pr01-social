@@ -6,6 +6,7 @@ import { tUsuario } from '../../../tipos/comuns';
 import { CreEntradaComponent } from '../../cre-entrada/cre-entrada.component';
 import { ClsSocialAPIService } from '../../../servicos/social_API/clsSocialAPI.service';
 import { Router } from '@angular/router';
+import { ClsComumService } from '../../../servicos/cls-comum.service';
 
 @Component({
   selector: 'app-cadastrar',
@@ -28,7 +29,7 @@ export class CadastrarComponent implements OnInit {
   ngOnInit(): void { this.preparaForm() }
   //objetos
   onSubmitForm(): void { this.enviaLogin() }
-  onClick(): void { this.navegar() }
+  onClick(): void { ClsComumService.navegar(['/login']) }
   //#endregion
 
   //#region metodos
@@ -100,10 +101,6 @@ export class CadastrarComponent implements OnInit {
           }
         })
     }
-  }
-
-  navegar() {
-    this.roteador.navigate(['/login'])
   }
   //#endregion
 }

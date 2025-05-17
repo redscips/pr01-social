@@ -93,9 +93,5 @@ export class EntrarComponent implements OnInit {
         })
     }
   }
-
-  navegar() {
-    this.roteador.navigate(['/login', 'cadastrar'])
-  }
   //#endregion
 }

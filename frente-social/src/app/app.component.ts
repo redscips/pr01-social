@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { ClsSocialAPIService } from './servicos/social_API/clsSocialAPI.service';
+import { ClsComumService } from './servicos/cls-comum.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,10 @@ import { ClsSocialAPIService } from './servicos/social_API/clsSocialAPI.service'
 export class AppComponent {
   title = 'Rede Social';
 
-  constructor (private socialAPI: ClsSocialAPIService) {}
+  constructor (
+    private socialAPI: ClsSocialAPIService,
+    private clsComum: ClsComumService
+  ) { }
 
   //#region eventos
   //classe

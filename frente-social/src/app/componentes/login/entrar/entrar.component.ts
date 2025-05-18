@@ -82,11 +82,13 @@ export class EntrarComponent implements OnInit {
           },
           error: (erros) => {
             //validacoes
-            if (erros.message.includes('already exists')) {
+            if (erros.message.toLowerCase().includes('already exists')) {
               //email duplicado
               this.fgLoginForm.get('email')?.setErrors({ emailDuplicado: true });
             } else if (erros.message.toLowerCase().includes('senha')) {
               this.fgLoginForm.get('senha')?.setErrors({ senhaErrada: true });
+            } else if (erros.message.toLowerCase().includes('senha')) {
+              this.fgLoginForm.get('email')?.setErrors({ loginInexistente: true });
             }
           }
         })

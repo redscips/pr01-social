@@ -32,15 +32,18 @@ class ClsLoginViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, pk=None, *args, **kwargs):
         #retorna o usuario caso for encontrado
         usuario = self.get_object()
-        #pega a senha que foi passada no parametros URL
-        strSenha = request.query_params.get('des_senha')
-        #compara os dois hash p/ ver se a senha nos parametros da URl eh igual a senha salva no banco
-        if check_password(strSenha, usuario.des_senha) :
-            #def retorno
-            return Response('Usuario encontrado', status=status.HTTP_200_OK)
+        #---------
+        if usuario:
+          #pega a senha que foi passada no parametros URL
+          strSenha = request.query_params.get('des_senha')
+          #compara os dois hash p/ ver se a senha nos parametros da URl eh igual a senha salva no banco
+          if check_password(strSenha, usuario.des_senha) :
+              #def retorno
+              return Response('Usuario encontrado', status=status.HTTP_200_OK)
+          else:
+              return Response('Senha errada', status=status.HTTP_401_UNAUTHORIZED)
         else:
-            #def retorno
-            return Response('Senha errada', status=status.HTTP_401_UNAUTHORIZED)
+          return Response('Usuario nao encontrado', status=status.HTTP_404_NOT_FOUND)
 
     #POSTAR/POST: nome fixo do framework => create
     def create(self, request, *args, **kwargs):

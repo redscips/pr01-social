@@ -1,7 +1,6 @@
 #importacoes: rest framework
 from django.db import DatabaseError
-from ocultosocial.comuns.clsComuns import ClsComuns
-from ocultosocial.serializador.clsSerial import ClsSerial
+from django.contrib.auth.hashers import check_password
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -9,6 +8,8 @@ from rest_framework.response import Response
 from applogin.serializador import clsLoginSerial
 #calsses
 from ocultosocial.modelo_der import TblUsuarios
+from ocultosocial.comuns.clsComuns import ClsComuns
+from ocultosocial.serializador.clsSerial import ClsSerial
 
 class ClsLoginViewSet(viewsets.ModelViewSet):
     #
@@ -29,14 +30,17 @@ class ClsLoginViewSet(viewsets.ModelViewSet):
     
     #GET (unico registro): nome fixo do framework => retrieve
     def retrieve(self, request, pk=None, *args, **kwargs):
-        # kwargs contém os parâmetros extraídos da URL, por exemplo:
-        strLogin = kwargs.get('des_login')
-        # request.query_params contém os parâmetros passados na query string:
+        #retorna o usuario caso for encontrado
+        usuario = self.get_object()
+        #pega a senha que foi passada no parametros URL
         strSenha = request.query_params.get('des_senha')
-        #retorna os dados serializados
-        serialUsuarios = ClsSerial.serializa(self.get_object(), self.serializer_class, True)
-        #def retorno
-        return Response(serialUsuarios, status=status.HTTP_200_OK)
+        #compara os dois hash p/ ver se a senha nos parametros da URl eh igual a senha salva no banco
+        if check_password(strSenha, usuario.des_senha) :
+            #def retorno
+            return Response('Usuario encontrado', status=status.HTTP_200_OK)
+        else:
+            #def retorno
+            return Response('Senha errada', status=status.HTTP_401_UNAUTHORIZED)
 
     #POSTAR/POST: nome fixo do framework => create
     def create(self, request, *args, **kwargs):

@@ -22,7 +22,9 @@ class clsLoginSerial(serializers.ModelSerializer):
         return Response({"detalhes": "Endpoint GET implementado"}, status=status.HTTP_200_OK)
 
     #GET (unico registro): nome fixo do framework => retrieve
-    def retrieve(self, request, pk=None, *args, **kwargs):
+    def retrieve(self, validated_data, pk=None, *args, **kwargs):
+        #cria uma instancia de um usuario
+        usuario = TblUsuarios(validated_data)
         #def retorno
         return Response({"detalhes_ID": "Endpoint GET ID implementado"}, status=status.HTTP_200_OK)
     
@@ -33,7 +35,7 @@ class clsLoginSerial(serializers.ModelSerializer):
             usuario = TblUsuarios(**validated_data)
             #criptografa a senha
             if 'des_senha' in validated_data:
-                validated_data['des_senha'] = usuario.set_password(validated_data['des_senha'])
+                usuario.set_password(validated_data['des_senha'])
             #efetiva no banco
             usuario.save()
             #sucesso
@@ -44,7 +46,7 @@ class clsLoginSerial(serializers.ModelSerializer):
         return resposta
     
     #ATUALIZAR/PUT: nome fixo do framework => update
-    def update(self, request, pk=None, *args, **kwargs):
+    def update(self, validated_data):
         #def retorno
         return Response({"detalhes_ID": "Endpoint PUT ID implementado"}, status=status.HTTP_200_OK)
 

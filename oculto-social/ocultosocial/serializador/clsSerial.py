@@ -9,27 +9,27 @@ class ClsSerial:
     #region metodos
     #
     @staticmethod
-    def serializa(data: Union[List[T], T], serializer_class: Type, flgSerialDados: bool = False) -> str:
+    def serializa(data: Union[List[T], T], serializer_class: Type, flgSerialDados: bool = False) -> Tuple[List[T], Any]:
         """Serializa um objeto ou uma lista de objetos utilizando o serializer informado.
         Args:
             data (Union[List[T], T]): Objeto singular ou lista de objetos a serem serializados.
             serializer_class (Type): Classe do serializer a ser usada (por exemplo, uma subclasse de serializers.Serializer).
         Returns:
-            str: Dados serializados no formato JSON.
+            Tuple[List[T], Any]: Dados serializados no formato JSON/str.
         """
         #cria uma instancia do serializer passando a lista de objetos p/ serem serializados
-        serial = serializer_class(data, many=True)
+        serial = serializer_class(data, many=True if isinstance(data, list) else False)
         #retorna a serializacao                     / converte p/ bytes utilizando o JSONRenderer e decodificada em UTF-8
-        return serial.data if flgSerialDados else JSONRenderer().render(serial.data).decode("utf-8")
+        return [serial, serial.data if flgSerialDados else JSONRenderer().render(serial.data).decode("utf-8")]
 
     @staticmethod
-    def desserializa(dados: str, serializer_class: Type, flgRetornaDados: bool = False) -> Tuple[List[T], Any]:
+    def desserializa(dados: str, serializer_class: Type) -> Tuple[List[T], Any]:
         """Desserializa uma string JSON p/ uma lista de objetos utilizando o serializer informado.
         Args:
             dados (str): String JSON a ser desserializada.
             serializer_class (Type): Classe do serializer a ser usada p/ validar e salvar os dados.
         Returns:
-            List[T]: Lista de objetos resultantes da desserializacao e validacao dos dados.
+            Tuple[List[T], Any]: Lista de objetos resultantes da desserializacao e validacao dos dados.
         """
         #CASO 1: converte a string p/ uma estrutura JSON (lista ou dict)
         #CASO 2: informacoes ja estao como json

@@ -62,6 +62,7 @@ export class RequisicaoService {
       } catch (erros) {
         this.trataExcecao(erros)
       }
+      console.log(data)
       //verifica se houve erro na requisicao
       // : lanca exececao detalhando o erro
       if (resposta.ok) {
@@ -88,6 +89,7 @@ export class RequisicaoService {
 
   //tratamento de erros
   trataExcecao<T>(erro: T): Observable<T> {
+    console.log(erro)
     return throwError(() => erro);
   }
   //

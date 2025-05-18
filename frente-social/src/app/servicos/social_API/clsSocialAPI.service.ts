@@ -77,7 +77,7 @@ export class ClsSocialAPIService {
       //cabecalho
       const cabecalhos = {'Authorization': `Token ${token}`}
       //executa requisicao
-      return this.req.execRequisicao(this.loginURL, 'GET', cabecalhos, undefined, usuario, false, usuario.des_login)
+      return this.req.execRequisicao(this.loginURL, 'GET', cabecalhos, undefined, usuario, false)
         .pipe(tap((resposta) => {
             alert('Login - Sucesso: ' + JSON.stringify(resposta));
           }),

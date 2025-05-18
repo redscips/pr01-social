@@ -17,7 +17,7 @@ export class RequisicaoService {
    * @param requisicao Configuracoes: metodo, cabecalhos e corpo
    * @returns Um observavel do tipo <T>
    */
-  execRequisicao<T>(strURL: string, metodo: 'GET' | 'POST', parametrosCab: Dict<any> = {}, strTipoConteudo: string = 'application/json', parametrosCorpo: Dict<any> = {}, flgCorpoURL: boolean = false): Observable<T> {
+  execRequisicao<T>(strURL: string, metodo: 'GET' | 'POST', parametrosCab: Dict<any> = {}, strTipoConteudo: string = 'application/json', parametrosCorpo: Dict<any> = {}, flgCorpoURL: boolean = false, strID: string = ''): Observable<T> {
     //adiciona tipo de conteudo no cabecalho
     parametrosCab['Content-Type'] = strTipoConteudo
     //configura requisicao
@@ -41,7 +41,7 @@ export class RequisicaoService {
           break;
         default:    //GET
           //adiciona na URL
-          strURL += `?${parametros.toString()}`;
+          strURL += `${strID ? strID + '/' : ''}?${parametros.toString()}`;
           break;
       }
     }

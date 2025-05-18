@@ -81,7 +81,7 @@ export class CadastrarComponent implements OnInit {
       this.usuario.des_login = this.getEmail?.value
       this.usuario.des_senha = this.getSenha?.value
       // Efetua a requisição de login
-      this.socialAPI.executaLogin(this.usuario)
+      this.socialAPI.criaLogin(this.usuario)
         .subscribe({
           next: () => {
             // Reseta os dados e o formulário

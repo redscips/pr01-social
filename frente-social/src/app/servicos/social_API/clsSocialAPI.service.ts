@@ -47,7 +47,7 @@ export class ClsSocialAPIService {
       })
   }
 
-  executaLogin(usuario: tUsuario): Observable<boolean> {
+  criaLogin(usuario: tUsuario): Observable<boolean> {
     //--------------------------
     const token = this.getToken();
     //token obrigatorio
@@ -56,6 +56,28 @@ export class ClsSocialAPIService {
       const cabecalhos = {'Authorization': `Token ${token}`}
       //executa requisicao
       return this.req.execRequisicao(this.loginURL, 'POST', cabecalhos, undefined, usuario)
+        .pipe(tap((resposta) => {
+            alert('Cadastro - Sucesso: ' + JSON.stringify(resposta));
+          }),
+          map(() => true),   //mapeia o resultado e retorna 'verdadeiro' caso nao de erros
+          catchError((erros) => {
+            console.log('Cadastro - Erro(s): ' + erros.message)
+            return this.req.trataExcecao(erros)
+          }))
+    }
+    //def retorno
+    return of(false)
+  }
+
+  executaLogin(usuario: tUsuario): Observable<boolean> {
+    //--------------------------
+    const token = this.getToken();
+    //token obrigatorio
+    if (token) {
+      //cabecalho
+      const cabecalhos = {'Authorization': `Token ${token}`}
+      //executa requisicao
+      return this.req.execRequisicao(this.loginURL, 'GET', cabecalhos, undefined, usuario, false, usuario.des_login)
         .pipe(tap((resposta) => {
             alert('Login - Sucesso: ' + JSON.stringify(resposta));
           }),

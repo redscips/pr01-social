@@ -40,19 +40,19 @@ class ClsLoginViewSet(viewsets.ModelViewSet):
     #GET (unico registro): nome fixo do framework => retrieve
     def retrieve(self, request, pk=None, *args, **kwargs) -> Response:
         try:
-          #pega o login + senha que foi passada no parametros URL
-          strLogin = request.query_params.get('des_login')
-          strSenha = request.query_params.get('des_senha')
-          #valida se este login existe no banco
-          _, senhaHash = ClsLoginViewSet.pesquisaLogin(strLogin)
-          #compara os dois hash p/ ver se a senha nos parametros da URl eh igual a senha salva no banco
-          if check_password(strSenha, senhaHash) :
-              #def retorno
-              return Response('Usuario encontrado', status=status.HTTP_200_OK)
-          else:
-              return Response('Senha errada', status=status.HTTP_401_UNAUTHORIZED)
-        except DatabaseError as e:
-            pass
+            #pega o login + senha que foi passada no parametros URL
+            strLogin = request.query_params.get('des_login')
+            strSenha = request.query_params.get('des_senha')
+            #valida se este login existe no banco
+            _, senhaHash = ClsLoginViewSet.pesquisaLogin(strLogin)
+            #compara os dois hash p/ ver se a senha nos parametros da URl eh igual a senha salva no banco
+            if check_password(strSenha, senhaHash) :
+                #def retorno
+                return Response('Usuario encontrado', status=status.HTTP_200_OK)
+            else:
+                return Response('Senha errada', status=status.HTTP_401_UNAUTHORIZED)
+        except Exception as e:
+            return Response('Usuario nao encontrado', status=status.HTTP_404_NOT_FOUND)
 
     #POSTAR/POST: nome fixo do framework => create
     def create(self, request, *args, **kwargs):
@@ -81,12 +81,15 @@ class ClsLoginViewSet(viewsets.ModelViewSet):
         where lower(des_login) like %s
         order by des_login; 
         '''
-        valores = [f'%{strLogin.lower()}%']
-        #consulta script
-        dados = ClsDAL.consultaScript(sql_query, valores)
-        #retorna a senha hash salva
-        senhaHash = dados.loc[0, 'des_senha']
-        #def retorno
-        return (dados, senhaHash)
+        try:
+            valores = [f'%{strLogin.lower()}%']
+            #consulta script
+            dados = ClsDAL.consultaScript(sql_query, valores)
+            #retorna a senha hash salva
+            senhaHash = dados.loc[0, 'des_senha']
+            #def retorno
+            return (dados, senhaHash)
+        except Exception as e:
+            raise e
     #
     #endregion

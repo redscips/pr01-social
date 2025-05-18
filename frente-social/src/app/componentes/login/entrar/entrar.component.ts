@@ -86,7 +86,7 @@ export class EntrarComponent implements OnInit {
               this.fgLoginForm.get('email')?.setErrors({ emailDuplicado: true });
             } else if (erros.message.toLowerCase().includes('senha')) {
               this.fgLoginForm.get('senha')?.setErrors({ senhaErrada: true });
-            } else if (erros.message.toLowerCase().includes('no')) {
+            } else if (erros.message.toLowerCase().includes('nao encontrado')) {
               this.fgLoginForm.get('email')?.setErrors({ loginInexistente: true });
             }
           }

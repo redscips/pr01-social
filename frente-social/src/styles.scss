@@ -35,3 +35,34 @@ body { font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-weight: 400;
   font-style: normal;
 }
+
+//mixins: animacoes
+@mixin mix-animacoes(
+  $flg-tipo: 'F',
+  $movimento: -2px,
+  $v-tempo-flutuar: 2s,
+  $v-tempo-piscar: 3s
+) {
+  //verifica tipo animacao passando: F - flutuando
+  @if $flg-tipo == 'F' {
+    //animacoes
+    @keyframes flutuando-#{$movimento} {
+      //comeca na posicao negativa: 10px = -10px
+      from, to { transform: translateY(0); }
+      50% { transform: translateY($movimento); }
+    }
+  }
+  //P - piscando
+  @if $flg-tipo == 'P' {
+    @keyframes piscando {
+      //comeca visivel
+      from { opacity: 1; }
+      to { opacity: 0; }    //fica invisivel
+    }
+  }
+
+  //aplica a animacao
+  animation:
+    #{if($flg-tipo == 'F', flutuando-#{$movimento} $v-tempo-flutuar infinite ease-in-out, null)},
+    #{if($flg-tipo == 'P', piscando $v-tempo-piscar infinite ease-in-out, null)};
+}

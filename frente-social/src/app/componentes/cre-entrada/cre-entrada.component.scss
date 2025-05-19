@@ -14,6 +14,8 @@ input {
   //bordas arredondadas
   border-radius: 32px;
   background-color: map.get(mapas.$cores, branco);
+  //
+  transition: all 0.5s ease-in-out;
 
   &:hover
   ,&:focus {

@@ -15,19 +15,7 @@ class clsLoginSerial(serializers.ModelSerializer):
         fields = TblUsuarios.campos
         extra_kwargs = TblUsuarios.extra_kwargs
     #
-    #region metodos
-    #GET (varios registros): nome fixo do framework => list
-    def list(self, request, *args, **kwargs):
-        #def retorno
-        return Response({"detalhes": "Endpoint GET implementado"}, status=status.HTTP_200_OK)
-
-    #GET (unico registro): nome fixo do framework => retrieve
-    def retrieve(self, validated_data, pk=None, *args, **kwargs):
-        #cria uma instancia de um usuario
-        usuario = TblUsuarios(validated_data)
-        #def retorno
-        return Response({"detalhes_ID": "Endpoint GET ID implementado"}, status=status.HTTP_200_OK)
-    
+    #region metodos  
     #POSTAR/POST: nome fixo do framework => create
     def create(self, validated_data, *args, **kwargs):
         try:

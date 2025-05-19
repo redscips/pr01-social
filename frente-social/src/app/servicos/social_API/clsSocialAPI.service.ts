@@ -79,7 +79,7 @@ export class ClsSocialAPIService {
       //executa requisicao
       return this.req.execRequisicao(this.loginURL, 'GET', cabecalhos, undefined, usuario, false)
         .pipe(tap((resposta) => {
-            alert('Login - Sucesso: ' + JSON.stringify(resposta));
+            console.log('Login - Sucesso: ' + JSON.stringify(resposta));
           }),
           map(() => true),   //mapeia o resultado e retorna 'verdadeiro' caso nao de erros
           catchError((erros) => {

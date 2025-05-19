@@ -1,6 +1,7 @@
 //importacoes
 @use 'sass:map';    //map p/ manipular mapas sass
 @use '../../../estilos/mapas.scss' as mapas;
+@use '../../../styles.scss' as estilos;
 
 :host {
   // centraliza todos objetos
@@ -26,7 +27,7 @@
     width: 100%;
     height: 100%;
     //fundo
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 1;
   }
 }
@@ -90,6 +91,8 @@
 
         &:hover {
           background: map.get(mapas.$cores, cinza);
+          //aplica animacao
+          @include estilos.mix-animacoes('F');
         }
       }
     }

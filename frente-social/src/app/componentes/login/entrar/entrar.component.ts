@@ -6,6 +6,7 @@ import { tUsuario } from '../../../tipos/comuns';
 import { CreEntradaComponent } from '../../cre-entrada/cre-entrada.component';
 import { ClsSocialAPIService } from '../../../servicos/social_API/clsSocialAPI.service';
 import { ClsComumService } from '../../../servicos/cls-comum.service';
+import { devNull } from 'os';
 
 @Component({
   selector: 'app-entrar',
@@ -79,6 +80,9 @@ export class EntrarComponent implements OnInit {
             this.usuario = {}
             this.flgSubmit = false;
             this.fgLoginForm.reset();
+            //navega p/ nova rota
+            ClsComumService.navegar(['/mural'])
+            ClsComumService.setFlgLogado(true)
           },
           error: (erros) => {
             //validacoes

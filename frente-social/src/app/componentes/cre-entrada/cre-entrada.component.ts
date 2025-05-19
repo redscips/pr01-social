@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter, forwardRef, HostBinding } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 //importacoes: componentes angular
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ValidationErrors, Validators } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
 //tipos
 import { tTipoEntrada } from '../../tipos/comuns';
 import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';

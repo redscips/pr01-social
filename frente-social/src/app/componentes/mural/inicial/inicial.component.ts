@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ClsComumService } from '../../../servicos/cls-comum.service';
+import { Component } from '@angular/core';
+import { RaizEncapComponent } from '../../react/raiz/Raiz-encap.component';
 
 @Component({
   selector: 'app-inicial',
-  imports: [],
+  imports: [RaizEncapComponent],
   templateUrl: './inicial.component.html',
   styleUrl: './inicial.component.scss'
 })
-export class InicialComponent { }
+export class InicialComponent {
+
+  onClick(): void { alert('voce clickou no botao') }
+}

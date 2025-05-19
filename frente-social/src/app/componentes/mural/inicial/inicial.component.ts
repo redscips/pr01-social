@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { RaizEncapComponent } from '../../react/raiz/Raiz-encap.component';
+import { Component, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 
 @Component({
   selector: 'app-inicial',
-  imports: [RaizEncapComponent],
+  imports: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './inicial.component.html',
   styleUrl: './inicial.component.scss'
 })
 export class InicialComponent {
 
-  onClick(): void { alert('voce clickou no botao') }
+  noClique(evento: any): void { alert(evento.detail.mensagem) }
 }

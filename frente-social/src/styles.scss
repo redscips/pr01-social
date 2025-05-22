@@ -23,19 +23,6 @@ body { font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-style: normal;
 }
 
-.caveat {
-  font-family: "Caveat", cursive;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.permanent-marker-regular {
-  font-family: "Permanent Marker", cursive;
-  font-weight: 400;
-  font-style: normal;
-}
-
 //mixins: animacoes
 @mixin mix-animacoes(
   $flg-tipo: 'F',

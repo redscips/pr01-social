@@ -1,17 +1,17 @@
-<h1 class="bebas-neue-regular">L o g i n <i class="bi bi-box-arrow-in-right"></i></h1>
+<h1 class="display-6">Login<i class="bi bi-box-arrow-in-right"></i></h1>
 <form (ngSubmit)="onSubmitForm()" [formGroup]="fgLoginForm">
   <!-- p/ ativar as mensagens de erros: [erros]="getForm[<id>].errors" [flgSubmit]="flgSubmit" -->
   <div >
     <!-- email -->
-    <app-cre-entrada class="caveat" rEntrada="Email" TipoEntrada="email" strID="id-email" strDescricao="Digite seu email" [strClasse]="flgSubmit ? (getForm['email'].errors ? 'is-invalid' : 'is-valid') : ''"
+    <app-cre-entrada  rEntrada="Email" TipoEntrada="email" strID="id-email" strDescricao="Digite seu email" [strClasse]="flgSubmit ? (getForm['email'].errors ? 'is-invalid' : 'is-valid') : ''"
       (siEntrada)="getEmail?.value" formControlName="email" [erros]="getForm['email'].errors" [flgSubmit]="flgSubmit" />
     <!-- senha -->
-    <app-cre-entrada class="caveat" rEntrada="Senha" TipoEntrada="password" strID="id-senha" strDescricao="Digite sua senha" [strClasse]="flgSubmit ? (getForm['senha'].errors ? 'is-invalid' : 'is-valid') : ''"
+    <app-cre-entrada  rEntrada="Senha" TipoEntrada="password" strID="id-senha" strDescricao="Digite sua senha" [strClasse]="flgSubmit ? (getForm['senha'].errors ? 'is-invalid' : 'is-valid') : ''"
       (siEntrada)="getSenha?.value" formControlName="senha" [erros]="getForm['senha'].errors" [flgSubmit]="flgSubmit" />
   </div>
   <div>
     <!-- botoes -->
-    <button type="submit" class="btn permanent-marker-regular d-flex"><i class="bi bi-door-open me-5"></i> E n t r a r</button>
-    <button type="button" (click)="onClick()" class="btn permanent-marker-regular d-flex"><i class="bi bi-journal-bookmark me-5"></i> C a d a s t r a r</button>
+    <button type="submit" class="btn d-flex"><i class="bi bi-door-open me-3"></i>Entrar</button>
+    <button type="button" (click)="onClick()" class="btn d-flex"><i class="bi bi-journal-bookmark me-3"></i>Cadastrar</button>
   </div>
 </form>

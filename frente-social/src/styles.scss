@@ -2,6 +2,8 @@
 
 /* Importing Bootstrap SCSS file. */
 @use 'bootstrap/scss/bootstrap';
+@use 'sass:map';    //mapas do sass
+@use './estilos/mapas.scss' as mapas;
 
 /*resete*/
 *{
@@ -11,7 +13,10 @@
 }
 
 html, body { height: 100%; }
-body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: map.get(mapas.$cores, branco);
+}
 
 //classes: bootstrap
 .container { margin: 0 auto; }
@@ -52,4 +57,22 @@ body { font-family: Roboto, "Helvetica Neue", sans-serif; }
   animation:
     #{if($flg-tipo == 'F', flutuando-#{$movimento} $v-tempo-flutuar infinite ease-in-out, null)},
     #{if($flg-tipo == 'P', piscando $v-tempo-piscar infinite ease-in-out, null)};
+}
+
+@mixin mix-barra-rolagem(
+  $tipo-overflow: hidden,
+  $v-largura: 0
+) {
+  //adicina barra de rolagem
+  overflow: $tipo-overflow;
+
+  //Webkit (Chrome, Safari, Edge Chromium)
+  &::-webkit-scrollbar {
+    width: $v-largura;   //largura da barra de rolagem vertical
+  }
+
+  &::-webkit-scrollbar-thumb,
+  &::-webkit-scrollbar-track {
+    background: transparent; //"polegar" e barra transparente
+  }
 }

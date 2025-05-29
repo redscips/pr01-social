@@ -5,23 +5,35 @@
     [value]="iEntrada" (input)="onInput($event)" [ngClass]="strClasse">
   <!-- rotulo -->
   <label for="{{ strID }}">{{ rEntrada }}</label>
-  <!-- erros -->
-  <div *ngIf="flgSubmit && erros" class="invalid-feedback">
-    <ul>
-      <li *ngFor="let erro of errosArray">
-        <p *ngIf="erro === 'required'">Campo é obrigatório.</p>
-        <p *ngIf="erro === 'minlength'">Tamanho mínimo não alcançado.</p>
-        <p *ngIf="erro === 'email'">Email inválido.</p>
-        <p *ngIf="erro === 'pattern'">Formato da informação inválido.</p>
-        <p *ngIf="erro === 'emailDuplicado'">Este email ja existe no banco.</p>
-        <p *ngIf="erro === 'senhaErrada'">Senha errada.</p>
-        <p *ngIf="erro === 'loginInexistente'">Usuario não encontrado.</p>
-      </li>
-    </ul>
-  </div>
-  <!-- sucesso -->
-  <div *ngIf="flgSubmit && !erros" class="valid-feedback">
-    <p>Sucesso</p>
-  </div>
+  <!-- validacao -->
+  @if (flgSubmit) {
+    <!-- erros -->
+    @if (erros) {
+      <div class="invalid-feedback">
+        <ul>
+          @for (erro of errosArray; track erro) {
+            <li>
+              <!-- verifica qual o tipo de erro -->
+              @switch (erro) {
+                @case ('minlength') { <p>Tamanho mínimo não alcançado.</p> }
+                @case ('email') { <p>Email inválido.</p> }
+                @case ('pattern') { <p>Formato da informação inválido.</p> }
+                @case ('emailDuplicado') { Este email ja existe no banco. }
+                @case ('senhaErrada') { <p>Senha errada.</p> }
+                @case ('loginInexistente') { <p>Usuario não encontrado.</p> }
+                <!-- caso padrao: 'required' -->
+                @default { <p>Campo é obrigatório.</p> }
+              }
+            </li>
+          }
+        </ul>
+      </div>
+    } @else {
+      <!-- sucesso -->
+      <div class="valid-feedback">
+        <p>Sucesso</p>
+      </div>
+    }
+  }
   <ng-content></ng-content>
 </div>

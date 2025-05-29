@@ -3,11 +3,11 @@ import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/cor
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
 //tipos
 import { tTipoEntrada } from '../../tipos/comuns';
-import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-cre-entrada',
-  imports: [FormsModule, NgClass, NgIf, NgFor, CommonModule],
+  imports: [FormsModule, NgClass, CommonModule],
   templateUrl: './cre-entrada.component.html',
   styleUrls: ['./cre-entrada.component.scss'],
   providers: [{

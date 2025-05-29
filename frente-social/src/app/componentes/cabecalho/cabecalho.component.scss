@@ -1,7 +1,28 @@
+//importacoes
+@use '../../../styles.scss' as estilos;
+//mapas
+@use 'sass:map';
+@use '../../../estilos/mapas.scss' as mapas;
+
 header {
   //cabecalho ocupa todo o espaco do seu 'host'
   height: 96px;
   width: 100%;
 
+  //espacos
+  padding: 16px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  //sombra p/ deixa o objeto esfumacado
   box-shadow: 45px 12px 157px 25px rgba(92, 92, 92, 0.7) inset;
+
+  //barra de rolagem
+  @include estilos.mix-barra-rolagem();
+}
+
+h1{
+  color: map.get(mapas.$cores, branco);
 }

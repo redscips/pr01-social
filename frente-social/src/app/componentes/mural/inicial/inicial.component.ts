@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './inicial.component.html',
   styleUrl: './inicial.component.scss',
   animations: [
+    //gatilho p/ uma animacao
     trigger('aparecer', [
       //define a transicao quando o elemento eh inserido no DOM
       transition(':enter', [
@@ -21,8 +22,8 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class InicialComponent {
+
   //#region variaveis/instancias
-  //array com os caminhos das imagens do slide de fundo
   imagens: string[] = [
     '../../../../assets/imagens/oceano.jpg',
     '../../../../assets/imagens/rio.jpg',
@@ -30,17 +31,18 @@ export class InicialComponent {
     '../../../../assets/imagens/montanha.jpg',
     '../../../../assets/imagens/region.jpg'
   ];
-  //var: indice da imagem atual
+
+  //numeros
   ImagemAtual: number = 0;
   tempo: number = 60000;
-  //
   //#endregion
 
-  //#region propriedades
-  //amarra do style.backgroundImage ao host
+  //#region gets/sets : backgroundImage
+  //amarracao com hospedeiro
   @HostBinding('style.backgroundImage')
-  get backgroundImage(): string {
-    return `url(${this.imagens[this.ImagemAtual]})`;    //retorna imagem do slide atual p/ o fundo do 'host'
+  get fundoImagem(): string {
+    //retorna imagem do slide atual p/ o fundo do 'host'
+    return `url(${this.imagens[this.ImagemAtual]})`;
   }
   //#endregion
 
@@ -49,8 +51,8 @@ export class InicialComponent {
   //#endregion
 
   //#region metodos
-  //
   trocaImagemSlide() {
+    //temporizador
     setInterval(() => {
       //passa p/ proxima imagem
       this.ImagemAtual = (this.ImagemAtual + 1) % this.imagens.length;

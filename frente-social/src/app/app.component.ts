@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { ClsSocialAPIService } from './servicos/social_API/clsSocialAPI.service';
-import { ClsComumService } from './servicos/cls-comum.service';
 
 @Component({
   selector: 'app-root',
@@ -12,16 +11,12 @@ import { ClsComumService } from './servicos/cls-comum.service';
 export class AppComponent {
   title = 'Rede Social';
 
-  constructor (
-    private socialAPI: ClsSocialAPIService,
-    private clsComum: ClsComumService
-  ) { }
+  constructor (private socialAPI: ClsSocialAPIService) { }
 
-  //#region eventos
-  //classe
+  //#region eventos: classe
   ngOnInit(): void { this.preparaForm() }
   //#endregion
-  //
+
   //#region metodos
   preparaForm(): void {
     //configura o token p/ acessar

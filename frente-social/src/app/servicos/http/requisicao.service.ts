@@ -17,27 +17,36 @@ export class RequisicaoService {
    * @param requisicao Configuracoes: metodo, cabecalhos e corpo
    * @returns Um observavel do tipo <T>
    */
-  execRequisicao<T>(strURL: string, metodo: 'GET' | 'POST', parametrosCab: Dict<any> = {}, strTipoConteudo: string = 'application/json', parametrosCorpo: Dict<any> = {}, flgCorpoURL: boolean = false, strID: string = ''): Observable<T> {
+  execRequisicao<T>(
+    strURL: string, metodo: 'GET' | 'POST',
+    parametrosCab: Dict<any> = {},
+    strTipoConteudo: string = 'application/json',
+    parametrosCorpo: Dict<any> = {},
+    flgCorpoURL: boolean = false,
+    strID: string = ''
+  ): Observable<T> {
     //adiciona tipo de conteudo no cabecalho
     parametrosCab['Content-Type'] = strTipoConteudo
+
     //configura requisicao
     const requisicao: RequestInit = {
       method: metodo,
       headers: parametrosCab
     }
-    //validacao
+
     if (parametrosCorpo) {
       //cria objeto que usa parametros na URL
       const parametros = metodo === 'GET' || flgCorpoURL? this.converteParametrosURL(parametrosCorpo) : ''
-      //--------------
+
       switch (metodo) {
         case 'POST':
-          //verificacao
+          //parametos na url
           if (flgCorpoURL) {
             requisicao.body = parametros.toString()
           } else {
             requisicao.body = JSON.stringify(parametrosCorpo)    //converte dicionario em json
           }
+
           break;
         default:    //GET
           //adiciona na URL
@@ -49,9 +58,10 @@ export class RequisicaoService {
     return defer(async (): Promise<any> => {
       //espera pela resposta da api: configura o corpo da requisicao
       const resposta = await fetch(strURL, requisicao)
+
       //retorna o tipo de dados da resposta
       const tipoConteudo = resposta.headers.get('content-type')
-      //variavel
+
       let data: any = {}
       try {
         //caso 1: tipo de dados json -> retorna resposta json
@@ -60,9 +70,8 @@ export class RequisicaoService {
         ? await resposta.json()
         : await resposta.text()
       } catch (erros) {
-        this.trataExcecao(erros)
+        throwError(() => erros)
       }
-      console.log(data)
       //verifica se houve erro na requisicao
       // : lanca exececao detalhando o erro
       if (resposta.ok) {
@@ -73,25 +82,23 @@ export class RequisicaoService {
       }
     })
     .pipe(map<any, T>((data: any) => data as T),   //mapeia o resultado retornado p/ tipo 'T'
-      catchError(erros => this.trataExcecao(erros)));
+      catchError(erros => throwError(() => erros)));
   }
 
+  /**
+   * Funcao que converte um dicionario de parametros em uma URL p/ consulta
+   * @param parametrosCorpo
+   * @returns Uma URL com os parametros incorporados nela: Exemplo - 'https://www.site.com/api?parametros=valores'
+   */
   private converteParametrosURL(parametrosCorpo: Dict<any>): URLSearchParams {
     //cria objeto que usa parametros na URL
     const parametros = new URLSearchParams();
-    //-------------------------
+    //loop por cada uma das chaves e valores do dicionario
     Object.entries(parametrosCorpo).forEach(([chave, valor]) => {
       parametros.append(chave, String(valor));
     })
-    //def retorno
+
     return parametros
   }
-
-  //tratamento de erros
-  trataExcecao<T>(erro: T): Observable<T> {
-    console.log(erro)
-    return throwError(() => erro);
-  }
-  //
   //#endregion
 }

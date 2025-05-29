@@ -6,7 +6,7 @@ import { tUsuario } from '../../../tipos/comuns';
 import { CreEntradaComponent } from '../../cre-entrada/cre-entrada.component';
 import { ClsSocialAPIService } from '../../../servicos/social_API/clsSocialAPI.service';
 import { ClsComumService } from '../../../servicos/cls-comum.service';
-import { devNull } from 'os';
+import { AutenticacaoService } from '../../../servicos/autenticacao/autenticacao.service';
 
 @Component({
   selector: 'app-entrar',
@@ -22,14 +22,19 @@ export class EntrarComponent implements OnInit {
 
   flgSubmit: boolean = false;
 
-  constructor(private fbLoginForm: FormBuilder, private socialAPI: ClsSocialAPIService) {}
+  constructor(
+    private fbLoginForm: FormBuilder,
+    private socialAPI: ClsSocialAPIService,
+    public ClsComum: ClsComumService,
+    public ClsAutenticacao: AutenticacaoService
+  ) {}
 
   //#region eventos
   //classe
   ngOnInit(): void { this.preparaForm() }
   //objetos
   onSubmitForm(): void { this.enviaLogin() }
-  onClick(): void { ClsComumService.navegar(['/login', 'cadastrar']) }
+  onClick(): void { this.ClsComum.navegar(['/login', 'cadastrar']) }
   //#endregion
 
   //#region metodos
@@ -81,8 +86,9 @@ export class EntrarComponent implements OnInit {
             this.flgSubmit = false;
             this.fgLoginForm.reset();
             //navega p/ nova rota
-            ClsComumService.navegar(['/mural'])
-            ClsComumService.setFlgLogado(true)
+            this.ClsComum.navegar(['/mural'])
+            //loga usuario no sistema
+            this.ClsAutenticacao.setFlgLogado(true, this.usuario)
           },
           error: (erros) => {
             //validacoes

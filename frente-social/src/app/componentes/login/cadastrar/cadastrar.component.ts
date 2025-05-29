@@ -21,14 +21,18 @@ export class CadastrarComponent implements OnInit {
 
   flgSubmit: boolean = false;
 
-  constructor(private fbLoginForm: FormBuilder, private socialAPI: ClsSocialAPIService) { }
+  constructor(
+    private fbLoginForm: FormBuilder,
+    private socialAPI: ClsSocialAPIService,
+    public ClsComum: ClsComumService
+  ) { }
 
   //#region eventos
   //classe
   ngOnInit(): void { this.preparaForm() }
   //objetos
   onSubmitForm(): void { this.enviaLogin() }
-  onClick(): void { ClsComumService.navegar(['/login']) }
+  onClick(): void { this.ClsComum.navegar(['/login']) }
   //#endregion
 
   //#region metodos

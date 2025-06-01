@@ -1,5 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, RouterStateSnapshot } from '@angular/router';
 //tipos
 import { tUsuario } from '../../tipos/comuns';
@@ -20,11 +19,11 @@ export class AutenticacaoService  implements CanActivate {
 
   //constantes
   readonly ssLogado: string = 'estado_login'
+  readonly ssUsuario: string = 'usuario_logado'
   //#endregion
 
 
   constructor(
-    @Inject(PLATFORM_ID) private plataformaID: any,
     public ClsComum: ClsComumService
   ) {
     this.inicializaAutenticacao()
@@ -39,32 +38,20 @@ export class AutenticacaoService  implements CanActivate {
 
     this.Logado = ctrl
     this.usuario = usuario
-
-    //valida se esta no ambiente do navegador
-    if (isPlatformBrowser(this.plataformaID))
-      sessionStorage.setItem(this.ssLogado, ctrl ? 'verdadeiro' : 'falso')
+    this.ClsComum.configuraArmazenamento('definir', 'sessao', this.ssLogado, ctrl ? 'verdadeiro' : 'falso')
+    this.ClsComum.configuraArmazenamento('definir', 'sessao', JSON.stringify(usuario))
   }
   //#endregion
 
   //#region metodos
   /**
    * Inicializa o estado de autenticação a partir do sessionStorage.
-   * Essa função será chamada antes do bootstrap da aplicação.
    */
-  async inicializaAutenticacao(): Promise<void> {
-    //evita multiplas execucoes
-    if (this.inicializado) return;
-
-    //promessa: busca se o usuario esta logado
-    return new Promise((resolve) => {
-      if (isPlatformBrowser(this.plataformaID)) {
-        //setta variavel de acordo com armazenamento local da sessao: memoria
-        this.Logado = sessionStorage.getItem(this.ssLogado) === 'verdadeiro';
-        this.inicializado = true
-      }
-      //retorna
-      resolve();
-    });
+  inicializaAutenticacao(): void {
+    //setta variavel de acordo com armazenamento local da sessao: memoria
+    this.Logado = this.ClsComum.configuraArmazenamento('pegar', 'sessao', this.ssLogado) === 'verdadeiro'
+    this.usuario = this.ClsComum.configuraArmazenamento('pegar', 'sessao', this.ssUsuario) as tUsuario
+    this.inicializado = true
   }
   //#endregion
 

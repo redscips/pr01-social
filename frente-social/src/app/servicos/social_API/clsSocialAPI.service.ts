@@ -1,9 +1,9 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable } from '@angular/core';
 //tipos
 import { TokenResposta, tUsuario } from '../../tipos/comuns'
-import { isPlatformBrowser } from '@angular/common';
 import { RequisicaoService } from '../http/requisicao.service';
 import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
+import { ClsComumService } from '../cls-comum.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,16 +24,13 @@ export class ClsSocialAPIService {
 
   //#region gets/sets : vlrToken
   get getToken(): string {
-    if (isPlatformBrowser(this.platformaId))
-      return sessionStorage.getItem(this.token)!;
-    else
-      return ''
+    return this.ClsComum.configuraArmazenamento('pegar', 'sessao', this.token)
   }
   //#endregion
 
   constructor(
-    @Inject(PLATFORM_ID) private platformaId: Object,
-    private req: RequisicaoService
+    private req: RequisicaoService,
+    private ClsComum: ClsComumService
   ) { }
 
   //#region metodos
@@ -49,12 +46,9 @@ export class ClsSocialAPIService {
       .subscribe({
         next: (resposta: TokenResposta) => {
           //verifica se o token foi retornado
-          if (resposta) {
-            if (isPlatformBrowser(this.platformaId)) {
-              sessionStorage.setItem(this.token, resposta.token);
-              this.vlrToken = resposta.token
-            }
-          } else
+          if (resposta)
+              this.vlrToken = this.ClsComum.configuraArmazenamento('definir', 'sessao', this.token, resposta.token)
+          else
             throw new Error('Token não encontrado na resposta: ' +  resposta);
         },
         error: (erros) => console.log('Login - Erro(s): ' + erros.message)

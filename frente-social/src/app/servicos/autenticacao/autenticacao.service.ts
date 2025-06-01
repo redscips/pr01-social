@@ -11,12 +11,12 @@ import { ClsComumService } from '../cls-comum.service';
 })
 export class AutenticacaoService  implements CanActivate {
 
-  //#region propriedade: variaveis
-  flgLogado: boolean = false
-  private inicializado: boolean = false
-
-  //instancias
+  //#region propriedade: instancias
   usuario: tUsuario = {}
+
+  //variaveis
+  Logado: boolean = false
+  private inicializado: boolean = false
 
   //constantes
   readonly ssLogado: string = 'estado_login'
@@ -26,16 +26,18 @@ export class AutenticacaoService  implements CanActivate {
   constructor(
     @Inject(PLATFORM_ID) private plataformaID: any,
     public ClsComum: ClsComumService
-  ) { }
-
-  //#region gets/sets: flgLogado
-    get getFlgLogado(): boolean {
-    return this.flgLogado;
+  ) {
+    this.inicializaAutenticacao()
   }
 
-  setFlgLogado(ctrl: boolean, usuario: tUsuario): void {
+  //#region gets/sets: Logado
+  get getLogado(): boolean {
+    return this.Logado;
+  }
 
-    this.flgLogado = ctrl
+  setLogado(ctrl: boolean, usuario: tUsuario): void {
+
+    this.Logado = ctrl
     this.usuario = usuario
 
     //valida se esta no ambiente do navegador
@@ -57,9 +59,9 @@ export class AutenticacaoService  implements CanActivate {
     return new Promise((resolve) => {
       if (isPlatformBrowser(this.plataformaID)) {
         //setta variavel de acordo com armazenamento local da sessao: memoria
-        this.flgLogado = sessionStorage.getItem(this.ssLogado) === 'verdadeiro';
+        this.Logado = sessionStorage.getItem(this.ssLogado) === 'verdadeiro';
+        this.inicializado = true
       }
-      this.inicializado = true
       //retorna
       resolve();
     });
@@ -77,7 +79,7 @@ export class AutenticacaoService  implements CanActivate {
    */
   canActivate(_route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
     //retorna se pode ou nao ativar a rota
-    if (this.getFlgLogado) {
+    if (this.getLogado) {
       //se o usuario esta logado e tenta acessar a area de login, redireciona p/ o mural
       if (state.url === '/login' || state.url.startsWith('/login')) {
         this.ClsComum.navegar(['/mural']);

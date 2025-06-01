@@ -88,7 +88,7 @@ export class EntrarComponent implements OnInit {
             //navega p/ nova rota
             this.ClsComum.navegar(['/mural'])
             //loga usuario no sistema
-            this.ClsAutenticacao.setFlgLogado(true, this.usuario)
+            this.ClsAutenticacao.setLogado(true, this.usuario)
           },
           error: (erros) => {
             //validacoes

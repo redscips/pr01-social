@@ -16,9 +16,19 @@ export class ClsSocialAPIService {
   private loginURL = 'http://www.redesocial.com/ocultosocial/login/'
   //token
   private token = 'tokenAPI';
+  private vlrToken: string = ''
   //usuario
   private usuario = 'reds'
   private senha = 'ujm%¨&90'
+  //#endregion
+
+  //#region gets/sets : vlrToken
+  get getToken(): string {
+    if (isPlatformBrowser(this.platformaId))
+      return sessionStorage.getItem(this.token)!;
+    else
+      return ''
+  }
   //#endregion
 
   constructor(
@@ -39,23 +49,21 @@ export class ClsSocialAPIService {
       .subscribe({
         next: (resposta: TokenResposta) => {
           //verifica se o token foi retornado
-          if (resposta && resposta.token) {
+          if (resposta) {
             if (isPlatformBrowser(this.platformaId)) {
-              localStorage.setItem(this.token, resposta.token);
+              sessionStorage.setItem(this.token, resposta.token);
+              this.vlrToken = resposta.token
             }
-          } else {
+          } else
             throw new Error('Token não encontrado na resposta: ' +  resposta);
-          }
         },
-        error: (erros) => {
-          console.log('Login - Erro(s): ' + erros.message);
-        }
+        error: (erros) => console.log('Login - Erro(s): ' + erros.message)
       })
   }
 
   criaLogin(usuario: tUsuario): Observable<boolean> {
 
-    const token = this.getToken();
+    const token = this.getToken;
     //token obrigatorio
     if (token) {
       //cabecalho
@@ -63,9 +71,7 @@ export class ClsSocialAPIService {
 
       //executa requisicao
       return this.req.execRequisicao(this.loginURL, 'POST', cabecalhos, undefined, usuario)
-        .pipe(tap((resposta) => {
-            alert('Cadastro - Sucesso: ' + JSON.stringify(resposta));
-          }),
+        .pipe(tap((resposta) => alert('Cadastro - Sucesso: ' + JSON.stringify(resposta))),
           map(() => true),   //mapeia o resultado e retorna 'verdadeiro' caso nao de erros
           catchError((erros) => {
             console.log('Cadastro - Erro(s): ' + erros.message)
@@ -79,7 +85,7 @@ export class ClsSocialAPIService {
 
   executaLogin(usuario: tUsuario): Observable<boolean> {
 
-    const token = this.getToken();
+    const token = this.getToken;
     //token obrigatorio
     if (token) {
       //cabecalho
@@ -87,9 +93,7 @@ export class ClsSocialAPIService {
 
       //executa requisicao
       return this.req.execRequisicao(this.loginURL, 'GET', cabecalhos, undefined, usuario, false)
-        .pipe(tap((resposta) => {
-            console.log('Login - Sucesso: ' + JSON.stringify(resposta));
-          }),
+        .pipe(tap((resposta) => console.log('Login - Sucesso: ' + JSON.stringify(resposta))),
           map(() => true),   //mapeia o resultado e retorna 'verdadeiro' caso nao de erros
           catchError((erros) => {
             console.log('Login - Erro(s): ' + erros.message)
@@ -99,16 +103,6 @@ export class ClsSocialAPIService {
 
     //retorna observavel 'of'
     return of(false)
-  }
-
-  getToken(): string | null {
-    //var retorno
-    let token: string | null = ''
-
-    if (isPlatformBrowser(this.platformaId))
-      token = localStorage.getItem(this.token);
-
-    return token
   }
   //#endregion
 }

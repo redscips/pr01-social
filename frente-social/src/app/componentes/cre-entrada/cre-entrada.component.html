@@ -1,5 +1,5 @@
 <!-- campo: rotulo + input -->
-<div class="form-floating mb-3">
+<div class="form-floating my-3">
   <!-- entrada -->
   <input class="form-control" type="{{ TipoEntrada }}" placeholder="{{ strDescricao }}" id="{{ strID }}"
     [value]="iEntrada" (input)="onInput($event)" [ngClass]="strClasse">
@@ -11,7 +11,7 @@
     @if (erros) {
       <div class="invalid-feedback">
         <ul>
-          @for (erro of errosArray; track erro) {
+          @for (erro of getErros; track erro) {
             <li>
               <!-- verifica qual o tipo de erro -->
               @switch (erro) {
@@ -28,12 +28,6 @@
           }
         </ul>
       </div>
-    } @else {
-      <!-- sucesso -->
-      <div class="valid-feedback">
-        <p>Sucesso</p>
-      </div>
     }
   }
-  <ng-content></ng-content>
 </div>

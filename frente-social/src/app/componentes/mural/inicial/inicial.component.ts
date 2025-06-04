@@ -24,13 +24,13 @@ import { CommonModule } from '@angular/common';
 export class InicialComponent {
 
   //#region variaveis/instancias
-  imagens: string[] = [
-    '../../../../assets/imagens/oceano.jpg',
-    '../../../../assets/imagens/rio.jpg',
-    '../../../../assets/imagens/arvores.jpg',
-    '../../../../assets/imagens/montanha.jpg',
-    '../../../../assets/imagens/region.jpg'
-  ];
+  // imagens: string[] = [
+  //   '../../../../assets/imagens/oceano.jpg',
+  //   '../../../../assets/imagens/rio.jpg',
+  //   '../../../../assets/imagens/arvores.jpg',
+  //   '../../../../assets/imagens/montanha.jpg',
+  //   '../../../../assets/imagens/region.jpg'
+  // ];
 
   //numeros
   ImagemAtual: number = 0;
@@ -39,24 +39,24 @@ export class InicialComponent {
 
   //#region gets/sets : backgroundImage
   //amarracao com hospedeiro
-  @HostBinding('style.backgroundImage')
-  get fundoImagem(): string {
-    //retorna imagem do slide atual p/ o fundo do 'host'
-    return `url(${this.imagens[this.ImagemAtual]})`;
-  }
+  // @HostBinding('style.backgroundImage')
+  // get fundoImagem(): string {
+  //   //retorna imagem do slide atual p/ o fundo do 'host'
+  //   return `url(${this.imagens[this.ImagemAtual]})`;
+  // }
   //#endregion
 
   //#region eventos
-  ngOnInit(): void { this.trocaImagemSlide() }
+  // ngOnInit(): void { this.trocaImagemSlide() }
   //#endregion
 
   //#region metodos
-  trocaImagemSlide() {
-    //temporizador
-    setInterval(() => {
-      //passa p/ proxima imagem
-      this.ImagemAtual = (this.ImagemAtual + 1) % this.imagens.length;
-    }, this.tempo);   //troca de imagem a cada 5 segundos
-  }
+  // trocaImagemSlide() {
+  //   //temporizador
+  //   setInterval(() => {
+  //     //passa p/ proxima imagem
+  //     this.ImagemAtual = (this.ImagemAtual + 1) % this.imagens.length;
+  //   }, this.tempo);   //troca de imagem a cada 5 segundos
+  // }
   //#endregion
 }

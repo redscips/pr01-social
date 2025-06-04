@@ -6,7 +6,7 @@
 
 header {
   //cabecalho ocupa todo o espaco do seu 'host'
-  height: 96px;
+  // height: 96px;
   width: 100%;
 
   //espacos
@@ -17,7 +17,7 @@ header {
   justify-content: space-evenly;
 
   //sombra p/ deixa o objeto esfumacado
-  box-shadow: 45px 12px 157px 25px rgba(92, 92, 92, 0.7) inset;
+  box-shadow: 45px 12px 157px 25px #72424e inset;
 
   //barra de rolagem
   @include estilos.mix-barra-rolagem();

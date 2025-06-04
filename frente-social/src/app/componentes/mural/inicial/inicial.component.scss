@@ -10,10 +10,10 @@
   height: 100dvh;
 
   //define o tamanho do slide de fundo
-  background-size: cover;
-  background-position: center;
-  //animacao da transicao entre slides
-  transition: background-image 5s ease-in-out;
+  // background-size: cover;
+  // background-position: center;
+  // //animacao da transicao entre slides
+  // transition: background-image 5s ease-in-out;
 
   //posicao relativa pois o psedo-elemento 'before' eh absoluto
   position: relative;
@@ -21,24 +21,26 @@
   //joga a imagem acima em nivel do fundo escuro
   z-index: 0;
 
-  &::before {
-    content: '';
-    position: absolute;   //posicao p/ ficar no local correto dentro do pai que eh relativo
-    top: 0;
-    left: 0;
-    //tamanho
-    width: 100%;
-    height: 100%;
-    //fundo
-    background-color: rgba(0, 0, 0, 0.5);
-    //joga o fundo escuro p/ atras do 'host'
-    z-index: -1;
-  }
+  // &::before {
+  //   content: '';
+  //   position: absolute;   //posicao p/ ficar no local correto dentro do pai que eh relativo
+  //   top: 0;
+  //   left: 0;
+  //   //tamanho
+  //   width: 100%;
+  //   height: 100%;
+  //   //fundo
+  //   background-color: rgba(0, 0, 0, 0.5);
+  //   //joga o fundo escuro p/ atras do 'host'
+  //   z-index: -1;
+  // }
 }
 
 main {
   //p/ o main ocupar todo o espaco disponivel
   flex: 1;
+
+  background-color: #f0eae0;
 
   //posicao: nivel
   // z-index: 1;

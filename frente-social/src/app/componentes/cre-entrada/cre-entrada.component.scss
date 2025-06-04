@@ -2,28 +2,35 @@
 @use 'sass:map';    //mapas do sass
 @use '../../../estilos/mapas.scss' as mapas;
 
+//estilos do componente pai: container
 :host {
-  --tamanho: #{map.get(mapas.$tam-fontes, padrao)};
+  //variaveis: tamanho fonte
+  --tam-fonte: #{map.get(mapas.$tam-fontes, padrao)};
 }
 
+//lista ul
 ul {
   list-style: none;
 }
 
+//entradas: campos
 input {
   //bordas arredondadas
   border-radius: 32px;
   background-color: map.get(mapas.$cores, branco);
-  //
+
+  //aplica efeitos de transicao entre estados
   transition: all 0.5s ease-in-out;
 
+  //eventos css:
   &:hover
   ,&:focus {
+    //troca a cor de fundo
     background-color: map.get(mapas.$cores, cinza);
   }
 }
 
 //classes: bootstrap
 .form-floating {
-  font-size: var(--tamanho);
+  font-size: var(--tam-fonte);
 }

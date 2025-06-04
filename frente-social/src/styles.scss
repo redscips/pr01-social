@@ -76,3 +76,14 @@ body {
     background: transparent; //"polegar" e barra transparente
   }
 }
+
+//padroes
+@mixin mix-padrao() {
+  // centraliza todos objetos
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //tamanho
+  width: 100%;
+  height: 100%;
+}

@@ -11,33 +11,48 @@ import { CommonModule, NgClass } from '@angular/common';
   templateUrl: './cre-entrada.component.html',
   styleUrls: ['./cre-entrada.component.scss'],
   providers: [{
+    //habilita a comunicacao p/ passagem de valores e sincronizacao com os pais em tempo de execucao
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => CreEntradaComponent),
-    multi: true,
+    multi: true
   }]
 })
 export class CreEntradaComponent implements ControlValueAccessor {
-  //#region propriedades
-  //inputs
+  //#region propriedades: entradas - recebem valores dos pais
   @Input() rEntrada: string = '';
   @Input() TipoEntrada: tTipoEntrada = 'text';
   @Input() strDescricao: string = '';
   @Input() strID: string = '';
   @Input() strClasse: string = '';
   @Input() flgSubmit: boolean = false;
+  //controle exibicao de erros
   @Input() erros: ValidationErrors | undefined | null = null;
-  //outputs: retornam valores p/ seus pais
-  @Output() siEntrada = new EventEmitter<string>();
-  //#endregion
 
+  //frases
   iEntrada: string = '';
   corInput: string = '#ccc'
 
+  //saidas: retornam valores p/ seus pais
+  @Output() siEntrada = new EventEmitter<string>();
+  //#endregion
+
+  //#region gets/sets: erros
+  get getErros(): string[] {
+    //retora o primeiro erro
+    return this.erros
+      ? Array.from(new Set(Object.keys(this.erros)))
+        .filter((_, indice)=>indice === 0)
+      : [];
+  }
+  //#endregion
+
+  constructor() { }
+
   //#region eventos
-  //objetos
   onInput(evento: Event): void { this.atualizaInput(evento) }
-  //callbacks
-  _onChange: (value: any) => void = (_: any) => {};
+
+  //callbacks: interface ControlValueAccessor
+  _onChange = (_: any) => {};
   //#endregion
 
   //#region metodos
@@ -51,22 +66,12 @@ export class CreEntradaComponent implements ControlValueAccessor {
     this._onChange(entrada);
   }
 
-  get errosArray(): string[] {
-    //retora o primeiro erro
-    return this.erros
-      ? Array.from(new Set(Object.keys(this.erros)))
-        .filter((_, indice)=>indice === 0)
-      : [];
-  }
-
   //interface
-  writeValue(obj: any): void {
-    this.iEntrada = obj;
-  }
-
   registerOnChange(fn: any): void {
     this._onChange = fn;
   }
+
+  writeValue(obj: any): void { }
 
   registerOnTouched(fn: any): void {}
 

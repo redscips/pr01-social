@@ -5,6 +5,10 @@ import { tUsuario } from '../../tipos/comuns';
 //servicos
 import { ClsComumService } from '../cls-comum.service';
 
+//constantes
+export const ssLogado: string = 'estado_login'
+export const ssUsuario: string = 'usuario_logado'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,10 +20,6 @@ export class AutenticacaoService  implements CanActivate {
   //variaveis
   Logado: boolean = false
   private inicializado: boolean = false
-
-  //constantes
-  readonly ssLogado: string = 'estado_login'
-  readonly ssUsuario: string = 'usuario_logado'
   //#endregion
 
 
@@ -38,8 +38,8 @@ export class AutenticacaoService  implements CanActivate {
 
     this.Logado = ctrl
     this.usuario = usuario
-    this.ClsComum.configuraArmazenamento('definir', 'sessao', this.ssLogado, ctrl ? 'verdadeiro' : 'falso')
-    this.ClsComum.configuraArmazenamento('definir', 'sessao', JSON.stringify(usuario))
+    this.ClsComum.configuraArmazenamento('definir', 'sessao', ssLogado, ctrl ? 'verdadeiro' : 'falso')
+    this.ClsComum.configuraArmazenamento('definir', 'sessao', ssUsuario, JSON.stringify(usuario))
   }
   //#endregion
 
@@ -49,8 +49,8 @@ export class AutenticacaoService  implements CanActivate {
    */
   inicializaAutenticacao(): void {
     //setta variavel de acordo com armazenamento local da sessao: memoria
-    this.Logado = this.ClsComum.configuraArmazenamento('pegar', 'sessao', this.ssLogado) === 'verdadeiro'
-    this.usuario = this.ClsComum.configuraArmazenamento('pegar', 'sessao', this.ssUsuario) as tUsuario
+    this.Logado = this.ClsComum.configuraArmazenamento('pegar', 'sessao', ssLogado) === 'verdadeiro'
+    this.usuario = this.ClsComum.configuraArmazenamento('pegar', 'sessao', ssUsuario) as tUsuario
     this.inicializado = true
   }
   //#endregion

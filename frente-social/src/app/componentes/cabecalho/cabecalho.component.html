@@ -1,15 +1,17 @@
 <header>
-  <h1>Bem-vindo</h1>
-  <h2>{{nomeUsuario}}</h2>
-  <nav class="navbar navbar-expand-md" id="id-navbar">
-    <div class="container-fluid">
+  <nav class="navbar navbar-expand-md w-100" id="id-navbar">
+    <div class="container-fluid d-flex justify-content-around">
+      <a class="h1 navbar-brand" href="#">Bem-vindo {{nomeUsuario}}</a>
       <button class="navbar-toggler bg-secondary bg-gradient mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#id-links" aria-label="Alternar navigacao">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse justify-content-center text-center" id="id-links">
+      <div class="collapse navbar-collapse flex-grow-0" id="id-links">
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link active text-white" href="#">Mural</a>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-dark" type="reset" (click)="onClickBotao()">Sair</button>
           </li>
         </ul>
       </div>

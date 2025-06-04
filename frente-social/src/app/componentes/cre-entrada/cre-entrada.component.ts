@@ -32,8 +32,6 @@ export class CreEntradaComponent implements ControlValueAccessor {
   iEntrada: string = '';
   corInput: string = '#ccc'
 
-  //saidas: retornam valores p/ seus pais
-  @Output() siEntrada = new EventEmitter<string>();
   //#endregion
 
   //#region gets/sets: erros
@@ -60,8 +58,6 @@ export class CreEntradaComponent implements ControlValueAccessor {
     const entrada = (evento.target as HTMLInputElement).value;
     //atualiza o campo localmente
     this.iEntrada = entrada;
-    //retorna o valor p/ componente pai
-    this.siEntrada.emit(entrada);
     //retorna o valor p/ componente pai
     this._onChange(entrada);
   }

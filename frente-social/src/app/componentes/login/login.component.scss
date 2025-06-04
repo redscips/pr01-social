@@ -9,21 +9,24 @@
   @include estilos.mix-padrao();
 
   //cor de fundo
-  background-color: map.get(mapas.$cores, marrom);
+  background-color: map.get(mapas.$cores, bege);
 }
 
 //classes
 .cls-login {
-  //
-  display: flex;
-  flex-direction: column;
+  //visualizacao
+  display: block;
   text-align: center;
-  justify-content: center;
-  align-items: center;
-  //tamanho
-  height: 80dvh;
-  // width: 360px;
+
+  //tamanho 520.650 230.400
+  height: 560px;
+  width: 360px;
+
+  //espacamento
   padding: 16px;
+  //bordas arredondadas
+  border-radius: 50px;
+
   //fundo
   background-color: #f0eae0;
   border: 8px groove rgba(148, 135, 135, 0.8);
@@ -32,47 +35,10 @@
   //3 - efeito dispersao em todas as bordas
   //4 - aplica todas as bordas
   box-shadow: 45px 12px 157px 25px rgba(92, 92, 92, 0.5);
-  //bordas arredondadas
-  border-radius: 50px;
 
   //barra de rolagem
   @include estilos.mix-barra-rolagem(auto, 5px);
 
   //quebra o encapsulamento do componente pai p/ permitir aplicar regras css aos componentes filhos
-  &::ng-deep {
-    //elementos
-    form {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      text-align: center;
-      height: 70%;
-
-      button {
-        cursor: pointer;
-        // animacao
-        transition: all 0.3s;
-        //tamanho
-        width: 100%;
-        font-size: 24px;
-        margin-bottom: 8px;
-        //
-        border-radius: 24px;
-        //
-        color: map.get(mapas.$cores, preto);
-        // text-shadow: 4px 4px 2px rgba(0,0,0,0.6);
-
-        &:hover {
-          background: map.get(mapas.$cores, cinza);
-          //aplica animacao
-          @include estilos.mix-animacoes('F');
-        }
-      }
-    }
-
-    h1 {
-      margin-bottom: 3rem;
-      color: map.get(mapas.$cores, preto);
-    }
-  }
+  //&::ng-deep { }
 }

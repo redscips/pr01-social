@@ -1,0 +1,41 @@
+//importacoes
+@use 'sass:map';    //map p/ manipular mapas sass
+@use '../../../../estilos/mapas.scss' as mapas;
+@use '../../../../styles.scss' as estilos;
+
+//elementos
+form {
+  //configuracoes padrao do formulario
+  @include estilos.mix-formulario(map.get(mapas.$cores, preto), map.get(mapas.$cores, cinza));
+
+  //tamanho que o formulario ocupara dentro do container
+  height: 80%;
+
+  //botoes do formulario
+  button {
+    background-color: map.get(mapas.$cores, bege);
+    color: map.get(mapas.$cores, marrom);
+    font-weight: bolder;
+
+    &:hover {
+      background-color: map.get(mapas.$cores, bege-2);
+      //aplica animacao
+      @include estilos.mix-animacoes('F');
+    }
+  }
+}
+
+//titulo do formulario
+.h3 {
+  //centraliza titulo
+  @include estilos.mix-central();
+
+  //cor de fundo + bordas arredondadas
+  background-color: map.get(mapas.$cores, bege);
+  border-radius: 40px;
+  //cor da fonte
+  color: map.get(mapas.$cores, marrom);
+
+  //espaco ocupado
+  height: 20%;
+}

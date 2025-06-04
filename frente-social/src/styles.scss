@@ -77,13 +77,57 @@ body {
   }
 }
 
+@mixin mix-formulario(
+  $cor-fundo,
+  $cod-fundo-hover
+) {
+  //visualizacao dentro do formulario: uma linha p/ cada elemento
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  //botoes do formulario
+  button {
+    cursor: pointer;
+
+    //efeito de transicao suave
+    transition: all 0.3s ease-in-out;
+
+    //botao ocupa todo espaco do formulario na horizontal
+    width: 100%;
+    text-align: center;
+
+    //tamanho da fonte + margem
+    font-size: 18px;
+    margin-bottom: 8px;
+    //bordas arrendondadas
+    border-radius: 24px;
+
+    //cor
+    color: $cor-fundo;
+
+    //evento: hover
+    &:hover {
+      background: $cod-fundo-hover;
+    }
+  }
+}
+
 //padroes
-@mixin mix-padrao() {
+@mixin mix-padrao($posicao: relative) {
+  //centralizando
+  @include mix-central();
+
+  //tamanho
+  width: 100%;
+  height: 100%;
+  //posicao
+  position: $posicao;
+}
+
+@mixin mix-central() {
   // centraliza todos objetos
   display: flex;
   align-items: center;
   justify-content: center;
-  //tamanho
-  width: 100%;
-  height: 100%;
 }

@@ -1,6 +1,16 @@
 import { animate, AnimationTriggerMetadata, style, transition, trigger } from "@angular/animations";
 
 //animacoes
+/**
+ * Cria uma animacao p/ serem importadas em componentes nas suas inicializacoes.
+ * @param tipo Tipo de animacao que sera criada.
+ * @param gatilho Nome do 'trigger'p/ ativar a animacao nos templates.
+ * @param evento Evento css em que a animacao sera ativada.
+ * @param distancia Valor em pixels inicial.
+ * @param duracao Tempo de transicao.
+ * @param efeito Efeito de transicao.
+ * @returns Uma animacao.
+ */
 export function criarAnimacao(
   tipo: string,
   gatilho: string,

@@ -1,28 +1,55 @@
 //importacoes
-@use '../../../styles.scss' as estilos;
-//mapas
 @use 'sass:map';
+@use '../../../styles.scss' as estilos;
 @use '../../../estilos/mapas.scss' as mapas;
 
+//variaveis
+$deslocamento: 50px;
+
+//elementos: cabecalho
 header {
-  //cabecalho ocupa todo o espaco do seu 'host'
-  // height: 96px;
-  width: 100%;
+  position: sticky;
+  top: 0;
+  left: 0;
 
-  //espacos
+  //posicao inicial: cria efeito suave de deslizamento do cabecalho
+  transform: translateY($deslocamento);
+  transition: all 1s ease-in-out;
+
+  //espacamento
   padding: 16px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  height: 100px;    //tamanho
 
   //sombra p/ deixa o objeto esfumacado
-  box-shadow: 45px 12px 157px 25px #72424e inset;
+  background-color: map.get(mapas.$cores, marrom-2);
 
-  //barra de rolagem
-  @include estilos.mix-barra-rolagem();
+  //deixa o cabecalho por cima do restante dos elementos
+  z-index: 3;
+
+  //pseudo elemento: p/ cobrir o espaco inicial do cabecalho
+  &::before {
+    content: '';
+    //mesmas propriedades do cabecalho
+    position: absolute;
+    //inicia tampando o espaco deixado pelo cabecalho
+    //subtrai 1px p/ nao ver bordas: border none nao resolve
+    top: calc(#{-$deslocamento} - 1px);
+    left: 0;
+    width: 100%;
+
+    //tamanho do deslocamento do cabecalho
+    //soma 2px p/ nao exibir bordar: mesmo problema do 'top'
+    height: calc(#{$deslocamento} + 2px);
+
+    //herda o fundo do elemento
+    background-color: map.get(mapas.$cores, marrom-2);
+
+    //uma posicao abaixo do cabecalho
+    z-index: 2;
+  }
 }
 
-h1{
-  color: map.get(mapas.$cores, branco);
+//classes: tornar cabecalho grudado no topo
+.sticky {
+  transform: translateY(0);
 }

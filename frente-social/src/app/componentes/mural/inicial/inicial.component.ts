@@ -3,11 +3,10 @@ import { CabecalhoComponent } from '../../cabecalho/cabecalho.component';
 import { RodapeComponent } from '../../rodape/rodape.component';
 import { CommonModule } from '@angular/common';
 import { criarAnimacao } from '../../../animacoes/animacoes';
-import { EntrarComponent } from '../../login/entrar/entrar.component';
 
 @Component({
   selector: 'app-inicial',
-  imports: [CabecalhoComponent, RodapeComponent, CommonModule, EntrarComponent],
+  imports: [CabecalhoComponent, RodapeComponent, CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './inicial.component.html',
   styleUrl: './inicial.component.scss',

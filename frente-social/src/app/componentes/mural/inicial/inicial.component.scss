@@ -2,12 +2,9 @@
 @use 'sass:map';    //map p/ manipular mapas sass
 @use '../../../../estilos/mapas.scss' as mapas;
 
-//estilos da caixa componente: container
-:host {
-  //cor de fundo
-  background-color: map.get(mapas.$cores, bege);
-}
-
 main {
-  margin-top: 50px;
+  margin-top: 50px;   //ajuste p/ animacao do cabecalho
+
+  background-color: map.get(mapas.$cores, cinza);
+  overflow: hidden;
 }

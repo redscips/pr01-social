@@ -80,15 +80,15 @@ export class EntrarComponent implements OnInit {
       // Efetua a requisição de login
       this.socialAPI.executaLogin(this.usuario)
         .subscribe({
-          next: () => {
+          next: (usuario) => {
+            //loga usuario no sistema
+            this.ClsAutenticacao.setLogado(true, usuario)
             // Reseta os dados e o formulário
             this.usuario = {}
             this.flgSubmit = false;
             this.fgLoginForm.reset();
             //navega p/ nova rota
             this.ClsComum.navegar(['/mural'])
-            //loga usuario no sistema
-            this.ClsAutenticacao.setLogado(true, this.usuario)
           },
           error: (erros) => {
             //validacoes

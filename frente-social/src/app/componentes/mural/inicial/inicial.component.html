@@ -1,4 +1,28 @@
-<app-cabecalho [@aparecer]/>
+<app-cabecalho [@aparecer] strIDBarra="{{ idBarra }}"/>
 <main [@aparecer]>
+
+  <div class="row">
+    <aside class="col-0 col-sm-4 col-md-2">
+
+      <div class="offcanvas offcanvas-start" data-bs-scroll="true" id="{{ idBarra }}">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title">Seguidores</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+
+        </div>
+      </div>
+
+      <div class="d-none d-sm-flex">
+        <p>Seguidores...</p>
+      </div>
+
+    </aside>
+
+    <div class="col-10 col-sm-8 col-md-6 offset-1 offset-sm-0 offset-md-2">
+      <app-lista-posts />
+    </div>
+  </div>
 </main>
 <app-rodape [@aparecer]/>

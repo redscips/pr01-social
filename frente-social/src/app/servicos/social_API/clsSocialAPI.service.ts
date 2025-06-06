@@ -77,7 +77,7 @@ export class ClsSocialAPIService {
     return of(false)
   }
 
-  executaLogin(usuario: tUsuario): Observable<boolean> {
+  executaLogin(usuario: tUsuario): Observable<any> {
 
     const token = this.getToken;
     //token obrigatorio
@@ -87,8 +87,8 @@ export class ClsSocialAPIService {
 
       //executa requisicao
       return this.req.execRequisicao(this.loginURL, 'GET', cabecalhos, undefined, usuario, false)
-        .pipe(tap((resposta) => console.log('Login - Sucesso: ' + JSON.stringify(resposta))),
-          map(() => true),   //mapeia o resultado e retorna 'verdadeiro' caso nao de erros
+        .pipe(tap((resposta) => JSON.stringify(resposta)),
+          map((resposta) => resposta as tUsuario),   //mapeia o resultado e retorna 'verdadeiro' caso nao de erros
           catchError((erros) => {
             console.log('Login - Erro(s): ' + erros.message)
             return throwError(() => erros)

@@ -2,6 +2,7 @@
 from typing import Tuple
 from django.db import DatabaseError
 from django.contrib.auth.hashers import check_password
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -47,8 +48,15 @@ class ClsLoginViewSet(viewsets.ModelViewSet):
             _, senhaHash = ClsLoginViewSet.pesquisaLogin(strLogin)
             #compara os dois hash p/ ver se a senha nos parametros da URl eh igual a senha salva no banco
             if check_password(strSenha, senhaHash) :
+                # Busca o usuário pelo login (case‐insensitive, se preferir)
+                usuario = get_object_or_404(
+                    TblUsuarios.objects.all(),
+                    des_login__iexact=strLogin
+                )
+                # serializa como objeto único
+                _, usuarioRet = ClsSerial.serializa(usuario, self.serializer_class, True)
                 #def retorno
-                return Response('Usuario encontrado', status=status.HTTP_200_OK)
+                return Response(usuarioRet, status=status.HTTP_200_OK)
             else:
                 return Response('Senha errada', status=status.HTTP_401_UNAUTHORIZED)
         except Exception as e:

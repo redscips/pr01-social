@@ -18,7 +18,7 @@ header {
 
   //espacamento
   padding: 16px;
-  height: 100px;    //tamanho
+  border-top: solid 1px map.get(mapas.$cores, marrom-2);
 
   //sombra p/ deixa o objeto esfumacado
   background-color: map.get(mapas.$cores, marrom-2);
@@ -47,6 +47,11 @@ header {
     //uma posicao abaixo do cabecalho
     z-index: 2;
   }
+}
+
+//links
+h1 {   //titulo
+  color: map.get(mapas.$cores, branco) !important;
 }
 
 //classes: tornar cabecalho grudado no topo

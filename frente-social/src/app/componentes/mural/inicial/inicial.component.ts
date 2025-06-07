@@ -19,6 +19,11 @@ export class InicialComponent {
 
   idBarra: string = 'id-barra-lateral'
   idSessaoMural: string = 'id-mural'
+  IDNavbar: string = ''
+  //#endregion
+
+  //#region eventos
+  retornaID(id: string): void { this.IDNavbar = id }
   //#endregion
 
   //#region metodos

@@ -57,4 +57,11 @@ h1 {   //titulo
 //classes: tornar cabecalho grudado no topo
 .sticky {
   transform: translateY(0);
+
+  //garante que sticky seja mantido
+  position: fixed;
+  top: 0; // Força a posição
+  left: 0;
+
+  width: 100%;
 }

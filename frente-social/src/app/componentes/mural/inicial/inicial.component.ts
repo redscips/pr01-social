@@ -38,7 +38,7 @@ export class InicialComponent implements AfterViewInit {
       const bs = (window as any).bootstrap as typeof import('bootstrap');
       if (bs) {
 
-        //retorna script
+        //retorna scroll
         const scroll = document.querySelector('[data-bs-spy="scroll"]')
 
         const intancia = bs.ScrollSpy.getOrCreateInstance(scroll!, {

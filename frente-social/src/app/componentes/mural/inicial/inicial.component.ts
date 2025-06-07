@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { CabecalhoComponent } from '../../cabecalho/cabecalho.component';
 import { RodapeComponent } from '../../rodape/rodape.component';
 import { CommonModule } from '@angular/common';
@@ -21,9 +21,6 @@ export class InicialComponent implements AfterViewInit {
   flg: boolean = false
   //#endregion
 
-  @ViewChild('scrollSpyEl', { static: true })
-  scrollSpyEl!: ElementRef<HTMLElement>;
-
   constructor (
     private clsComum: ClsComumService
   ) {}
@@ -41,7 +38,10 @@ export class InicialComponent implements AfterViewInit {
       const bs = (window as any).bootstrap as typeof import('bootstrap');
       if (bs) {
 
-        const intancia = bs.ScrollSpy.getOrCreateInstance(this.scrollSpyEl.nativeElement, {
+        //retorna script
+        const scroll = document.querySelector('[data-bs-spy="scroll"]')
+
+        const intancia = bs.ScrollSpy.getOrCreateInstance(scroll!, {
           target: '#' + this.IDNavbar
         });
         //efetua refresh do comportamento do bootstrap

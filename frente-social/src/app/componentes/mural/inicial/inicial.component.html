@@ -1,7 +1,7 @@
 <app-cabecalho [@aparecer] strIDBarra="{{ idBarra }}" (siIDNavbar)="retornaID($event)" />
 <main [@aparecer]>
 
-  <div #scrollSpyEl class="row" data-bs-spy="scroll" [attr.data-bs-target]="'#' + IDNavbar" tabindex="0">
+  <div class="row" data-bs-spy="scroll" [attr.data-bs-target]="'#' + IDNavbar" tabindex="0">
     <aside class="col-0 col-sm-4 col-md-2">
 
       <div class="offcanvas offcanvas-start" data-bs-scroll="true" id="{{ idBarra }}">

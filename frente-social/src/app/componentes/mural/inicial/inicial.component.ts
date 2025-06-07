@@ -17,6 +17,8 @@ export class InicialComponent implements AfterViewInit {
   //#region propriedade
   idBarra: string = 'id-barra-lateral'
   IDNavbar: string = ''
+
+  flg: boolean = false
   //#endregion
 
   @ViewChild('scrollSpyEl', { static: true })
@@ -34,18 +36,20 @@ export class InicialComponent implements AfterViewInit {
   //#region metodos
   preparaForm(): void {
     //valida se o codigo esta neste momento esta rodando no navegador e nao no servidor
-    if (this.clsComum.validaDOM()) {
+    if (this.clsComum.validaDOM())
+      this.habilitaBootstrap
+  }
 
-        //assume que o bundle do bootstrap ja esta disponível globalmente: carrega funcoes bootstrao
-        const bs = (window as any).bootstrap as typeof import('bootstrap');
-        if (bs) {
+  habilitaBootstrap(): void {
+    //assume que o bundle do bootstrap ja esta disponível globalmente: carrega funcoes bootstrao
+    const bs = (window as any).bootstrap as typeof import('bootstrap');
+    if (bs) {
 
-          const intancia = bs.ScrollSpy.getOrCreateInstance(this.scrollSpyEl.nativeElement, {
-            target: '#' + this.IDNavbar
-          });
-          //efetua refresh do comportamento do bootstrap
-          intancia.refresh();
-        }
+      const intancia = bs.ScrollSpy.getOrCreateInstance(this.scrollSpyEl.nativeElement, {
+        target: '#' + this.IDNavbar
+      });
+      //efetua refresh do comportamento do bootstrap
+      intancia.refresh();
     }
   }
   //#endregion

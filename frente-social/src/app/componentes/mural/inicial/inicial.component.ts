@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { CabecalhoComponent } from '../../cabecalho/cabecalho.component';
 import { RodapeComponent } from '../../rodape/rodape.component';
 import { CommonModule } from '@angular/common';
 import { criarAnimacao } from '../../../animacoes/animacoes';
 import { ListaPostsComponent } from '../../lista-posts/lista-posts.component';
-import { html } from 'lit-html'
+import { ClsComumService } from '../../../servicos/cls-comum.service';
 
 @Component({
   selector: 'app-inicial',
@@ -13,22 +13,40 @@ import { html } from 'lit-html'
   styleUrl: './inicial.component.scss',
   animations: [criarAnimacao('A', 'aparecer', ':enter')]
 })
-export class InicialComponent {
+export class InicialComponent implements AfterViewInit {
   //#region propriedade
-  flgBarraLateral: boolean = false
-
   idBarra: string = 'id-barra-lateral'
-  idSessaoMural: string = 'id-mural'
   IDNavbar: string = ''
   //#endregion
 
+  @ViewChild('scrollSpyEl', { static: true })
+  scrollSpyEl!: ElementRef<HTMLElement>;
+
+  constructor (
+    private clsComum: ClsComumService
+  ) {}
+
   //#region eventos
   retornaID(id: string): void { this.IDNavbar = id }
+  ngAfterViewInit(): void { this.preparaForm() }
   //#endregion
 
   //#region metodos
-  controleBarraLateral() {
-    this.flgBarraLateral = !this.flgBarraLateral;
+  preparaForm(): void {
+    //valida se o codigo esta neste momento esta rodando no navegador e nao no servidor
+    if (this.clsComum.validaDOM()) {
+
+        //assume que o bundle do bootstrap ja esta disponível globalmente: carrega funcoes bootstrao
+        const bs = (window as any).bootstrap as typeof import('bootstrap');
+        if (bs) {
+
+          const intancia = bs.ScrollSpy.getOrCreateInstance(this.scrollSpyEl.nativeElement, {
+            target: '#' + this.IDNavbar
+          });
+          //efetua refresh do comportamento do bootstrap
+          intancia.refresh();
+        }
+    }
   }
   //#endregion
 }

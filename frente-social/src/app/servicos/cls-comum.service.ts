@@ -67,8 +67,28 @@ export class ClsComumService {
    * @param flgAlert Exibe os erros como um pop-up alerta (opcional).
    */
   trataExcecao<T>(erros: T, flgAlert: boolean = false): void {
-      //exibe o erro como pop-up / exibe o erro no console
-      flgAlert ? alert(erros) : console.log(erros)
+    //exibe o erro como pop-up / exibe o erro no console
+    flgAlert ? alert(erros) : console.log(erros)
+  }
+
+  /**
+   * Funcao que valida se os objetos 'document' e 'window' estao disponiveis.
+   * @returns Status validacao do 'document' e 'window'.
+   */
+  validaDOM(): boolean {
+    //var retorno
+    let ctrl: boolean = false
+
+    //valida se o codigo esta neste momento esta rodando no navegador e nao no servidor
+    if (isPlatformBrowser(this.plataforma_id)) {
+
+      //valida se a janela do navegador esta carregada
+      if (window as any)
+        //DOM valido
+        ctrl = true
     }
+
+    return ctrl
+  }
   //#endregion
 }

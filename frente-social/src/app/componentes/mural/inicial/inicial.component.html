@@ -1,7 +1,7 @@
-<app-cabecalho [@aparecer] strIDBarra="{{ idBarra }}" IDSessaoMural="{{ idSessaoMural }}" (siIDNavbar)="retornaID($event)" />
+<app-cabecalho [@aparecer] strIDBarra="{{ idBarra }}" (siIDNavbar)="retornaID($event)" />
 <main [@aparecer]>
 
-  <div class="row" data-bs-spy="scroll" [attr.data-bs-target]="'#' + IDNavbar" tabindex="0">
+  <div #scrollSpyEl class="row" data-bs-spy="scroll" [attr.data-bs-target]="'#' + IDNavbar" tabindex="0">
     <aside class="col-0 col-sm-4 col-md-2">
 
       <div class="offcanvas offcanvas-start" data-bs-scroll="true" id="{{ idBarra }}">
@@ -20,7 +20,10 @@
 
     </aside>
 
-    <section id="{{ idSessaoMural }}" class="col-10 col-sm-8 col-md-6 offset-1 offset-sm-0 offset-md-2">
+    <section id="id-mural" class="col-10 col-sm-8 col-md-6 offset-1 offset-sm-0 offset-md-2">
+      <app-lista-posts />
+    </section>
+     <section id="id-mural-2" class="col-10 col-sm-8 col-md-6 offset-1 offset-sm-0 offset-md-2">
       <app-lista-posts />
     </section>
   </div>

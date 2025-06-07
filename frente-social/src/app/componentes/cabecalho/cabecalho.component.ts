@@ -13,7 +13,6 @@ export class CabecalhoComponent implements OnInit {
   //region propriedades: entradas
   @Input() nomeUsuario: string = ''
   @Input() strIDBarra: string = ''
-  @Input() IDSessaoMural: string = ''
 
   IDNavbar: string = 'id-navbar'
   @Output() siIDNavbar = new EventEmitter<string>()
@@ -29,7 +28,8 @@ export class CabecalhoComponent implements OnInit {
 
   //#region eventos
   onClickBotao(): void { this.deslogar() }
-  onClickMural(evento: Event): void { this.aplicaScrollID(evento, this.IDSessaoMural) }
+  onClickMural(evento: Event): void { this.aplicaScrollID(evento, 'id-mural') }
+  onClickSessao(evento: Event): void { this.aplicaScrollID(evento, 'id-mural-2') }
   ngOnInit(): void { this.siIDNavbar.emit(this.IDNavbar) }
 
   //host
@@ -65,7 +65,7 @@ export class CabecalhoComponent implements OnInit {
     evento.stopPropagation();
 
     //efetua o scroll ate a sessao
-    document.getElementById(idSessao)   //retorno o elemento
+    document.querySelector('#' + idSessao)   //retorno o elemento
       ?.scrollIntoView({
         //suaviza o scroll ate a sessao
         behavior: 'smooth'

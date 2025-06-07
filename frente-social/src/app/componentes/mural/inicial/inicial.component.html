@@ -1,4 +1,4 @@
-<app-cabecalho [@aparecer] strIDBarra="{{ idBarra }}"/>
+<app-cabecalho [@aparecer] strIDBarra="{{ idBarra }}" IDSessaoMural="{{ idSessaoMural }}" />
 <main [@aparecer]>
 
   <div class="row">
@@ -20,9 +20,9 @@
 
     </aside>
 
-    <div class="col-10 col-sm-8 col-md-6 offset-1 offset-sm-0 offset-md-2">
+    <section id="{{ idSessaoMural }}" class="col-10 col-sm-8 col-md-6 offset-1 offset-sm-0 offset-md-2">
       <app-lista-posts />
-    </div>
+    </section>
   </div>
 </main>
 <app-rodape [@aparecer]/>

@@ -5,6 +5,10 @@
 main {
   margin-top: 50px;   //ajuste p/ animacao do cabecalho
 
-  background-color: map.get(mapas.$cores, cinza);
-  overflow: hidden;
+  min-height: calc(100dvh - 165px); // espaço para header e footer
+  flex: 1;
+
+  //fundo
+  background-color: map.get(mapas.$cores, branco);
+  overflow-x: hidden;
 }

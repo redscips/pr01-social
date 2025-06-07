@@ -1,11 +1,9 @@
 <header [class.sticky]="ehGrudado">
-
-  <!-- botao p/ ativar barra lateral na visual movel -->
-  <button class="btn btn-primary d-flex d-sm-none" type="button" data-bs-toggle="offcanvas" [attr.data-bs-target]="'#' + strIDBarra">☰ Menu</button>
-
   <nav class="navbar navbar-expand-md w-100" id="id-navbar">
-    <div class="container-fluid d-flex justify-content-around">
+    <div class="container-fluid d-flex justify-content-evenly">
+
       <!-- titulo : boas vindas -->
+      <img src="https://picsum.photos/50/50" alt="imagem" class="rounded-circle">
       <h1 class="display-5 navbar-brand" href="#">Bem-vindo <strong>{{nomeUsuario}}</strong></h1>
 
       <!-- botao p/ alternar entre visao da navegacao em tela grande e tela pequenas -->
@@ -17,15 +15,18 @@
       <div class="collapse navbar-collapse flex-grow-0" id="id-links">
         <ul class="navbar-nav nav-pills nav-fill">
           <li class="nav-item my-0 my-md-0 my-sm-3">
-            <a class="nav-link active" href="#">Mural</a>
+            <a class="nav-link" [href]="'#' + IDSessaoMural" (click)="onClickMural($event)">Mural</a>
           </li>
 
           <!-- opcao de deslogar -->
           <li class="nav-item ms-lg-3">
-            <button class="nav-link" type="reset" (click)="onClickBotao()">Sair</button>
+            <button class="nav-link bg-secondary" type="reset" (click)="onClickBotao()">Sair</button>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+
+  <!-- botao p/ ativar barra lateral na visual movel -->
+  <button class="btn btn-primary d-flex d-sm-none" type="button" data-bs-toggle="offcanvas" [attr.data-bs-target]="'#' + strIDBarra">☰ Menu</button>
 </header>

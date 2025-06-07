@@ -11,3 +11,14 @@ export type tUsuario = {
 export type TokenResposta = {
   token: string
 }
+
+//posts
+export type tPost = {
+  id: number,
+  strUrl?: string,
+  strNome: string,
+  strData?: Date,
+  strMensagem: string,
+  qtdGostei?: number,
+  qtdNaoGostei?: number
+}

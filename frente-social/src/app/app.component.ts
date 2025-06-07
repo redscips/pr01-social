@@ -1,7 +1,6 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ClsSocialAPIService } from './servicos/social_API/clsSocialAPI.service';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',

@@ -13,6 +13,7 @@ export class CabecalhoComponent {
   //region propriedades: entradas
   @Input() nomeUsuario: string = ''
   @Input() strIDBarra: string = ''
+  @Input() IDSessaoMural: string = ''
 
   ehGrudado: boolean = false;
   //#endregion
@@ -25,6 +26,7 @@ export class CabecalhoComponent {
 
   //#region eventos
   onClickBotao(): void { this.deslogar() }
+  onClickMural(evento: Event): void { this.aplicaScrollID(evento, this.IDSessaoMural) }
 
   //host
   @HostListener('window:scroll', [])
@@ -51,6 +53,19 @@ export class CabecalhoComponent {
   aplicaEstilo(): void {
     //define o limiar de 100px para aplicar a classe 'sticky'
     this.ehGrudado = window.scrollY > 100;
+  }
+
+  aplicaScrollID(evento: Event, idSessao: string) {
+    //desabilita o reload da pagina
+    evento.preventDefault();
+    evento.stopPropagation();
+
+    //efetua o scroll ate a sessao
+    document.getElementById(idSessao)   //retorno o elemento
+      ?.scrollIntoView({
+        //suaviza o scroll ate a sessao
+        behavior: 'smooth'
+      });
   }
   //#endregion
 }

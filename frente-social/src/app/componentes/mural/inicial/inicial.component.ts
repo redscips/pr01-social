@@ -4,6 +4,7 @@ import { RodapeComponent } from '../../rodape/rodape.component';
 import { CommonModule } from '@angular/common';
 import { criarAnimacao } from '../../../animacoes/animacoes';
 import { ListaPostsComponent } from '../../lista-posts/lista-posts.component';
+import { html } from 'lit-html'
 
 @Component({
   selector: 'app-inicial',
@@ -17,6 +18,7 @@ export class InicialComponent {
   flgBarraLateral: boolean = false
 
   idBarra: string = 'id-barra-lateral'
+  idSessaoMural: string = 'id-mural'
   //#endregion
 
   //#region metodos

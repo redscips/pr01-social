@@ -1,24 +1,16 @@
-<div class="post p-3">
-  <div>
-    <div class="d-flex justify-content-evenly">
-      <img src="https://via.placeholder.com/50x50" alt="imagem">
-      <h4>nome usuario</h4>
-      <span>dd/mm/aaaa</span>
-    </div>
-    <div>
-      <form>
-        <div class="mb-3">
-          <label for="id-mensagem" class="form-label">Post</label>
-          <textarea class="form-control" id="id-mensagem"></textarea>
-        </div>
-      </form>
-      <div class="d-flex justify-content-center">
-        <button type="button" class="btn">gostei</button>
-        <button type="button" class="btn">não gostei</button>
-      </div>
-    </div>
-  </div>
-  <div>
-    comentarios
-  </div>
-</div>
+<article class="card text-center">
+  <header class="card-header d-flex justify-content-evenly">
+    <img src="https://picsum.photos/50/50" alt="imagem" class="rounded-circle">
+    <span>{{ post.strNome }}</span>
+    <span>{{ post.strData }}</span>
+  </header>
+  <main class="card-body">
+    <p class="card-text">{{ post.strMensagem }}</p>
+  </main>
+  <footer class="card-footer text-body-secondary d-flex justify-content-evenly">
+    <span>{{ post.qtdGostei }} gostei</span>
+    <span>{{ post.qtdNaoGostei }} não gostei</span>
+    <span>comentarios</span>
+  </footer>
+</article>
+

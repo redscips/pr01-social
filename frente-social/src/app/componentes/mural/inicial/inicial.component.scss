@@ -8,7 +8,5 @@ main {
   min-height: calc(100dvh - 173px); // espaço para header e footer
   flex: 1;
 
-  //fundo
-  background-color: map.get(mapas.$cores, branco);
   overflow-x: hidden;
 }

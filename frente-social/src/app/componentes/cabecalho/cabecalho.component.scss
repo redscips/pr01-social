@@ -49,9 +49,35 @@ header {
   }
 }
 
+img {
+  margin-right: 16px;
+}
+
+strong {
+  color: map.get(mapas.$cores, bege);
+  padding-bottom: 8px;
+  font-size: 22px;
+}
+
 //links
 h1 {   //titulo
   color: map.get(mapas.$cores, branco) !important;
+}
+
+.nav-link
+,.btn {
+  color:  map.get(mapas.$cores, branco);
+  background-color: map.get(mapas.$cores, marrom);
+
+  &:hover {
+    color:  map.get(mapas.$cores, bege);
+    background-color: map.get(mapas.$cores, marrom);
+  }
+}
+
+.nav-link
+,.btn {
+  width: 100px !important;
 }
 
 //classes: tornar cabecalho grudado no topo

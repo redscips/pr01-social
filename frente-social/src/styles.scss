@@ -16,10 +16,19 @@ html, body { height: 100%; }
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: map.get(mapas.$cores, preto);
+  background-color: map.get(mapas.$cores, bege-3) !important;
 }
 
 //classes: bootstrap
-.container { margin: 0 auto; }
+.container {
+  margin: 0 auto;
+}
+
+.active {
+  color:  map.get(mapas.$cores, marrom) !important;
+  background-color: map.get(mapas.$cores, marrom-3) !important;
+  border: none !important;
+}
 
 // fontes
 .bebas-neue-regular {

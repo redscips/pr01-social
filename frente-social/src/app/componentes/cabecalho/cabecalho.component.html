@@ -1,10 +1,13 @@
 <header [class.sticky]="ehGrudado">
-  <nav class="navbar navbar-expand-md w-100" id="{{ IDNavbar }}">
+  <nav class="navbar navbar-expand-sm w-100" id="{{ IDNavbar }}">
     <div class="container-fluid d-flex justify-content-evenly">
 
       <!-- titulo : boas vindas -->
-      <img src="https://picsum.photos/50/50" alt="imagem" class="rounded-circle">
-      <h1 class="h1 navbar-brand" href="#">Bem-vindo <strong>{{nomeUsuario}}</strong></h1>
+      <div class="d-flex align-items-center">
+        <img src="https://picsum.photos/50/50" alt="imagem" class="rounded-circle">
+        <h1 class="h1 navbar-brand" href="#">Bem-vindo</h1>
+        <strong>{{ nomeUsuario }}</strong>
+      </div>
 
       <!-- botao p/ alternar entre visao da navegacao em tela grande e tela pequenas -->
       <button class="navbar-toggler bg-secondary bg-gradient mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#id-links" aria-label="navegacao">
@@ -14,21 +17,18 @@
       <!-- navegacao: links da pagina -->
       <div class="collapse navbar-collapse flex-grow-0" id="id-links">
         <ul class="navbar-nav nav-pills nav-fill">
-          <li class="nav-item m-3">
+          <li class="nav-item m-2 m-sm-1">
             <a class="nav-link" href="#id-mural" (click)="onClickMural($event)">Mural</a>
-          </li>
-          <li class="nav-item m-3">
-            <a class="nav-link" href="#id-mural-2" (click)="onClickSessao($event)">Mural 2</a>
           </li>
         </ul>
       </div>
-      <button class="btn bg-secondary" type="reset" (click)="onClickBotao()">Sair</button>
+      <!-- botao p/ ativar barra lateral na visual movel -->
+      <button title="menu" class="btn bg-secondary d-flex d-sm-none" type="button" data-bs-toggle="offcanvas" [attr.data-bs-target]="'#' + strIDBarra">
+        Seguidores
+      </button>
+      <button class="btn" type="reset" (click)="onClickBotao()">Sair</button>
     </div>
   </nav>
 
-  <!-- botao p/ ativar barra lateral na visual movel -->
-  <button title="menu" class="btn bg-secondary d-flex d-sm-none" type="button" data-bs-toggle="offcanvas" [attr.data-bs-target]="'#' + strIDBarra">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
 </header>

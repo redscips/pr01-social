@@ -4,12 +4,25 @@
     <span>{{ post.strNome }}</span>
     <span>{{ post.strData }}</span>
   </header>
-  <main class="card-body">
+  <main class="card-body d-flex align-items-center justify-content-center">
     <p class="card-text">{{ post.strMensagem }}</p>
   </main>
   <footer class="card-footer text-body-secondary d-flex justify-content-evenly">
-    <span>{{ post.qtdGostei }} gostei</span>
-    <span>{{ post.qtdNaoGostei }} não gostei</span>
-    <span>comentarios</span>
+    <div class="d-flex justify-content-between mb-1 ms-1">
+      <button type="button" class="btn active" (click)="post.qtdGostei = post.qtdGostei! + 1">
+        <img class="img" src="../../../assets/icones/gostar.png" alt="icone gostei"> {{ post.qtdGostei }} gostei
+      </button>
+      <button type="button" class="btn active" (click)="post.qtdNaoGostei = post.qtdNaoGostei! + 1">
+        <img class="img" src="../../../assets/icones/nao_gostar.png" alt="icone nao gostei"> {{ post.qtdNaoGostei }} não gostei
+      </button>
+    </div>
+
+    <!-- botao p/ ativar barra lateral na visual movel -->
+    <button title="comentario" class="btn active w-100" type="button" data-bs-toggle="collapse" data-bs-target="#id">
+      <img class="img" src="../../../assets/icones/comentarios.png" alt="icone comentarios"> comentários
+    </button>
   </footer>
+  <div class="collapse" id="id">
+      comentario 1
+  </div>
 </article>

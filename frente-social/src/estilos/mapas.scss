@@ -16,3 +16,11 @@ $cores: (
 $tam-fontes: (
   padrao: 16px
 );
+
+//escapes
+$breakpoints: (
+  smartphone: '(max-width: 576px)',
+  tablet: '(min-width: 577px) and (max-width: 768px)',
+  desktop: '(min-width: 769px) and (max-width: 992px)',
+  grande: '(min-width: 993px)'
+);

@@ -3,7 +3,7 @@
 
 //classes: bootstrap
 .list-group-item {
-  margin: 8px;
+  margin-bottom: 16px;
   border-radius: 32px;
 
   &:hover {
@@ -11,5 +11,9 @@
 
     //animacao
     @include estilos.mix-animacoes('F')
+  }
+
+  &:nth-child(1) {
+    margin-top: 16px;
   }
 }

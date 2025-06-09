@@ -66,17 +66,6 @@ h1 {   //titulo
 
 .nav-link
 ,.btn {
-  color:  map.get(mapas.$cores, branco);
-  background-color: map.get(mapas.$cores, marrom);
-
-  &:hover {
-    color:  map.get(mapas.$cores, bege);
-    background-color: map.get(mapas.$cores, marrom);
-  }
-}
-
-.nav-link
-,.btn {
   width: 100px !important;
 }
 

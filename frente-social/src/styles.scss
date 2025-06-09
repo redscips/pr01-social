@@ -24,6 +24,17 @@ body {
   margin: 0 auto;
 }
 
+.nav-link
+,.btn {
+  color:  map.get(mapas.$cores, branco) !important;
+  background-color: map.get(mapas.$cores, marrom) !important;
+
+  &:hover {
+    color:  map.get(mapas.$cores, bege) !important;
+    background-color: map.get(mapas.$cores, marrom) !important;
+  }
+}
+
 .active {
   color:  map.get(mapas.$cores, marrom) !important;
   background-color: map.get(mapas.$cores, marrom-3) !important;

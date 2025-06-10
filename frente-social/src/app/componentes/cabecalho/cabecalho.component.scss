@@ -18,7 +18,6 @@ header {
 
   //espacamento
   padding: 16px;
-  border-top: solid 1px map.get(mapas.$cores, marrom-2);
 
   //sombra p/ deixa o objeto esfumacado
   background-color: map.get(mapas.$cores, marrom-2);
@@ -33,19 +32,16 @@ header {
     position: absolute;
     //inicia tampando o espaco deixado pelo cabecalho
     //subtrai 1px p/ nao ver bordas: border none nao resolve
-    top: calc(#{-$deslocamento} - 1px);
+    top: -$deslocamento;
     left: 0;
     width: 100%;
 
     //tamanho do deslocamento do cabecalho
-    //soma 2px p/ nao exibir bordar: mesmo problema do 'top'
-    height: calc(#{$deslocamento} + 2px);
+    //soma 1px p/ nao exibir bordar: mesmo problema do 'top'
+    height: calc(#{$deslocamento} + 1px);
 
     //herda o fundo do elemento
     background-color: map.get(mapas.$cores, marrom-2);
-
-    //uma posicao abaixo do cabecalho
-    z-index: 2;
   }
 }
 
@@ -72,11 +68,4 @@ h1 {   //titulo
 //classes: tornar cabecalho grudado no topo
 .sticky {
   transform: translateY(0);
-
-  //garante que sticky seja mantido
-  position: fixed;
-  top: 0; // Força a posição
-  left: 0;
-
-  width: 100%;
 }

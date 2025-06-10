@@ -4,13 +4,15 @@
 
 :host {
   display: block;
+
+  background-color: map.get(mapas.$cores, bege-3);
 }
 
 main {
-  min-height: calc(100dvh - 173px); // espaço para header e footer
+  min-height: calc(100dvh - 173px);
   flex: 1;
 
-  overflow-x: hidden;
+  // overflow-x: hidden;
 }
 
 section {
@@ -21,12 +23,9 @@ section {
 //ids
 #id-lateral {
   position: sticky;
-  // top: 150px;
   top: 0;
   left: 0;
 
   height: 100%;
-  // width: 20dvw;
-
-  // background-color: blue;
+  background-color: map.get(mapas.$cores, marrom);
 }

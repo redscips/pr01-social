@@ -16,7 +16,7 @@ html, body { height: 100%; }
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: map.get(mapas.$cores, preto);
-  background-color: map.get(mapas.$cores, bege-3) !important;
+  // background-color: map.get(mapas.$cores, bege-3) !important;
 }
 
 //classes: bootstrap

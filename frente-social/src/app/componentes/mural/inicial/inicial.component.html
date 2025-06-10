@@ -1,7 +1,7 @@
 <app-cabecalho [@aparecer] strIDBarra="{{ idBarra }}" (siIDNavbar)="retornaID($event)" />
 <main [@aparecer]>
 
-  <div class="row" data-bs-spy="scroll" [attr.data-bs-target]="'#' + IDNavbar" tabindex="0">
+  <div class="row">
     <aside class="col-0 col-sm-4 col-md-2">
 
       <div class="offcanvas offcanvas-start" data-bs-scroll="true" id="{{ idBarra }}">
@@ -20,10 +20,12 @@
 
     </aside>
 
-    <section id="id-mural" class="col-10 col-sm-8 offset-1 offset-sm-0 offset-md-1">
-      <button type="button" class="btn">Novo post</button>
-      <app-lista-posts />
-    </section>
+    <div class="col-10 col-sm-8 offset-1 offset-sm-0 offset-md-1" data-bs-spy="scroll" [attr.data-bs-target]="'#' + IDNavbar" tabindex="0">
+      <section id="id-mural">
+        <button type="button" class="btn">Novo post</button>
+        <app-lista-posts />
+      </section>
+    </div>
   </div>
 </main>
 <app-rodape [@aparecer]/>

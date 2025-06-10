@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { criarAnimacao } from '../../../animacoes/animacoes';
 import { ListaPostsComponent } from '../../lista-posts/lista-posts.component';
 import { ClsComumService } from '../../../servicos/cls-comum.service';
+import { SeguidoresComponent } from '../../seguidores/seguidores.component';
 
 @Component({
   selector: 'app-inicial',
-  imports: [CabecalhoComponent, RodapeComponent, CommonModule, ListaPostsComponent],
+  imports: [CabecalhoComponent, RodapeComponent, CommonModule, ListaPostsComponent, SeguidoresComponent],
   templateUrl: './inicial.component.html',
   styleUrl: './inicial.component.scss',
   animations: [criarAnimacao('A', 'aparecer', ':enter')]

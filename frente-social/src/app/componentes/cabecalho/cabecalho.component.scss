@@ -13,7 +13,7 @@ header {
   left: 0;
 
   //posicao inicial: cria efeito suave de deslizamento do cabecalho
-  transform: translateY($deslocamento);
+  margin-top: $deslocamento;
   transition: all 1s ease-in-out;
 
   //espacamento
@@ -38,7 +38,7 @@ header {
 
     //tamanho do deslocamento do cabecalho
     //soma 1px p/ nao exibir bordar: mesmo problema do 'top'
-    height: calc(#{$deslocamento} + 1px);
+    height: $deslocamento + 1px;
 
     //herda o fundo do elemento
     background-color: map.get(mapas.$cores, marrom-2);
@@ -67,5 +67,5 @@ h1 {   //titulo
 
 //classes: tornar cabecalho grudado no topo
 .sticky {
-  transform: translateY(0);
+  margin-top: 0;
 }

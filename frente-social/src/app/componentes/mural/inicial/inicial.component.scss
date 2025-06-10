@@ -7,8 +7,6 @@
 }
 
 main {
-  margin-top: 50px;   //ajuste p/ animacao do cabecalho
-
   min-height: calc(100dvh - 173px); // espaço para header e footer
   flex: 1;
 
@@ -18,4 +16,17 @@ main {
 section {
   margin-top: 30px;
   padding-right: 30px;
+}
+
+//ids
+#id-lateral {
+  position: sticky;
+  // top: 150px;
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  // width: 20dvw;
+
+  // background-color: blue;
 }

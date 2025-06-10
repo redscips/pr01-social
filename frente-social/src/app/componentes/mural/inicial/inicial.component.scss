@@ -17,12 +17,21 @@ main {
 }
 
 section {
-  margin-top: 30px;
+  // margin-top: 30px;
   padding-right: 30px;
 }
 
 //ids
 #id-lateral {
   height: 100%;
+}
+
+//classes: bootstrap
+.modal-dialog {
+  margin-bottom: 56px;
+}
+
+.offcanvas
+,#id-lateral {
   background-color: map.get(mapas.$cores, marrom);
 }

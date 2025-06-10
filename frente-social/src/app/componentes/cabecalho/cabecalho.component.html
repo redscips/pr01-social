@@ -1,34 +1,34 @@
-<header [class.sticky]="ehGrudado">
-  <nav class="navbar navbar-expand-sm w-100" id="{{ IDNavbar }}">
-    <div class="container-fluid d-flex justify-content-evenly">
+<header class="container-fluid justify-content-evenly d-sm-flex" [class.sticky]="ehGrudado">
+  <!-- titulo : boas vindas -->
+  <div class="d-flex align-items-center justify-content-between">
+    <img src="https://picsum.photos/50/50" alt="imagem" class="rounded-circle">
+    <h1 class="h1 navbar-brand" href="#">Bem-vindo</h1>
+    <strong>{{ nomeUsuario }}</strong>
 
-      <!-- titulo : boas vindas -->
-      <div class="d-flex align-items-center">
-        <img src="https://picsum.photos/50/50" alt="imagem" class="rounded-circle">
-        <h1 class="h1 navbar-brand" href="#">Bem-vindo</h1>
-        <strong>{{ nomeUsuario }}</strong>
-      </div>
+    <!-- botao p/ alternar entre visao da navegacao em tela grande e tela pequenas -->
+    <button class="btn d-sm-none" type="button" data-bs-toggle="collapse" data-bs-target="#id-links" aria-label="navegacao">
+      <i class="bi bi-menu-up"></i>
+    </button>
+  </div>
 
-      <!-- botao p/ alternar entre visao da navegacao em tela grande e tela pequenas -->
-      <button class="navbar-toggler bg-secondary bg-gradient mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#id-links" aria-label="navegacao">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <nav class="navbar navbar-expand-sm" id="{{ IDNavbar }}">
 
-      <!-- navegacao: links da pagina -->
-      <div class="collapse navbar-collapse flex-grow-0" id="id-links">
-        <ul class="navbar-nav nav-pills nav-fill">
-          <li class="nav-item m-2 m-sm-1">
-            <a class="nav-link" href="#id-mural" (click)="onClickMural($event)">Mural</a>
-          </li>
-        </ul>
-      </div>
-      <!-- botao p/ ativar barra lateral na visual movel -->
-      <button title="menu" class="btn bg-secondary d-flex d-sm-none" type="button" data-bs-toggle="offcanvas" [attr.data-bs-target]="'#' + strIDBarra">
-        Seguidores
-      </button>
-      <button class="btn" type="reset" (click)="onClickBotao()">Sair</button>
+    <!-- navegacao: links da pagina -->
+    <div class="collapse navbar-collapse" id="id-links">
+      <ul class="navbar-nav nav-pills nav-fill flex-row justify-content-center">
+        <li class="nav-item me-2 me-sm-1">
+          <a class="nav-link" href="#id-mural" (click)="onClickMural($event)">Mural</a>
+        </li>
+      </ul>
     </div>
   </nav>
 
-
+  <div class="d-flex justify-content-evenly">
+    <!-- botao p/ ativar barra lateral na visual movel -->
+    <button title="menu" class="btn d-sm-none" type="button" data-bs-toggle="offcanvas" [attr.data-bs-target]="'#' + strIDBarra">
+      Seguidores
+    </button>
+    <!-- deslogar -->
+    <button class="btn" type="reset" (click)="onClickBotao()">Sair</button>
+  </div>
 </header>

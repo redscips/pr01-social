@@ -65,6 +65,11 @@ h1 {   //titulo
   width: 100px !important;
 }
 
+.nav-fill
+.nav-item {
+  flex: 0 auto;
+}
+
 //classes: tornar cabecalho grudado no topo
 .sticky {
   margin-top: 0;

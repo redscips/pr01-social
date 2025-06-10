@@ -12,7 +12,8 @@ main {
   min-height: calc(100dvh - 173px);
   flex: 1;
 
-  // overflow-x: hidden;
+  //tamanho maximo
+  max-width: 98dvw;
 }
 
 section {
@@ -22,10 +23,6 @@ section {
 
 //ids
 #id-lateral {
-  position: sticky;
-  top: 0;
-  left: 0;
-
   height: 100%;
   background-color: map.get(mapas.$cores, marrom);
 }

@@ -1,4 +1,11 @@
-<div id="id-seguidores">
-  <img src="https://picsum.photos/50/50" alt="imagem" class="rounded-circle">
-  <span>{{ strNome }}</span>
-</div>
+<ul class="list-group">
+
+  <!-- loop pelos posts -->
+  @for (seguidor of seguidores; track seguidor) {
+    <li id="{{ seguidor.cod_tab }}" class="list-group-item mb-3">
+      <img src="{{ seguidor.des_url_img }}" alt="imagem" class="rounded-circle">
+      <span class="ms-3">{{ seguidor.des_nome }}</span>
+    </li>
+  }
+</ul>
+

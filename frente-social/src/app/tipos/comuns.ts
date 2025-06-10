@@ -3,9 +3,11 @@ export type tTipoEntrada = 'text' | 'tel' | 'email' | 'password'
 
 //login
 export type tUsuario = {
+  cod_tab?: number
   des_nome?: string,
   des_login?: string,
-  des_senha?: string
+  des_senha?: string,
+  des_url_img?: string
 }
 
 export type TokenResposta = {

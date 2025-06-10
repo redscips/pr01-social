@@ -1,0 +1,35 @@
+@use 'sass:map';
+@use '../../../estilos/mapas.scss' as mapas;
+@use '../../../styles.scss' as estilos;
+
+:host {
+  width: 100%;
+}
+
+// a lista ficara sempre ao lado esquerdo
+.list-group {
+  position: sticky;
+  top: 150px;
+  left: 0;
+}
+
+.list-group-item {
+  //define o fundo dos itens como transparente
+  background-color: transparent;
+  border: none;
+  border-radius: 16px;
+
+  //exibe apenas a borda debaixo
+  border-bottom: 8px ridge map.get(mapas.$cores, bege);
+
+  &:hover {
+    //animacao
+    cursor: pointer;
+    @include estilos.mix-animacoes('F')
+  }
+}
+
+//cor dos nomes
+span {
+  color: map.get(mapas.$cores, branco) !important;
+}

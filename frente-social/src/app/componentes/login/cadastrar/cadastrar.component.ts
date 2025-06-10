@@ -87,11 +87,16 @@ export class CadastrarComponent implements OnInit {
       // Efetua a requisição de login
       this.socialAPI.criaLogin(this.usuario)
         .subscribe({
-          next: () => {
-            // Reseta os dados e o formulário
-            this.usuario = {};
-            this.flgSubmit = false;
-            this.fgLoginForm.reset();
+          next: (usuario) => {
+            //validacao
+            if (usuario instanceof tUsuario) {
+              // Reseta os dados e o formulário
+              this.usuario = {};
+              this.flgSubmit = false;
+              this.fgLoginForm.reset();
+            } else {
+              this.fgLoginForm.get('senha')?.setErrors({ semRetorno: true });
+            }
           },
           error: (erros) => {
             //validacoes

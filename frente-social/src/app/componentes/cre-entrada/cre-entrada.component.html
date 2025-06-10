@@ -21,6 +21,7 @@
                 @case ('emailDuplicado') { Este email ja existe no banco. }
                 @case ('senhaErrada') { <p>Senha errada.</p> }
                 @case ('loginInexistente') { <p>Usuario não encontrado.</p> }
+                @case ('semRetorno') { <p>Servidor não respondeu.</p> }
                 <!-- caso padrao: 'required' -->
                 @default { <p>Campo é obrigatório.</p> }
               }

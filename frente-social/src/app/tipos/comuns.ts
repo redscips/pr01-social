@@ -2,12 +2,15 @@
 export type tTipoEntrada = 'text' | 'tel' | 'email' | 'password'
 
 //login
-export type tUsuario = {
-  cod_tab?: number
-  des_nome?: string,
-  des_login?: string,
-  des_senha?: string,
-  des_url_img?: string
+export class tUsuario {
+  constructor(
+    public cod_tab?: number,
+    public des_login?: string,
+    public des_nome?: string,
+    public des_senha?: string,
+    public des_url_img?: string
+
+  ) {}
 }
 
 export type TokenResposta = {

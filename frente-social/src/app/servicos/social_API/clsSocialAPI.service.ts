@@ -55,7 +55,7 @@ export class ClsSocialAPIService {
       })
   }
 
-  criaLogin(usuario: tUsuario): Observable<boolean> {
+  criaLogin(usuario: tUsuario): Observable<any> {
 
     const token = this.getToken;
     //token obrigatorio
@@ -65,8 +65,8 @@ export class ClsSocialAPIService {
 
       //executa requisicao
       return this.req.execRequisicao(this.loginURL, 'POST', cabecalhos, undefined, usuario)
-        .pipe(tap((resposta) => alert('Cadastro - Sucesso: ' + JSON.stringify(resposta))),
-          map(() => true),   //mapeia o resultado e retorna 'verdadeiro' caso nao de erros
+        .pipe(tap((resposta) => JSON.stringify(resposta)),
+          map((resposta) => Object.assign(new tUsuario(), resposta)),   //mapeia o resultado e retorna 'verdadeiro' caso nao de erros
           catchError((erros) => {
             console.log('Cadastro - Erro(s): ' + erros.message)
             return throwError(() => erros)
@@ -88,7 +88,7 @@ export class ClsSocialAPIService {
       //executa requisicao
       return this.req.execRequisicao(this.loginURL, 'GET', cabecalhos, undefined, usuario, false)
         .pipe(tap((resposta) => JSON.stringify(resposta)),
-          map((resposta) => resposta as tUsuario),   //mapeia o resultado e retorna 'verdadeiro' caso nao de erros
+          map((resposta) => Object.assign(new tUsuario(), resposta)),   //mapeia o resultado e retorna 'verdadeiro' caso nao de erros
           catchError((erros) => {
             console.log('Login - Erro(s): ' + erros.message)
             return throwError(() => erros)

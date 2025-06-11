@@ -29,6 +29,7 @@ export class InicialComponent implements AfterViewInit {
   //#region eventos
   retornaID(id: string): void { this.IDNavbar = id }
   ngAfterViewInit(): void { this.preparaForm() }
+  onClick(): void { this.criarNovoPost() }
   //#endregion
 
   //#region metodos
@@ -49,6 +50,10 @@ export class InicialComponent implements AfterViewInit {
         intancia.refresh();
       }
     }
+  }
+
+  criarNovoPost(): void {
+
   }
   //#endregion
 }

@@ -37,14 +37,21 @@
             </header>
 
             <!-- formulario post -->
-            <main class="modal-body">
-              modal
-            </main>
+            <div class="modal-body">
+
+              <!-- formulario p/ entrar com o posts -->
+              <form action="">
+                <div class="form-floating">
+                  <textarea class="form-control" placeholder="Digite o comentário" id="id-area-texto"></textarea>
+                  <label for="id-area-texto">Comentário</label>
+                </div>
+              </form>
+            </div>
 
             <!-- rodape -->
             <footer class="modal-footer">
               <button type="button" class="btn" data-bs-dismiss="modal">Fechar</button>
-              <button type="button" class="btn">Salvar</button>
+              <button type="button" class="btn" (click)="criarNovoPost()">Salvar</button>
             </footer>
           </div>
         </div>

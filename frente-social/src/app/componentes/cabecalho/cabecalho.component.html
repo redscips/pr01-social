@@ -2,7 +2,7 @@
   <!-- titulo : boas vindas -->
   <div class="d-flex align-items-center justify-content-between">
     <img src="https://picsum.photos/50/50" alt="imagem" class="rounded-circle">
-    <h1 class="h1 navbar-brand" href="#">Bem-vindo</h1>
+    <h1 class="h1 navbar-brand me-2" href="#">Bem-vindo</h1>
     <strong>{{ nomeUsuario }}</strong>
 
     <!-- botao p/ alternar entre visao da navegacao em tela grande e tela pequenas -->
@@ -23,7 +23,7 @@
     </div>
   </nav>
 
-  <div class="d-flex justify-content-evenly">
+  <div class="cls-botoes d-flex justify-content-evenly">
     <!-- botao p/ ativar barra lateral na visual movel -->
     <button title="menu" class="btn d-sm-none" type="button" data-bs-toggle="offcanvas" [attr.data-bs-target]="'#' + strIDBarra">
       Seguidores

@@ -4,7 +4,7 @@
     <span>{{ post.strNome }}</span>
     <span>{{ post.strData }}</span>
   </header>
-  <main class="card-body d-flex align-items-center justify-content-center">
+  <main class="card-body d-flex align-items-center justify-content-center" [class.h20]="!flgComentario">
     <p class="card-text">{{ post.strMensagem }}</p>
   </main>
   <footer class="card-footer text-body-secondary d-flex justify-content-evenly">
@@ -23,6 +23,15 @@
     </button>
   </footer>
   <div class="collapse" id="id">
-      comentario 1
+    <!-- lista de comentarios -->
+    <ul class="list-group list-group-numbered">
+
+      <!-- loop pelos comentarios -->
+      @for (comentario of post.comentarios; track comentario) {
+        <li id="{{ comentario.id }}" class="list-group-item">
+          <app-post [post]="comentario" [flgComentario]="true" />
+        </li>
+      }
+    </ul>
   </div>
 </article>

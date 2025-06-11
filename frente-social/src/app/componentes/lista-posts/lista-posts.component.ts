@@ -33,7 +33,26 @@ export class ListaPostsComponent {
         strNome: 'fulano',
         strMensagem: 'Mensagem',
         qtdGostei: 2,
-        qtdNaoGostei: 1
+        qtdNaoGostei: 1,
+        comentarios: [
+          {
+            id: 22,
+            strMensagem: 'legal',
+            strNome: 'ciclano'
+          },
+          {
+            id: 23,
+            strMensagem: 'tambem achei',
+            strNome: 'beltrano',
+            comentarios: [
+              {
+                id: 33,
+                strMensagem: 'nossa',
+                strNome: 'fulano'
+              }
+            ]
+          }
+        ]
       },
       {
         id: 2,

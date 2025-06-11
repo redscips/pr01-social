@@ -8,8 +8,6 @@ export class tUsuario {
     public des_login?: string,
     public des_nome?: string,
     public des_senha?: string,
-    public des_url_img?: string
-
   ) {}
 }
 
@@ -25,5 +23,6 @@ export type tPost = {
   strData?: Date,
   strMensagem: string,
   qtdGostei?: number,
-  qtdNaoGostei?: number
+  qtdNaoGostei?: number,
+  comentarios?: tPost[]
 }

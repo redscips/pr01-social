@@ -22,17 +22,14 @@ export class SeguidoresComponent {
       {
         cod_tab: 1,
         des_nome: 'fulano',
-        des_url_img: 'https://picsum.photos/50/50'
       },
       {
         cod_tab: 2,
         des_nome: 'ciclano',
-        des_url_img: 'https://picsum.photos/50/50'
       },
       {
         cod_tab: 3,
         des_nome: 'beltrano',
-        des_url_img: 'https://picsum.photos/50/50'
       }
     ]
   }

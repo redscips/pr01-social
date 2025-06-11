@@ -52,12 +52,16 @@ img {
 strong {
   color: map.get(mapas.$cores, bege);
   padding-bottom: 8px;
-  font-size: 22px;
 }
 
 //links
 h1 {   //titulo
   color: map.get(mapas.$cores, branco) !important;
+}
+
+//classes: tornar cabecalho grudado no topo
+.cls-botoes {
+  padding: 8px;
 }
 
 .nav-link
@@ -70,7 +74,6 @@ h1 {   //titulo
   flex: 0 auto;
 }
 
-//classes: tornar cabecalho grudado no topo
 .sticky {
   margin-top: 0;
 }

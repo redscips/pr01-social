@@ -31,7 +31,15 @@ section {
   margin-bottom: 56px;
 }
 
+.modal-title {
+  color: map.get(mapas.$cores, marrom);
+}
+
 .offcanvas
 ,#id-lateral {
   background-color: map.get(mapas.$cores, marrom);
+}
+
+.modal-content {
+  background-color: map.get(mapas.$cores, bege-3);
 }

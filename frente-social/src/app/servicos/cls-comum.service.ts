@@ -90,5 +90,10 @@ export class ClsComumService {
 
     return ctrl
   }
+
+  retornaBootstrap(): any {
+    //assume que o bundle do bootstrap ja esta disponível globalmente: carrega funcoes bootstrao
+    return (window as any).bootstrap as typeof import('bootstrap');
+  }
   //#endregion
 }

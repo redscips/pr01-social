@@ -9,29 +9,35 @@
   </main>
   <footer class="card-footer text-body-secondary d-flex justify-content-evenly">
     <div class="d-flex justify-content-between mb-1 ms-1">
-      <button type="button" class="btn active" (click)="post.qtdGostei = post.qtdGostei! + 1">
+      <button type="button" class="btn active" (click)="onClick()">
         <img class="img" src="../../../assets/icones/gostar.png" alt="icone gostei"> {{ post.qtdGostei }} gostei
       </button>
-      <button type="button" class="btn active" (click)="post.qtdNaoGostei = post.qtdNaoGostei! + 1">
+      <button type="button" class="btn active" (click)="onClick2()">
         <img class="img" src="../../../assets/icones/nao_gostar.png" alt="icone nao gostei"> {{ post.qtdNaoGostei }} não gostei
       </button>
     </div>
 
-    <!-- botao p/ ativar barra lateral na visual movel -->
-    <button title="comentario" class="btn active w-100" type="button" data-bs-toggle="collapse" data-bs-target="#id">
-      <img class="img" src="../../../assets/icones/comentarios.png" alt="icone comentarios"> comentários
-    </button>
+    @if (!flgComentario) {
+      <!-- botao p/ ativar barra lateral na visual movel -->
+      <button title="comentario" class="btn active w-100" type="button" data-bs-toggle="collapse" data-bs-target="#id">
+        <img class="img" src="../../../assets/icones/comentarios.png" alt="icone comentarios"> comentários
+      </button>
+    }
   </footer>
-  <div class="collapse" id="id">
-    <!-- lista de comentarios -->
-    <ul class="list-group list-group-numbered">
 
-      <!-- loop pelos comentarios -->
-      @for (comentario of post.comentarios; track comentario) {
-        <li id="{{ comentario.id }}" class="list-group-item">
-          <app-post [post]="comentario" [flgComentario]="true" />
-        </li>
-      }
-    </ul>
-  </div>
+  <!-- validacao -->
+  @if (!flgComentario) {
+    <div class="collapse" id="id">
+      <!-- lista de comentarios -->
+      <ul class="list-group list-group-numbered">
+
+        <!-- loop pelos comentarios -->
+        @for (comentario of post.comentarios; track comentario) {
+          <li id="{{ comentario.id }}" class="list-group-item">
+            <app-post [post]="comentario" [flgComentario]="true" />
+          </li>
+        }
+      </ul>
+    </div>
+  }
 </article>

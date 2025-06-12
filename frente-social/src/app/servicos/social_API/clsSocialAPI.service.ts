@@ -14,6 +14,7 @@ export class ClsSocialAPIService {
   //endpoint
   private tokenURL = 'http://localhost:8000/api/token/'
   private loginURL = 'http://www.redesocial.com/ocultosocial/login/'
+  private postURL = 'http://www.redesocial.com/ocultosocial/post/'
   //token
   private token = 'tokenAPI';
   private vlrToken: string = ''
@@ -96,6 +97,28 @@ export class ClsSocialAPIService {
     }
 
     //retorna observavel 'of'
+    return of(false)
+  }
+
+  criarPost(): Observable<any> {
+
+    const token = this.getToken;
+    //token obrigatorio
+    if (token) {
+      //cabecalho
+      const cabecalhos = {'Authorization': `Token ${token}`}
+
+      //executa requisicao
+      return this.req.execRequisicao(this.postURL, 'POST', cabecalhos, undefined)
+        .pipe(tap((resposta) => JSON.stringify(resposta)),
+          map((resposta) => resposta),   //mapeia o resultado e retorna 'verdadeiro' caso nao de erros
+          catchError((erros) => {
+            console.log('Cadastro - Erro(s): ' + erros.message)
+            return throwError(() => erros)
+          }))
+    }
+
+    //converte a resposta p/ um observavel 'of'
     return of(false)
   }
   //#endregion

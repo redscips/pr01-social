@@ -23,7 +23,7 @@
     <div class="col-10 col-sm-8 offset-1 offset-sm-0 offset-md-1 mt-3" data-bs-spy="scroll" [attr.data-bs-target]="'#' + IDNavbar" tabindex="0">
 
       <!-- botao: ativa a modal p/ visualizacao/adicao de post -->
-      <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#id-modal">Novo post</button>
+      <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#id-modal" (click)="form.get('comentario')?.reset()">Novo post</button>
 
       <!-- modal -->
       <div class="modal fade" id="id-modal">
@@ -40,19 +40,38 @@
             <div class="modal-body">
 
               <!-- formulario p/ entrar com o posts -->
-              <form action="">
+              <form (ngSubmit)="onSubmit()" [formGroup]="form">
                 <div class="form-floating">
-                  <textarea class="form-control" placeholder="Digite o comentário" id="id-area-texto"></textarea>
+                  <textarea class="form-control" placeholder="Digite o comentário" id="id-area-texto" formControlName="comentario"></textarea>
                   <label for="id-area-texto">Comentário</label>
+                  <!-- validacao -->
+                  @if (flgSubmit) {
+                    <!-- erros -->
+                    @if (form.get('comentario')?.errors) {
+                      <div class="invalid-feedback">
+                        <ul>
+                          @for (erro of getErros; track erro) {
+                            <li>
+                              <!-- verifica qual o tipo de erro -->
+                              @switch (erro) {
+                                @case ('required') { <p>Campo é obrigatório.</p> }
+                                <!-- caso padrao: 'erro retornado' -->
+                                @default { <p>Erro.</p> }
+                              }
+                            </li>
+                          }
+                        </ul>
+                      </div>
+                    }
+                  }
                 </div>
+                 <!-- rodape -->
+                <footer class="modal-footer">
+                  <button type="button" class="btn" data-bs-dismiss="modal">Fechar</button>
+                  <button type="submit" class="btn">Salvar</button>
+                </footer>
               </form>
             </div>
-
-            <!-- rodape -->
-            <footer class="modal-footer">
-              <button type="button" class="btn" data-bs-dismiss="modal">Fechar</button>
-              <button type="button" class="btn" (click)="criarNovoPost()" data-bs-dismiss="modal">Salvar</button>
-            </footer>
           </div>
         </div>
       </div>

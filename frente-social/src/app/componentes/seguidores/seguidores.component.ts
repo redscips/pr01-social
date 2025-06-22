@@ -20,15 +20,15 @@ export class SeguidoresComponent {
   preparaForm(): void {
     this.seguidores = [
       {
-        cod_tab: 1,
+        id: 1,
         des_nome: 'fulano',
       },
       {
-        cod_tab: 2,
+        id: 2,
         des_nome: 'ciclano',
       },
       {
-        cod_tab: 3,
+        id: 3,
         des_nome: 'beltrano',
       }
     ]

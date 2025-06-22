@@ -4,28 +4,42 @@ from django.db import DatabaseError
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 #serializador
 from applogin.serializador import clsLoginSerial
 #pandas
 import pandas as pd
 #calsses
-from ocultosocial.modelo_der import TblUsuarios
+from applogin.modelos import tbl_usuarios
 from ocultosocial.comuns.clsComuns import ClsComuns
 from ocultosocial.serializador.clsSerial import ClsSerial
 from ocultosocial.DAL import ClsDAL
 
 class ClsLoginViewSet(viewsets.ModelViewSet):
     #
-    queryset = TblUsuarios.objects.all()
+    queryset = tbl_usuarios.objects.all()
     serializer_class = clsLoginSerial
     permission_classes = [IsAuthenticated]
     #campos que seria usado como se fosse 'pk'
-    #lookup_field = 'des_login'
+    lookup_field = 'des_login'
     #lookup_value_regex = '[^/]+'  # permite qualquer caractere, exceto a barra
     
     #region metodos
+    def get_permissions(self):
+        """_summary_
+            Retorna o tipo de autorizacao da acao, onde somente a acao de 'criar' um novo usuario nao exige autorizacao.
+        Returns:
+            _type_: IsAuthenticated/AllowAny.
+            Tipo de autorizacao da acao sendo requisitada.
+        """
+        # libera qualquer um para criar usuario
+        if self.action == 'create':
+            return [AllowAny()]
+        else:
+            # demais acoes continuam exigindo IsAuthenticated
+            return super().get_permissions()
+    
     #GET (varios registros): nome fixo do framework => list
     def list(self, request, *args, **kwargs):
         #valida se foi passado parametros URL
@@ -50,7 +64,7 @@ class ClsLoginViewSet(viewsets.ModelViewSet):
             if check_password(strSenha, senhaHash) :
                 # Busca o usuário pelo login (case‐insensitive, se preferir)
                 usuario = get_object_or_404(
-                    TblUsuarios.objects.all(),
+                    tbl_usuarios.objects.all(),
                     des_login__iexact=strLogin
                 )
                 # serializa como objeto único
@@ -74,7 +88,7 @@ class ClsLoginViewSet(viewsets.ModelViewSet):
                 #CASO: nao lancou excecao: salva no banco novo cadastro
                 serial.save()
                 #sucesso
-                resposta = Response('Usuario cadastrado', status=status.HTTP_201_CREATED)
+                resposta = Response(login, status=status.HTTP_201_CREATED)
         except DatabaseError as e:
             resposta = ClsComuns.trataExcecoesReq(str(e))
         #def retorno

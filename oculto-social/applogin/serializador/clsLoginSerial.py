@@ -6,28 +6,28 @@ from rest_framework.response import Response
 #classes
 from ocultosocial.comuns.clsComuns import ClsComuns
 # classe
-from ocultosocial.modelo_der import TblUsuarios
+from applogin.modelos import tbl_usuarios
 
 class clsLoginSerial(serializers.ModelSerializer):
     #
     class Meta:
-        model = TblUsuarios
-        fields = TblUsuarios.campos
-        extra_kwargs = TblUsuarios.extra_kwargs
+        model = tbl_usuarios
+        fields = tbl_usuarios.campos
+        extra_kwargs = tbl_usuarios.extra_kwargs
     #
     #region metodos  
     #POSTAR/POST: nome fixo do framework => create
     def create(self, validated_data, *args, **kwargs):
         try:
             #cria uma instancia de um usuario
-            usuario = TblUsuarios(**validated_data)
+            usuario = tbl_usuarios(**validated_data)
             #criptografa a senha
-            if 'des_senha' in validated_data:
-                usuario.set_password(validated_data['des_senha'])
+            if 'password' in validated_data:
+                usuario.set_password(validated_data['password'])
             #efetiva no banco
             usuario.save()
             #sucesso
-            resposta = Response("Usuario cadastrado", status=status.HTTP_201_CREATED)
+            resposta = Response(usuario, status=status.HTTP_201_CREATED)
         except DatabaseError as e:
             resposta = ClsComuns.trataExcecoesReq(str(e))
         #def retorno

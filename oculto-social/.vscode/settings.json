@@ -1,0 +1,13 @@
+{
+  // ativa o CodeLens em geral
+  "editor.codeLens": true,
+
+  // forçar Pylance como LSP
+  "python.languageServer": "Python",
+
+  // mostrar "N references" sobre funções e métodos
+  "python.analysis.codelens.references": true,
+
+  // (opcional) desligar CodeLens de definição, se quiser
+  "python.analysis.codelens.definition": false
+}

@@ -13,7 +13,6 @@ export class AppComponent {
   title = 'Rede Social';
 
   constructor (
-    private socialAPI: ClsSocialAPIService,
     private clsComum: ClsComumService
   ) { }
 
@@ -29,9 +28,6 @@ export class AppComponent {
       // do componente na memoria anterior a algum evento de recarga
       document.body.offsetHeight;   //gatilho reflow
     }
-
-    //configura o token p/ acessa
-    this.socialAPI.validaToken()
   }
   //#endregion
 }

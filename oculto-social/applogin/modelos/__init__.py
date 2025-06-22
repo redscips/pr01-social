@@ -1,0 +1,2 @@
+from .tbl_usuarios import tbl_usuarios
+from .tbl_usuarios_admin import tbl_usuarios_admin

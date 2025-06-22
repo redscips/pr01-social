@@ -42,12 +42,12 @@ export class CadastrarComponent implements OnInit {
       nome: new FormControl (this.usuario.des_nome, [
         Validators.required
       ]),
-      email: new FormControl (this.usuario.des_login, [
+      email: new FormControl (this.usuario.username, [
         Validators.required,    //obrigatorio
         Validators.email,   //validacoes de email
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')   //formato obrigatorio do dado: ____@____.____
       ]),
-      senha: new FormControl (this.usuario.des_senha, [
+      senha: new FormControl (this.usuario.password, [
         Validators.required,
         Validators.minLength(8)   //tamanho minimo da senha
       ])
@@ -82,8 +82,8 @@ export class CadastrarComponent implements OnInit {
     if (this.validaDados()) {
       //pega os valores
       this.usuario.des_nome = this.getNome?.value
-      this.usuario.des_login = this.getEmail?.value
-      this.usuario.des_senha = this.getSenha?.value
+      this.usuario.username = this.getEmail?.value
+      this.usuario.password = this.getSenha?.value
       // Efetua a requisição de login
       this.socialAPI.criaLogin(this.usuario)
         .subscribe({
@@ -94,6 +94,8 @@ export class CadastrarComponent implements OnInit {
               this.usuario = {};
               this.flgSubmit = false;
               this.fgLoginForm.reset();
+              //navega p/ nova rota
+              this.ClsComum.navegar(['/mural'])
             } else {
               this.fgLoginForm.get('senha')?.setErrors({ semRetorno: true });
             }
@@ -103,6 +105,8 @@ export class CadastrarComponent implements OnInit {
             if (erros.message.includes('already exists')) {
               //email duplicado
               this.fgLoginForm.get('email')?.setErrors({ emailDuplicado: true });
+            } else {
+              console.log(erros)
             }
           }
         })

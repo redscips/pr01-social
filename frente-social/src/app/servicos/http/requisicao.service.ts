@@ -55,7 +55,7 @@ export class RequisicaoService {
       }
     }
     //retorna uma promessa convertida p/ observavel
-    return defer(async (): Promise<any> => {
+    return defer(async (): Promise<T> => {
       //espera pela resposta da api: configura o corpo da requisicao
       const resposta = await fetch(strURL, requisicao)
 
@@ -81,7 +81,7 @@ export class RequisicaoService {
         throw new Error(`"Funcao=executaRequisicao<T>_RequisicaoService" => Erro(s) | Data: ${data} | Resposta: ${resposta.status} - ${resposta.statusText}}`)
       }
     })
-    .pipe(map<any, T>((data: any) => data as T),   //mapeia o resultado retornado p/ tipo 'T'
+    .pipe(map<any, T>((data: T) => data),   //mapeia o resultado retornado p/ tipo 'T'
       catchError(erros => throwError(() => erros)));
   }
 
@@ -90,7 +90,7 @@ export class RequisicaoService {
    * @param parametrosCorpo
    * @returns Uma URL com os parametros incorporados nela: Exemplo - 'https://www.site.com/api?parametros=valores'
    */
-  private converteParametrosURL(parametrosCorpo: Dict<any>): URLSearchParams {
+  private converteParametrosURL<T>(parametrosCorpo: Dict<T>): URLSearchParams {
     //cria objeto que usa parametros na URL
     const parametros = new URLSearchParams();
     //loop por cada uma das chaves e valores do dicionario

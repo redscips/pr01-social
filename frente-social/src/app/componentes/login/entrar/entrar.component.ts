@@ -41,12 +41,12 @@ export class EntrarComponent implements OnInit {
   preparaForm(): void {
     //configura formulario
     this.fgLoginForm = this.fbLoginForm.group({
-      email: new FormControl (this.usuario.des_login, [
+      email: new FormControl (this.usuario.username, [
         Validators.required,    //obrigatorio
         Validators.email,   //validacoes de email
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')   //formato obrigatorio do dado: ____@____.____
       ]),
-      senha: new FormControl (this.usuario.des_senha, [
+      senha: new FormControl (this.usuario.password, [
         Validators.required,
         Validators.minLength(8)   //tamanho minimo da senha
       ])
@@ -56,6 +56,7 @@ export class EntrarComponent implements OnInit {
   get getEmail() {
     return this.fgLoginForm.get('email');
   }
+
   get getSenha() {
     return this.fgLoginForm.get('senha');
   }
@@ -75,16 +76,14 @@ export class EntrarComponent implements OnInit {
     //---------
     if (this.validaDados()) {
       //pega os valores
-      this.usuario.des_login = this.getEmail?.value
-      this.usuario.des_senha = this.getSenha?.value
+      this.usuario.username = this.getEmail?.value
+      this.usuario.password = this.getSenha?.value
       // Efetua a requisição de login
       this.socialAPI.executaLogin(this.usuario)
         .subscribe({
           next: (usuario) => {
             //validacao
             if (usuario instanceof tUsuario) {
-              //loga usuario no sistema
-              this.ClsAutenticacao.setLogado(true, usuario)
               // Reseta os dados e o formulário
               this.usuario = {}
               this.flgSubmit = false;
@@ -99,7 +98,7 @@ export class EntrarComponent implements OnInit {
             //validacoes
             if (erros.message.toLowerCase().includes('already exists')) {
               this.fgLoginForm.get('email')?.setErrors({ emailDuplicado: true });
-            } else if (erros.message.toLowerCase().includes('senha')) {
+            } else if (erros.message.toLowerCase().includes('senha') || erros.message.toLowerCase().includes('credential')) {
               this.fgLoginForm.get('senha')?.setErrors({ senhaErrada: true });
             } else if (erros.message.toLowerCase().includes('nao encontrado')) {
               this.fgLoginForm.get('email')?.setErrors({ loginInexistente: true });

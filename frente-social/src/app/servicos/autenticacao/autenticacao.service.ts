@@ -19,39 +19,27 @@ export class AutenticacaoService  implements CanActivate {
 
   //variaveis
   Logado: boolean = false
-  private inicializado: boolean = false
   //#endregion
 
 
   constructor(
     public ClsComum: ClsComumService
   ) {
-    this.inicializaAutenticacao()
+    this.getLogado()
   }
 
   //#region gets/sets: Logado
-  get getLogado(): boolean {
-    return this.Logado;
+  getLogado(): tUsuario {
+    //setta variavel de acordo com armazenamento local da sessao: memoria
+    this.Logado = this.ClsComum.configuraArmazenamento('pegar', 'sessao', ssLogado) === 'verdadeiro'
+    return this.usuario = this.ClsComum.configuraArmazenamento('pegar', 'sessao', ssUsuario) as tUsuario
   }
 
   setLogado(ctrl: boolean, usuario: tUsuario): void {
-
     this.Logado = ctrl
     this.usuario = usuario
     this.ClsComum.configuraArmazenamento('definir', 'sessao', ssLogado, ctrl ? 'verdadeiro' : 'falso')
     this.ClsComum.configuraArmazenamento('definir', 'sessao', ssUsuario, JSON.stringify(usuario))
-  }
-  //#endregion
-
-  //#region metodos
-  /**
-   * Inicializa o estado de autenticação a partir do sessionStorage.
-   */
-  inicializaAutenticacao(): void {
-    //setta variavel de acordo com armazenamento local da sessao: memoria
-    this.Logado = this.ClsComum.configuraArmazenamento('pegar', 'sessao', ssLogado) === 'verdadeiro'
-    this.usuario = this.ClsComum.configuraArmazenamento('pegar', 'sessao', ssUsuario) as tUsuario
-    this.inicializado = true
   }
   //#endregion
 
@@ -66,7 +54,7 @@ export class AutenticacaoService  implements CanActivate {
    */
   canActivate(_route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
     //retorna se pode ou nao ativar a rota
-    if (this.getLogado) {
+    if (this.usuario) {
       //se o usuario esta logado e tenta acessar a area de login, redireciona p/ o mural
       if (state.url === '/login' || state.url.startsWith('/login')) {
         this.ClsComum.navegar(['/mural']);

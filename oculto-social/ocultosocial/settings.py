@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_extensions',
     'applogin',
+    'appposts',
 ]
 
 MIDDLEWARE = [
@@ -154,3 +155,6 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
 }
+
+#modelo que sera o validador de usuario do django
+AUTH_USER_MODEL = 'applogin.tbl_usuarios'

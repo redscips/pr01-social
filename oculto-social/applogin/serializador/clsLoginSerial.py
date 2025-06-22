@@ -15,37 +15,24 @@ class clsLoginSerial(serializers.ModelSerializer):
         fields = tbl_usuarios.campos
         extra_kwargs = tbl_usuarios.extra_kwargs
     #
+    
     #region metodos  
     #POSTAR/POST: nome fixo do framework => create
     def create(self, validated_data, *args, **kwargs):
-        try:
-            #cria uma instancia de um usuario
-            usuario = tbl_usuarios(**validated_data)
-            #criptografa a senha
-            if 'password' in validated_data:
-                usuario.set_password(validated_data['password'])
-            #efetiva no banco
-            usuario.save()
-            #sucesso
-            resposta = Response(usuario, status=status.HTTP_201_CREATED)
+        try:        
+            #usa a classe gerente p/ criar e settar a senha
+            senha = validated_data.pop('password', None)
+            #----------------
+            if senha:
+                #cria uma instancia p/ o usuario
+                usuario = tbl_usuarios.objects.create(**validated_data)
+                #cria a senha: criptografa
+                usuario.set_password(senha)
+                #salva novo usuario
+                usuario.save()
+                #retorno: usuario recem criado
+                return usuario
         except DatabaseError as e:
-            resposta = ClsComuns.trataExcecoesReq(str(e))
-        #def retorno
-        return resposta
-    
-    #ATUALIZAR/PUT: nome fixo do framework => update
-    def update(self, validated_data):
-        #def retorno
-        return Response({"detalhes_ID": "Endpoint PUT ID implementado"}, status=status.HTTP_200_OK)
-
-    #ATUALIZAR/PATCH: nome fixo do framework => partial_update
-    def partial_update(self, request, pk=None, *args, **kwargs):
-       #def retorno
-        return Response({"detalhes_ID": "Endpoint PATCH ID implementado"}, status=status.HTTP_200_OK)
-
-    #DELETAR/DELETE: nome fixo do framework => destroy
-    def destroy(self, request, pk=None, *args, **kwargs):
-        #def retorno
-        return Response({"detalhes_ID": "Endpoint DELETE ID implementado"}, status=status.HTTP_200_OK)
+            return ClsComuns.trataExcecoesReq(str(e))
     #
     #endregion

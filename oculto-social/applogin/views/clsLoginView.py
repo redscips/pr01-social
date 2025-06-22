@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
 #serializador
 from applogin.serializador import clsLoginSerial
 #pandas
@@ -39,61 +40,7 @@ class ClsLoginViewSet(viewsets.ModelViewSet):
         else:
             # demais acoes continuam exigindo IsAuthenticated
             return super().get_permissions()
-    
-    #GET (varios registros): nome fixo do framework => list
-    def list(self, request, *args, **kwargs):
-        #valida se foi passado parametros URL
-        if len(request.query_params) > 0:
-            resposta = self.retrieve(request)
-            return resposta
-        else:
-            #retorna os dados serializados
-            serialUsuarios = ClsSerial.serializa(self.get_queryset(), self.serializer_class, True)
-            #retorna resposta
-            return Response(serialUsuarios, status=status.HTTP_200_OK)
-    
-    #GET (unico registro): nome fixo do framework => retrieve
-    def retrieve(self, request, pk=None, *args, **kwargs) -> Response:
-        try:
-            #pega o login + senha que foi passada no parametros URL
-            strLogin = request.query_params.get('des_login')
-            strSenha = request.query_params.get('des_senha')
-            #valida se este login existe no banco
-            _, senhaHash = ClsLoginViewSet.pesquisaLogin(strLogin)
-            #compara os dois hash p/ ver se a senha nos parametros da URl eh igual a senha salva no banco
-            if check_password(strSenha, senhaHash) :
-                # Busca o usuário pelo login (case‐insensitive, se preferir)
-                usuario = get_object_or_404(
-                    tbl_usuarios.objects.all(),
-                    des_login__iexact=strLogin
-                )
-                # serializa como objeto único
-                _, usuarioRet = ClsSerial.serializa(usuario, self.serializer_class, True)
-                #def retorno
-                return Response(usuarioRet, status=status.HTTP_200_OK)
-            else:
-                return Response('Senha errada', status=status.HTTP_401_UNAUTHORIZED)
-        except Exception as e:
-            return Response('Usuario nao encontrado', status=status.HTTP_404_NOT_FOUND)
-
-    #POSTAR/POST: nome fixo do framework => create
-    def create(self, request, *args, **kwargs):
-        #desserializa os dados
-        serial, login = ClsSerial.desserializa(request.data, self.serializer_class)
-        try:
-            #verifica se foi passado um nome
-            if ClsComuns.validaCampoExiste(login, 'des_nome') :
-                #valida duplicidade.
-                serial.is_valid(raise_exception=True)
-                #CASO: nao lancou excecao: salva no banco novo cadastro
-                serial.save()
-                #sucesso
-                resposta = Response(login, status=status.HTTP_201_CREATED)
-        except DatabaseError as e:
-            resposta = ClsComuns.trataExcecoesReq(str(e))
-        #def retorno
-        return resposta
-    
+        
     @staticmethod
     def pesquisaLogin(strLogin: str) -> Tuple[pd.DataFrame, str]:
         #script
@@ -113,5 +60,60 @@ class ClsLoginViewSet(viewsets.ModelViewSet):
             return (dados, senhaHash)
         except Exception as e:
             raise e
+    
+    #GET (varios registros): nome fixo do framework => list
+    def list(self, request, *args, **kwargs):
+        #valida se foi passado parametros URL
+        if len(request.query_params) > 0:
+            return self.retrieve(request)
+        else:
+            # Busca o usuário pelo login (case‐insensitive, se preferir)
+            usuarios = get_object_or_404(tbl_usuarios.objects.all())
+            #serializa em classe
+            _, usuariosRet = ClsSerial.serializa(usuarios, self.serializer_class, True)
+            #retorna resposta
+            return Response(usuariosRet, status=status.HTTP_200_OK)
+    
+    #GET (unico registro): nome fixo do framework => retrieve
+    def retrieve(self, request, pk=None, *args, **kwargs) -> Response:
+        try:
+            #pega o login + senha que foi passada no parametros URL
+            strLogin = request.query_params.get('des_login')
+            strSenha = request.query_params.get('des_senha')
+            #valida se este login existe no banco
+            _, senhaHash = ClsLoginViewSet.pesquisaLogin(strLogin)
+            #compara os dois hash p/ ver se a senha nos parametros da URl eh igual a senha salva no banco
+            if check_password(strSenha, senhaHash) :
+                #busca o usuario pelo login => case‐insensitive
+                usuario = get_object_or_404(tbl_usuarios.objects.all(), username__iexact=strLogin)
+                # serializa como objeto único
+                _, usuarioRet = ClsSerial.serializa(usuario, self.serializer_class, True)
+                #def retorno
+                return Response(usuarioRet, status=status.HTTP_200_OK)
+            else:
+                raise DatabaseError('Senha errada')
+        except Exception as e:
+            return ClsComuns.trataExcecoesReq(str(e))
+
+    #POSTAR/POST: nome fixo do framework => create
+    def create(self, request, *args, **kwargs):
+        #desserializa os dados
+        serial, login = ClsSerial.desserializa(request.data, self.serializer_class)
+        try:
+            #verifica se foi passado um nome
+            if ClsComuns.validaCampoExiste(login, 'des_nome') :
+                #valida duplicidade.
+                serial.is_valid(raise_exception=True)
+                #CASO: nao lancou excecao: salva no banco novo cadastro
+                serial.save()
+                #cria ou retorna o token
+                token, _ = Token.objects.get_or_create(user=login)
+                #sucesso
+                return Response({
+                    'token': token,
+                    'usuario': login
+                }, status=status.HTTP_201_CREATED)
+        except DatabaseError as e:
+            return ClsComuns.trataExcecoesReq(str(e))
     #
     #endregion

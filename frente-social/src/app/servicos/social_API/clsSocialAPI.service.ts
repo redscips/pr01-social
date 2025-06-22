@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 //tipos
-import { tUsuario } from '../../tipos/comuns'
+import { tLogin, tUsuario } from '../../tipos/comuns'
 import { RequisicaoService } from '../http/requisicao.service';
 import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
 import { ClsComumService } from '../cls-comum.service';
@@ -34,7 +34,7 @@ export class ClsSocialAPIService {
     return this.req.execRequisicao(this.loginURL, 'POST', undefined, undefined, usuario)
       .pipe(tap((resposta: any) => JSON.stringify(resposta)),
         map((resposta: any) => {
-          let login = Object.assign(new tUsuario(), resposta)
+          let login = Object.assign(new tLogin(), resposta)
           //loga usuario no sistema
           this.ClsAutent.setLogado(true, login)
           //def retorno
@@ -58,7 +58,7 @@ export class ClsSocialAPIService {
       .pipe(tap((resposta: any) => JSON.stringify(resposta)),
         map((resposta: any) => {
           //verifica se o token foi retornado
-          let login = Object.assign(new tUsuario(), resposta)
+          let login = Object.assign(new tLogin(), resposta)
           //loga usuario no sistema
           this.ClsAutent.setLogado(true, login)
           //def retorno

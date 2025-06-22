@@ -12,6 +12,13 @@ export class tUsuario {
   ) {}
 }
 
+export class tLogin {
+  constructor(
+    public token?: string,
+    public usuario?: tUsuario
+  ) {}
+}
+
 //posts
 export type tPost = {
   id: number,

@@ -1,1 +1,2 @@
 from .clsLoginView import ClsLoginViewSet
+from .clsAutenticacaoView import ClsAutenticacaoView

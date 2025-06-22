@@ -1,7 +1,7 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ClsComumService } from '../../servicos/cls-comum.service';
 import { ssLogado, ssUsuario } from '../../servicos/autenticacao/autenticacao.service'
-import { tUsuario } from '../../tipos/comuns';
+import { tLogin } from '../../tipos/comuns';
 
 @Component({
   selector: 'app-cabecalho',
@@ -40,8 +40,8 @@ export class CabecalhoComponent implements OnInit {
   //#region metodos
   apresentacao(): void {
     try {
-      const usuario = JSON.parse(this.ClsComum.configuraArmazenamento('pegar', 'sessao', ssUsuario)) as tUsuario
-      this.nomeUsuario = usuario.des_nome!
+      const login = JSON.parse(this.ClsComum.configuraArmazenamento('pegar', 'sessao', ssUsuario)) as tLogin
+      this.nomeUsuario = login.usuario? login.usuario.des_nome! : ''
     } catch (error) {
       this.nomeUsuario = ''
     }

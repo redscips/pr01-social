@@ -33,7 +33,7 @@ class ClsPostsViewSet(viewsets.ModelViewSet):
             return resposta
         else:
             #retorna os dados serializados
-            serialPosts = ClsSerial.serializa(self.get_queryset(), self.serializer_class, True)
+            _, serialPosts = ClsSerial.serializa(self.get_queryset(), self.serializer_class, True)
             #retorna resposta
             return Response(serialPosts, status=status.HTTP_200_OK)
     

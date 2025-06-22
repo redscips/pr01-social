@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 //importacoes: tipos
-import { tUsuario } from '../../../tipos/comuns';
+import { tLogin, tUsuario } from '../../../tipos/comuns';
 //componentes
 import { CreEntradaComponent } from '../../cre-entrada/cre-entrada.component';
 import { ClsSocialAPIService } from '../../../servicos/social_API/clsSocialAPI.service';
@@ -83,7 +83,7 @@ export class EntrarComponent implements OnInit {
         .subscribe({
           next: (usuario) => {
             //validacao
-            if (usuario instanceof tUsuario) {
+            if (usuario instanceof tLogin) {
               // Reseta os dados e o formulário
               this.usuario = {}
               this.flgSubmit = false;

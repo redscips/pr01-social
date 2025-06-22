@@ -17,12 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path, re_path
 from django.views.generic.base import RedirectView
-from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.routers import DefaultRouter
 # debug
 from debug_toolbar.toolbar import debug_toolbar_urls
 #views
-from applogin.views import ClsLoginViewSet
+from applogin.views import ClsLoginViewSet, ClsAutenticacaoView
 from appposts.views import ClsPostsViewSet
 
 #roteador do django
@@ -37,5 +36,5 @@ urlpatterns = [
     #urls
     re_path("ocultosocial/", include(roteador.urls)),
     #token
-    path('api/token/', obtain_auth_token, name='api_token_auth'),
+    path('api/token/', ClsAutenticacaoView.as_view(), name='api_token_auth'),
 ]

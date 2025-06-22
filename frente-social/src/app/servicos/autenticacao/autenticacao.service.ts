@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, RouterStateSnapshot } from '@angular/router';
 //tipos
-import { tUsuario } from '../../tipos/comuns';
+import { tLogin } from '../../tipos/comuns';
 //servicos
 import { ClsComumService } from '../cls-comum.service';
 
@@ -15,7 +15,7 @@ export const ssUsuario: string = 'usuario_logado'
 export class AutenticacaoService  implements CanActivate {
 
   //#region propriedade: instancias
-  usuario: tUsuario = {}
+  usuario: tLogin = {}
 
   //variaveis
   Logado: boolean = false
@@ -29,13 +29,13 @@ export class AutenticacaoService  implements CanActivate {
   }
 
   //#region gets/sets: Logado
-  getLogado(): tUsuario {
+  getLogado(): tLogin {
     //setta variavel de acordo com armazenamento local da sessao: memoria
     this.Logado = this.ClsComum.configuraArmazenamento('pegar', 'sessao', ssLogado) === 'verdadeiro'
-    return this.usuario = this.ClsComum.configuraArmazenamento('pegar', 'sessao', ssUsuario) as tUsuario
+    return this.usuario = this.ClsComum.configuraArmazenamento('pegar', 'sessao', ssUsuario) as tLogin
   }
 
-  setLogado(ctrl: boolean, usuario: tUsuario): void {
+  setLogado(ctrl: boolean, usuario: tLogin): void {
     this.Logado = ctrl
     this.usuario = usuario
     this.ClsComum.configuraArmazenamento('definir', 'sessao', ssLogado, ctrl ? 'verdadeiro' : 'falso')

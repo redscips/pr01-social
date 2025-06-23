@@ -16,18 +16,35 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+#region carregando variaveis de ambiente
+#arquivo: local
+arq_ambiente = BASE_DIR / 'ambiente.dev'
+#valida se arquivo existe
+if arq_ambiente.exists():
+    #abre arquivo
+    with open(arq_ambiente) as f:
+        #loop pelas variaveis
+        for linha in f:
+            #le a linha
+            linha = linha.strip()
+            #validacao: ignora comentarios
+            if linha and not linha.startswith('#'):
+                #separa CHAVE=valor (no primeiro '=')
+                chave, valor = linha.split('=', 1)
+                #adiciona variavel no ambiente
+                os.environ.setdefault(chave.strip(), valor.strip())
+#endregion
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a*(4-kxf27g3#(t*m4lei7p77ebn$2x@s=eid-x%k@whvmp153'
+SECRET_KEY = os.environ.get('CHAVE_SECRETA', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get('DEBUG', default=0))
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'redesocial.com', 'www.redesocial.com', '[::1]']
-
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(' ')
 
 # Application definition
 
@@ -38,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
@@ -55,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -158,3 +177,6 @@ REST_FRAMEWORK = {
 
 #modelo que sera o validador de usuario do django
 AUTH_USER_MODEL = 'applogin.tbl_usuarios'
+
+#somente em dev: IPs que verao a toolbar
+INTERNAL_IPS = ['localhost', '127.0.0.1', '0.0.0.0']

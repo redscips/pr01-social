@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path, re_path
 from django.views.generic.base import RedirectView
+from ocultosocial import settings
 from rest_framework.routers import DefaultRouter
-# debug
-from debug_toolbar.toolbar import debug_toolbar_urls
+#debug urls
+import debug_toolbar
 #views
 from applogin.views import ClsLoginViewSet, ClsAutenticacaoView
 from appposts.views import ClsPostsViewSet
@@ -32,9 +33,13 @@ roteador.register(r"posts", ClsPostsViewSet, basename="posts")
 
 urlpatterns = [
     path("", RedirectView.as_view(url="/ocultosocial/", permanent=False), name="inicial"),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),        #admin do django
+    path('api/token/', ClsAutenticacaoView.as_view(), name='api_token_auth'),       #token
     #urls
-    re_path("ocultosocial/", include(roteador.urls)),
-    #token
-    path('api/token/', ClsAutenticacaoView.as_view(), name='api_token_auth'),
+    re_path("ocultosocial/", include(roteador.urls))
 ]
+
+if settings.DEBUG:
+    urlpatterns = [
+        path("__debug__/", include(debug_toolbar.urls))
+    ] + urlpatterns

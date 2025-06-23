@@ -14,6 +14,7 @@ class clsLoginSerial(serializers.ModelSerializer):
         model = tbl_usuarios
         fields = tbl_usuarios.campos
         extra_kwargs = tbl_usuarios.extra_kwargs
+        read_only_fields = ['des_nome', 'username', 'dta_criacao', 'is_active', 'is_staff']
     #
     
     #region metodos  
